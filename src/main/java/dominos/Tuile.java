@@ -1,4 +1,4 @@
-
+package dominos;
 
 public class Tuile{
 	private Cote nord;

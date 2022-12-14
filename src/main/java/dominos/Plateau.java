@@ -1,4 +1,4 @@
-
+package dominos;
 
 public class Plateau{
 	private Tuile[][] plateau;
