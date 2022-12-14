@@ -1,3 +1,5 @@
+package dominos;
+
 public class Tuile{
 	private Cote nord;
 	private Cote est;

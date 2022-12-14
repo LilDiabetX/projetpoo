@@ -1,3 +1,5 @@
+package dominos;
+
 import java.util.Random;
 
 public class Cote{
