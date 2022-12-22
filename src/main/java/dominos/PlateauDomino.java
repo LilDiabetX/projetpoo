@@ -36,9 +36,11 @@ public class PlateauDomino extends Plateau {
      */
 	@Override
 	public void placer(int x, int y, Tuile tuile){
+		//on transforme les coordonnées relatives x et y en coordonnées reconnaissables par la grille
 		int xindex = x0 + x;
 		int yindex = y0 + y; 
 		
+		//on vérifie si la tuile est plaçable
 		if (placableGeneral(xindex, yindex) && majIndex(xindex, yindex, x, y) && placableTuile(xindex, yindex, tuile)) {
 			grille.get(yindex).set(xindex, tuile);
 		}
@@ -61,6 +63,7 @@ public class PlateauDomino extends Plateau {
 		boolean plusGauche = false;
 		boolean plusDroite = false;
 
+		//on vérifie si les indices sont valides et si on a besoin d'agrandir la grille
 		if (xindex == -1) {
 			plusGauche = true;
 		} else if (xindex == largeur) {
@@ -81,8 +84,10 @@ public class PlateauDomino extends Plateau {
 			return false;
 		}
 		
+		//on agrandit la grille si besoin
 		agrandir(plusHaut, plusBas, plusDroite, plusGauche);
 
+		//on vérifie si la case n'est pas déjà occupée par une tuile
 		if (grille.get(yindex).get(xindex) != null) {
 			System.out.println("Case déjà occupée");
 			return false;
@@ -98,6 +103,7 @@ public class PlateauDomino extends Plateau {
 	 * @return true si la tuile est plaçable, false sinon
 	 */
 	private boolean placableTuile(int xindex, int yindex, Tuile tuile) {
+		//on crée une liste contenant les voisins de la position voulue
 		Tuile[] voisins = listVoisins(xindex, yindex);
 		if (allNull(voisins)) {
 			System.out.println("Pas de voisins à cet emplacement");
@@ -108,6 +114,7 @@ public class PlateauDomino extends Plateau {
 		Tuile voisinBas = voisins[2];
 		Tuile voisinGauche = voisins[3];
 
+		//on vérifie si les côtés correspondent
 		if ((voisinHaut != null && voisinHaut.getSud() != tuile.getNord())
 		|| (voisinDroit != null && voisinDroit.getOuest() != tuile.getEst())
 		|| (voisinBas != null && voisinBas.getNord() != tuile.getSud())
