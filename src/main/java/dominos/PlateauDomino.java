@@ -28,12 +28,7 @@ public class PlateauDomino extends Plateau {
 		super.largeur = 1;
 	}
 
-	/**
-     * place une tuile aux coordonnées demandées
-     * @param x l'abscisse relative à la tuile d'origine
-     * @param y l'ordonnée relative à la tuile d'origine
-     * @param tuile la tuile à placer
-     */
+	
 	@Override
 	public void placer(int x, int y, Tuile tuile){
 		//on transforme les coordonnées relatives x et y en coordonnées reconnaissables par la grille

@@ -19,8 +19,8 @@ public abstract class Plateau {
 
     /**
      * place une tuile aux coordonnées demandées
-     * @param x l'abscisse relative à la pièce d'origine
-     * @param y l'ordonnée relative à la pièce d'origine
+     * @param x l'abscisse relative à la tuile d'origine
+     * @param y l'ordonnée relative à la tuile d'origine
      * @param tuile la tuile à placer
      */
     public abstract void placer(int x, int y, Tuile tuile);
