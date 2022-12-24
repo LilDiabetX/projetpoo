@@ -110,22 +110,44 @@ public class TuileDomino extends Tuile{
 	/**
 	 * tourne la tuile d'un quart de tour sur la gauche
 	 */
-	public void tournerGauche(){
-		CoteDomino temp = new CoteDomino(nord,false);
+	public void tournerGauche() throws UnableToTurnException{
+		if (!posee) {
+			CoteDomino temp = new CoteDomino(nord,false);
 		nord = new CoteDomino(est,false);
 		est = new CoteDomino(sud,false);
 		sud = new CoteDomino(ouest,false);
 		ouest = new CoteDomino(temp,false);
+		} else {
+			throw new UnableToTurnException("La tuile est déjà placée");
+		}
+		
 	}
 
 	/**
 	 * tourne la tuile d'un quart de tour sur la droite
 	 */
-	public void tournerDroite(){
-		CoteDomino temp = new CoteDomino(nord,false);
+	public void tournerDroite() throws UnableToTurnException {
+		if (!posee) {
+			CoteDomino temp = new CoteDomino(nord,false);
 		nord = new CoteDomino(ouest,false);
 		ouest = new CoteDomino(sud,false);
 		sud = new CoteDomino(est,false);
 		est = new CoteDomino(temp,false);
+		} else {
+			throw new UnableToTurnException("La tuile est déjà placée");
+		}
+		
+	}
+
+
+	public void setPosee() {
+		super.posee = true;
+	}
+
+	private class UnableToTurnException extends RuntimeException {
+
+		UnableToTurnException(String msg) {
+			super(msg);
+		}
 	}
 }

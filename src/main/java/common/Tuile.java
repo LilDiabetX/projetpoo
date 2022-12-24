@@ -8,6 +8,8 @@ public abstract class Tuile{
 	private Cote sud;
 	private Cote est;
 	private Cote ouest;
+
+	protected boolean posee = false;
 	
 	abstract public Cote getNord();
 	abstract public Cote getSud();
@@ -18,4 +20,9 @@ public abstract class Tuile{
 
 	abstract public void tournerGauche();
 	abstract public void tournerDroite();
+
+	abstract public int getId();
+	abstract public void setPosee();
+
+
 }

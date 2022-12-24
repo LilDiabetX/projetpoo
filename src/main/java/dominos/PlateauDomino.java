@@ -26,20 +26,33 @@ public class PlateauDomino extends Plateau {
 		super.grille.add(ligne);
 		super.hauteur = 1;
 		super.largeur = 1;
+		tuile.setPosee();
 	}
 
 	
 	@Override
 	public void placer(int x, int y, Tuile tuile){
+
+
 		//on transforme les coordonnées relatives x et y en coordonnées reconnaissables par la grille
 		int xindex = x0 + x;
 		int yindex = y0 + y; 
 		
 		//on vérifie si la tuile est plaçable
-		if (placableGeneral(xindex, yindex) && majIndex(xindex, yindex, x, y) && placableTuile(xindex, yindex, tuile)) {
-			grille.get(yindex).set(xindex, tuile);
+		if (placableGeneral(xindex, yindex, x, y)) {
+			int xfinal = majX(xindex, x);
+			int yfinal = majY(yindex, y);
+			if (placableTuile(xfinal, yfinal, tuile)) {
+				grille.get(yfinal).set(xfinal, tuile);
+				tuile.setPosee();
+				System.out.println("Tuile placée avec succès");
+			} else {
+				System.out.println("Rééssayez");
+			}
+		} else {
+			System.out.println("Rééssayez");
 		}
-		System.out.println("Rééssayez");
+		
 	}
 
 
@@ -47,9 +60,12 @@ public class PlateauDomino extends Plateau {
 	 * vérifie si une tuile est plaçable sur la grille sans tenir compte des autres tuiles, agrandit la grille si besoin
 	 * @param xindex la coordonnée x sur la grille
 	 * @param yindex la coordonnée y sur la grille
+	 * @param x l'abscisse relative à la tuile d'origine
+	 * @param y l'ordonnée relative à la tuile d'origine
 	 * @return true si la tuile est plaçable, false sinon
 	 */
-	private boolean placableGeneral(int xindex, int yindex) {
+	private boolean placableGeneral(int xindex, int yindex, int x, int y) {
+		
 		boolean errorx = false;
 		boolean errory = false;
 
@@ -82,24 +98,51 @@ public class PlateauDomino extends Plateau {
 		//on agrandit la grille si besoin
 		agrandir(plusHaut, plusBas, plusDroite, plusGauche);
 
+		int xfinal = majX(xindex, x);
+		int yfinal = majY(yindex, y);
+
 		//on vérifie si la case n'est pas déjà occupée par une tuile
-		if (grille.get(yindex).get(xindex) != null) {
+		if (grille.get(yfinal).get(xfinal) != null) {
 			System.out.println("Case déjà occupée");
 			return false;
 		}
 		return true;
 	}
+	
+	
+	private int majX(int xindex, int x) {
+		return x0 + x;
+	}
+	private int majY(int yindex, int y) {
+		return y0 + y;
+	}
+
+	
+	
+	/**
+	 * Met à jour les variables xindex et yindex après un éventuel agrandissement de la grille
+	 * @param xindex variable à mettre à jour
+	 * @param yindex variable à mettre à jour
+	 * @param x l'abscisse relative à la tuile d'origine
+	 * @param y l'ordonnée relative à la tuile d'origine
+	 */
+	private void majIndex(int xindex, int yindex) {
+		xindex = x0 + xindex;
+		yindex = y0 + yindex;
+
+	}
 
 	/**
 	 * vérifie si l'emplacement cible a des tuiles voisines, et si les côtés correspondent
-	 * @param xindex la coordonnée x sur la grille
-	 * @param yindex la coordonnée y sur la grille
+	 * @param xfinal la coordonnée x sur la grille
+	 * @param yfinal la coordonnée y sur la grille
 	 * @param tuile la tuile à placer
 	 * @return true si la tuile est plaçable, false sinon
 	 */
-	private boolean placableTuile(int xindex, int yindex, Tuile tuile) {
+	private boolean placableTuile(int xfinal, int yfinal, Tuile tuile) {
+
 		//on crée une liste contenant les voisins de la position voulue
-		Tuile[] voisins = listVoisins(xindex, yindex);
+		Tuile[] voisins = listVoisins(xfinal, yfinal);
 		if (allNull(voisins)) {
 			System.out.println("Pas de voisins à cet emplacement");
 			return false;
@@ -109,42 +152,47 @@ public class PlateauDomino extends Plateau {
 		Tuile voisinBas = voisins[2];
 		Tuile voisinGauche = voisins[3];
 
-		//on vérifie si les côtés correspondent
-		if ((voisinHaut != null && voisinHaut.getSud() != tuile.getNord())
-		|| (voisinDroit != null && voisinDroit.getOuest() != tuile.getEst())
-		|| (voisinBas != null && voisinBas.getNord() != tuile.getSud())
-		|| (voisinGauche != null && voisinGauche.getEst() != tuile.getOuest())) {
-			System.out.println("la tuile ne rentre pas à ici ! Vérifiez les voisins");
-			return false;
-		}
 		
-		return true;
+		
+		
+		
+
+		//on vérifie si les côtés correspondent
+		if ((voisinHaut == null || voisinHaut.getSud().getCote().equals(((CoteDomino) tuile.getNord()).getInverse()))
+		&& (voisinDroit == null || voisinDroit.getOuest().getCote().equals(((CoteDomino) tuile.getEst()).getInverse()))
+		&& (voisinBas == null || voisinBas.getNord().getCote().equals(((CoteDomino) tuile.getSud()).getInverse()))
+		&& (voisinGauche == null || voisinGauche.getEst().getCote().equals(((CoteDomino) tuile.getOuest()).getInverse()))) {
+			return true;
+		}
+		System.out.println("La tuile ne rentre pas ici ! Vérifiez les voisins");
+		return false;
 	}
 
+
 	/**
-	 * renvoie la liste des tuiles voisines de la position (xindex, yindex)
-	 * @param xindex coordonnée x
-	 * @param yindex coordonnée y
+	 * renvoie la liste des tuiles voisines de la position (xfinal, yfinal)
+	 * @param xfinal coordonnée x
+	 * @param yfinal coordonnée y
 	 * @return la liste des voisins sous la forme : [haut, droite, bas, gauche]
 	 */
-	private Tuile[] listVoisins(int xindex, int yindex) {
+	private Tuile[] listVoisins(int xfinal, int yfinal) {
 		Tuile[] tab = new Tuile[4];
-		if (yindex == 0) {
-			tab[2] = grille.get(yindex + 1).get(xindex);
-		} else if (yindex == hauteur - 1) {
-			tab[0] = grille.get(yindex - 1).get(xindex);
-		} else {
-			tab[0] = grille.get(yindex - 1).get(xindex);
-			tab[2] = grille.get(yindex + 1).get(xindex);
+		if (yfinal == 0 && yfinal != hauteur - 1) {
+			tab[0] = grille.get(yfinal + 1).get(xfinal);
+		} else if (yfinal == hauteur - 1 && yfinal != 0) {
+			tab[2] = grille.get(yfinal - 1).get(xfinal);
+		} else if (yfinal > 0 && yfinal < hauteur - 1) {
+			tab[2] = grille.get(yfinal - 1).get(xfinal);
+			tab[0] = grille.get(yfinal + 1).get(xfinal);
 		} 
 
-		if (xindex == 0) {
-			tab[1] = grille.get(yindex).get(xindex + 1);
-		} else if (xindex == largeur - 1) {
-			tab[3] = grille.get(yindex).get(xindex - 1);
-		} else {
-			tab[1] = grille.get(yindex).get(xindex + 1);
-			tab[3] = grille.get(yindex).get(xindex - 1);
+		if (xfinal == 0 && xfinal != largeur - 1) {
+			tab[1] = grille.get(yfinal).get(xfinal + 1);
+		} else if (xfinal == largeur - 1 && xfinal != 0) {
+			tab[3] = grille.get(yfinal).get(xfinal - 1);
+		} else if (xfinal > 0 && xfinal < largeur - 1) {
+			tab[1] = grille.get(yfinal).get(xfinal + 1);
+			tab[3] = grille.get(yfinal).get(xfinal - 1);
 		}
 		return tab;
 	}
@@ -164,52 +212,73 @@ public class PlateauDomino extends Plateau {
 	}
 
 
-	/**
-	 * Met à jour les variables xindex et yindex après un éventuel agrandissement de la grille
-	 * @param xindex variable à mettre à jour
-	 * @param yindex variable à mettre à jour
-	 * @param x l'abscisse relative à la tuile d'origine
-	 * @param y l'ordonnée relative à la tuile d'origine
-	 * @return true
-	 */
-	private boolean majIndex(int xindex, int yindex, int x, int y) {
-		xindex = x0 + x;
-		yindex = y0 + y;
-		return true;
-	}
+	
 
 
 	public void afficherLigne(int i){
 		System.out.println();
 		for(int j=0;j<largeur;j++){
-			System.out.print("  "+grille.get(i).get(j).getNord().getCote().charAt(0)+"|"+grille.get(i).get(j).getNord().getCote().charAt(1)+"|"+grille.get(i).get(j).getNord().getCote().charAt(2)+"   ");
+			if (grille.get(i).get(j) != null) {
+				System.out.print("  "+grille.get(i).get(j).getNord().getCote().charAt(0)+"|"+grille.get(i).get(j).getNord().getCote().charAt(1)+"|"+grille.get(i).get(j).getNord().getCote().charAt(2)+"   ");
+			} else {
+				System.out.print("          ");
+			}
+			
 		}
 		System.out.println();
 		for(int j=0;j<largeur;j++){
-			System.out.print(grille.get(i).get(j).getOuest().getCote().charAt(2)+"       "+grille.get(i).get(j).getEst().getCote().charAt(0)+" ");
+			if (grille.get(i).get(j) != null) {
+				System.out.print(grille.get(i).get(j).getOuest().getCote().charAt(2)+"       "+grille.get(i).get(j).getEst().getCote().charAt(0)+" ");
+			} else {
+				System.out.print("          ");
+			}
+			
 		}
 		System.out.println();
 		for(int j=0;j<largeur;j++){
-			System.out.print(grille.get(i).get(j).getOuest().getCote().charAt(1)+"       "+grille.get(i).get(j).getEst().getCote().charAt(1)+" ");
+			if (grille.get(i).get(j) != null) {
+				System.out.print(grille.get(i).get(j).getOuest().getCote().charAt(1)+"   "+grille.get(i).get(j).getId()+"   "+grille.get(i).get(j).getEst().getCote().charAt(1)+" ");
+			} else {
+				System.out.print("          ");
+			}
+			
 		}
 		System.out.println();
 		for(int j=0;j<largeur;j++){
-			System.out.print(grille.get(i).get(j).getOuest().getCote().charAt(0)+"       "+grille.get(i).get(j).getEst().getCote().charAt(2)+" ");
+			if (grille.get(i).get(j) != null) {
+				System.out.print(grille.get(i).get(j).getOuest().getCote().charAt(0)+"       "+grille.get(i).get(j).getEst().getCote().charAt(2)+" ");
+			} else {
+				System.out.print("          ");
+			}
+			
 		}
 		System.out.println();
 		for(int j=0;j<largeur;j++){
-			System.out.print("  "+grille.get(i).get(j).getSud().getCote().charAt(2)+"|"+grille.get(i).get(j).getSud().getCote().charAt(1)+"|"+grille.get(i).get(j).getSud().getCote().charAt(0)+"   ");
+			if (grille.get(i).get(j) != null) {
+				System.out.print("  "+grille.get(i).get(j).getSud().getCote().charAt(2)+"|"+grille.get(i).get(j).getSud().getCote().charAt(1)+"|"+grille.get(i).get(j).getSud().getCote().charAt(0)+"   ");
+			} else {
+				System.out.print("          ");
+			}
+			
 		}
 	}
 
 	/**
 	 * affiche dans la console le plateau
 	 */
-	public void afficher(int id){
+	public void afficher(){
 		for(int i=hauteur-1;i>=0;i--){
 			this.afficherLigne(i);
 		}
 		System.out.println();
+	}
+
+	/**
+	 * affiche dans la console une partie du tableau centrée sur la tuile voulue
+	 * @param id l'identifiant de la tuile voulue
+	 */
+	public void afficher(int id) {
+
 	}
 
 	/**
@@ -222,6 +291,7 @@ public class PlateauDomino extends Plateau {
 		}
 		grille.add(0, ligne);
 		y0++;
+		hauteur++;
 	}
 
 	/**
@@ -233,6 +303,7 @@ public class PlateauDomino extends Plateau {
 			ligne.add(null);
 		}
 		grille.add(ligne);
+		hauteur++;
 	}
 
 	/**
@@ -242,6 +313,7 @@ public class PlateauDomino extends Plateau {
 		for (int i = 0; i < hauteur; i++) {
 			grille.get(i).add(null);
 		}
+		largeur++;
 	}
 
 	/**
@@ -252,6 +324,7 @@ public class PlateauDomino extends Plateau {
 			grille.get(i).add(0, null);
 		}
 		x0++;
+		largeur++;
 	}
 
 	/**
@@ -275,4 +348,20 @@ public class PlateauDomino extends Plateau {
 			agrandirGauche();
 		}
 	}
+
+	public void printGrille() {
+		System.out.print("[");
+		for(ArrayList<Tuile> list : grille) {
+			System.out.print("[");
+			for (Tuile t : list) {
+				if (t!= null) {
+					System.out.print(t.getId()+ " ");
+				}
+			}
+			System.out.print("], ");
+		}
+		System.out.print("]");
+	}
+
+
 }
