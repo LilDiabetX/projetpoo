@@ -139,13 +139,17 @@ public class TuileDomino extends Tuile{
 		
 	}
 
-
+	/**
+	 * indique que la tuile est posée sur le plateau
+	 */
 	public void setPosee() {
 		super.posee = true;
 	}
 
+	/**
+	 * Exception pour quand on ne peut pas faire pivoter une tuile
+	 */
 	private class UnableToTurnException extends RuntimeException {
-
 		UnableToTurnException(String msg) {
 			super(msg);
 		}

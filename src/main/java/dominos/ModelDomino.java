@@ -4,6 +4,10 @@ import common.*;
 
 public class ModelDomino extends Model {
 
+    /**
+     * Constructeur
+     * @param n le nombre de joueurs
+     */
     public ModelDomino(int n) {
         super.sac = new SacDomino();
         plateau = new PlateauDomino((TuileDomino) sac.getSac(tourDeJeu));
@@ -25,6 +29,10 @@ public class ModelDomino extends Model {
         joueur.placerTuile(x, y);
     }
 
+    /**
+     * à faire
+     * fonction qui lance le jeu
+     */
     public void play() {
         
     }

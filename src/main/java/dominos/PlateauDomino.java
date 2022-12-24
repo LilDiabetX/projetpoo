@@ -109,28 +109,25 @@ public class PlateauDomino extends Plateau {
 		return true;
 	}
 	
-	
+	/**
+	 * Met à jour la variable xindex après un éventuel agrandissement de la grille
+	 * @param xindex l'indice à mettre à jour
+	 * @param x l'abscisse relative à la tuile d'origine
+	 * @return l'abscisse relative à la grille
+	 */
 	private int majX(int xindex, int x) {
 		return x0 + x;
 	}
+	/**
+	 * Met à jour la variable yindex après un éventuel agrandissement de la grille
+	 * @param yindex l'indice à mettre à jour
+	 * @param y l'ordonnée relative à la tuile d'origine
+	 * @return l'ordonnée relative à la grille
+	 */
 	private int majY(int yindex, int y) {
 		return y0 + y;
 	}
 
-	
-	
-	/**
-	 * Met à jour les variables xindex et yindex après un éventuel agrandissement de la grille
-	 * @param xindex variable à mettre à jour
-	 * @param yindex variable à mettre à jour
-	 * @param x l'abscisse relative à la tuile d'origine
-	 * @param y l'ordonnée relative à la tuile d'origine
-	 */
-	private void majIndex(int xindex, int yindex) {
-		xindex = x0 + xindex;
-		yindex = y0 + yindex;
-
-	}
 
 	/**
 	 * vérifie si l'emplacement cible a des tuiles voisines, et si les côtés correspondent
@@ -211,10 +208,10 @@ public class PlateauDomino extends Plateau {
 		return true;
 	}
 
-
-	
-
-
+	/**
+	 * affiche une ligne de la grille
+	 * @param i l'indice de la ligne à afficher
+	 */
 	public void afficherLigne(int i){
 		System.out.println();
 		for(int j=0;j<largeur;j++){
@@ -349,6 +346,9 @@ public class PlateauDomino extends Plateau {
 		}
 	}
 
+	/**
+	 * Fonction de test, affiche la grille dans un état plus brut
+	 */
 	public void printGrille() {
 		System.out.print("[");
 		for(ArrayList<Tuile> list : grille) {
@@ -356,6 +356,8 @@ public class PlateauDomino extends Plateau {
 			for (Tuile t : list) {
 				if (t!= null) {
 					System.out.print(t.getId()+ " ");
+				} else {
+					System.out.print("X ");
 				}
 			}
 			System.out.print("], ");

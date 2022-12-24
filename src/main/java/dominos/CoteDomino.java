@@ -61,6 +61,9 @@ public class CoteDomino extends Cote{
 		throw new InvalidIndexException("L'index recherché est invalide");
 	}
 
+	/**
+	 * @return l'inverse de cote sous forme de string
+	 */
 	public String getInverse() {
 		String str = "";
 		for (int i = 2; i >= 0; i--) {
