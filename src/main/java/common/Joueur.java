@@ -32,7 +32,19 @@ public abstract class Joueur {
         abandon = true;
     }
 
+    /**
+     * Setter
+     * @param t la nouvelle tuile
+     */
     public void setTuile(Tuile t) {
         this.tuile = t;
+    }
+
+    /**
+     * getter
+     * @return le booleen abandon
+     */
+    public boolean getAbandon() {
+        return this.abandon;
     }
 }
