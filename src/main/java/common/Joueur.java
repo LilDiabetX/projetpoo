@@ -10,6 +10,8 @@ public abstract class Joueur {
      */
     protected Plateau plateau;
 
+    private boolean abandon = false;
+
     
     /**
      * Place la tuile sur le plateau à l'emplacement relatif à la tuile de départ
@@ -24,10 +26,10 @@ public abstract class Joueur {
     public abstract void defausser();
 
     /**
-     * quitte la partie
+     * le joueur quitte la partie
      */
     public void abandonner() {
-        System.exit(0);
+        abandon = true;
     }
 
     public void setTuile(Tuile t) {

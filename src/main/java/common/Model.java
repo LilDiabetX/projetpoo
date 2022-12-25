@@ -1,5 +1,7 @@
 package common;
 
+import java.util.ArrayList;
+
 public abstract class Model {
     /**
      * le plateau de jeu
@@ -13,7 +15,7 @@ public abstract class Model {
     /**
      * les joueurs
      */
-    protected Joueur[] tabJoueurs;
+    protected ArrayList<Joueur> tabJoueurs;
     /**
      * le joueur dont c'est le tour
      */

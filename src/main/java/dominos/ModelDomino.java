@@ -1,5 +1,7 @@
 package dominos;
 
+import java.util.ArrayList;
+
 import common.*;
 
 public class ModelDomino extends Model {
@@ -12,11 +14,11 @@ public class ModelDomino extends Model {
         super.sac = new SacDomino();
         plateau = new PlateauDomino((TuileDomino) sac.getSac(tourDeJeu));
         super.nbJoueurs = n;
-        super.tabJoueurs = new JoueurDomino[n];
+        super.tabJoueurs = new ArrayList<Joueur>();
         for (int i = 0; i < n; i++) {
-            tabJoueurs[i] = new JoueurDomino(plateau);
+            tabJoueurs.add(new JoueurDomino(plateau));
         }
-        super.actuel = tabJoueurs[0];
+        super.actuel = tabJoueurs.get(0);
     }
 
     @Override
