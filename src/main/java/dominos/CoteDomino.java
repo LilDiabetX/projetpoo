@@ -18,6 +18,14 @@ public class CoteDomino extends Cote{
 	}
 
 	/**
+	 * Crée un nouveau côté qui a pour valeur cote
+	 * @param cote le String représentant le cote
+	 */
+	public CoteDomino(String cote) {
+		this.cote = cote;
+	}
+
+	/**
 	 * Crée la copie exacte ou inverse d'un coté de Domino
 	 * @param c Coté de domino à copier
 	 * @param inverse faux si on veut la copie exacte de c et vrai si on veut son inverse ("123" donne "321")
@@ -55,6 +63,17 @@ public class CoteDomino extends Cote{
 			return this.cote.charAt(i);
 		}
 		throw new InvalidIndexException("L'index recherché est invalide");
+	}
+
+	/**
+	 * @return l'inverse de cote sous forme de string
+	 */
+	public String getInverse() {
+		String str = "";
+		for (int i = 2; i >= 0; i--) {
+			str += cote.charAt(i);
+		}
+		return str;
 	}
 
 	private class InvalidIndexException extends RuntimeException{
