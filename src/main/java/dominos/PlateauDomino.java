@@ -27,6 +27,7 @@ public class PlateauDomino extends Plateau {
 		super.hauteur = 1;
 		super.largeur = 1;
 		tuile.setPosee();
+		super.placees = 1;
 	}
 
 	
