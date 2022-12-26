@@ -1,6 +1,5 @@
 package dominos;
 
-import common.Cote;
 import common.Tuile;
 
 

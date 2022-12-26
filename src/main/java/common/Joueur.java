@@ -10,6 +10,9 @@ public abstract class Joueur {
      */
     protected Plateau plateau;
 
+    /**
+     * détermine si le joueur a abandonné ou pas 
+     */
     private boolean abandon = false;
 
     

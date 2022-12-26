@@ -41,10 +41,16 @@ public class SacDomino extends Sac{
 		}
 	}
 
+	/**
+	 * @return renvoie le contenu du sac
+	 */
 	public TuileDomino[] getSac(){
 		return sac;
 	}
 
+	/**
+	 * @return renvoie la tuile à l'indice i du sac
+	 */
 	public TuileDomino getSac(int i) throws InvalidIndexException{
 		if(i>=0&&i<sac.length){
 			return sac[i];
