@@ -45,6 +45,7 @@ public class PlateauDomino extends Plateau {
 			if (placableTuile(xfinal, yfinal, tuile)) {
 				grille.get(yfinal).set(xfinal, tuile);
 				tuile.setPosee();
+				placees++;
 				System.out.println("Tuile placée avec succès");
 			} else {
 				System.out.println("Rééssayez");
@@ -149,10 +150,6 @@ public class PlateauDomino extends Plateau {
 		Tuile voisinBas = voisins[2];
 		Tuile voisinGauche = voisins[3];
 
-		
-		
-		
-		
 
 		//on vérifie si les côtés correspondent
 		if ((voisinHaut == null || voisinHaut.getSud().getCote().equals(((CoteDomino) tuile.getNord()).getInverse()))
@@ -273,9 +270,150 @@ public class PlateauDomino extends Plateau {
 	/**
 	 * affiche dans la console une partie du tableau centrée sur la tuile voulue
 	 * @param id l'identifiant de la tuile voulue
+	 * @throws TileNotPlacedException
 	 */
-	public void afficher(int id) {
+	public void afficher(int id) throws TileNotPlacedException {
+		if (id >= placees) {
+			throw new TileNotPlacedException("La tuile n'a pas été placée");
+		}
+		int[] xy = getXY(id);
+		int x = xy[0];
+		int y = xy[1];
 
+		for (int i = y + 1; i >= y - 1; i--) {
+			if (i == -1 || i == hauteur) {
+				this.afficherLigneVide();
+			} else {
+				this.afficherPetiteLigne(i, x);
+			}
+		}
+		System.out.println();
+	}
+
+	/**
+	 * affiche une ligne sans tuiles de taille 3
+	 */
+	public void afficherLigneVide() {
+		String miniligne = "";
+		
+		for (int i = 0; i < 30; i++) {
+			miniligne += " ";
+		}
+		for (int i = 0; i < 5; i++) {
+			System.out.println(miniligne);
+		}
+	}
+
+	/**
+	 * affiche 3 tuiles de la grille en ce centrant sur le x-ième élément de la ligne i
+	 * @param i la ligne
+	 * @param x le centre de l'affichage
+	 */
+	public void afficherPetiteLigne(int i, int x) {
+		boolean videGauche = false;
+		boolean videDroit = false;
+		if (x == 0) {
+			videGauche = true;
+		}
+		if (x == largeur - 1) {
+			videDroit = true;
+		}
+
+		System.out.println();
+		for(int j=x-1;j<=x+1;j++){
+			Tuile tuile = null;
+			if (j == x-1 && !videGauche || j == x+1 && !videDroit || j == x) {
+				tuile = grille.get(i).get(j);
+			}
+
+			if (tuile != null) {
+				System.out.print("  "+tuile.getNord().getCote().charAt(0)+"|"+tuile.getNord().getCote().charAt(1)+"|"+tuile.getNord().getCote().charAt(2)+"   ");
+			} else {
+				System.out.print("          ");
+			}
+			
+		}
+		System.out.println();
+		for(int j=x-1;j<=x+1;j++){
+			Tuile tuile = null;
+			if (j == x-1 && !videGauche || j == x+1 && !videDroit || j == x) {
+				tuile = grille.get(i).get(j);
+			}
+
+			if (tuile != null) {
+				System.out.print(tuile.getOuest().getCote().charAt(2)+"       "+tuile.getEst().getCote().charAt(0)+" ");
+			} else {
+				System.out.print("          ");
+			}
+			
+		}
+		System.out.println();
+		for(int j=x-1;j<=x+1;j++){
+			Tuile tuile = null;
+			if (j == x-1 && !videGauche || j == x+1 && !videDroit || j == x) {
+				tuile = grille.get(i).get(j);
+			}
+
+			if (tuile != null) {
+				System.out.print(tuile.getOuest().getCote().charAt(1)+"   "+tuile.getId()+"   "+tuile.getEst().getCote().charAt(1)+" ");
+			} else {
+				System.out.print("          ");
+			}
+			
+		}
+		System.out.println();
+		for(int j=x-1;j<=x+1;j++){
+			Tuile tuile = null;
+			if (j == x-1 && !videGauche || j == x+1 && !videDroit || j == x) {
+				tuile = grille.get(i).get(j);
+			}
+
+			if (tuile != null) {
+				System.out.print(tuile.getOuest().getCote().charAt(0)+"       "+tuile.getEst().getCote().charAt(2)+" ");
+			} else {
+				System.out.print("          ");
+			}
+			
+		}
+		System.out.println();
+		for(int j=x-1;j<=x+1;j++){
+			Tuile tuile = null;
+			if (j == x-1 && !videGauche || j == x+1 && !videDroit || j == x) {
+				tuile = grille.get(i).get(j);
+			}
+
+			if (tuile != null) {
+				System.out.print("  "+tuile.getSud().getCote().charAt(2)+"|"+tuile.getSud().getCote().charAt(1)+"|"+tuile.getSud().getCote().charAt(0)+"   ");
+			} else {
+				System.out.print("          ");
+			}
+			
+		}
+	}
+
+	/**
+	 * renvoie les coordonnées de la tuile d'indice id
+	 * @param id l'identifiant de la tuile voulue
+	 * @return les coordonnées sous la forme [x, y]
+	 */
+	public int[] getXY(int id) {
+		int[] tab = new int[2];
+		boolean found = false;
+			for (int i = 0; i < hauteur; i++) {
+
+				for (int j = 0; j < largeur; j++) {
+					if (grille.get(i).get(j) != null && grille.get(i).get(j).getId() == id) {
+						tab[0] = j;
+						tab[1] = i;
+						found = true;
+						break;
+					}
+				}
+				if (found) {
+					break;
+				}
+			}
+		return tab;
 	}
 
 	/**
@@ -363,6 +501,16 @@ public class PlateauDomino extends Plateau {
 			System.out.print("], ");
 		}
 		System.out.print("]");
+	}
+
+	/**
+	 * Exception active quand on cherche l'id d'une tuile non placée sur le plateau
+	 */
+	private class TileNotPlacedException extends RuntimeException {
+
+		TileNotPlacedException(String msg) {
+			super(msg);
+		}
 	}
 
 

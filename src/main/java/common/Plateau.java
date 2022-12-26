@@ -18,6 +18,11 @@ public abstract class Plateau {
     protected int x0, y0 = 0;
 
     /**
+     * le nombre de tuiles placées sur le plateau
+     */
+    protected int placees = 0;
+
+    /**
      * place une tuile aux coordonnées demandées
      * @param x l'abscisse relative à la tuile d'origine
      * @param y l'ordonnée relative à la tuile d'origine

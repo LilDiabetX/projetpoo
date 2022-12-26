@@ -66,6 +66,8 @@ public class Test{
 		t6.tournerDroite();
 		p.placer(0, 1, t6);
 		p.afficher();
+		System.out.println("\n-------------------------------------------------");
+		p.afficher(2);
 		
 		
 	}
