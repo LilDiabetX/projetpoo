@@ -67,8 +67,12 @@ public class Test{
 		p.placer(0, 1, t6);
 		p.afficher();
 		System.out.println("\n-------------------------------------------------");
-		p.afficher(2);
-		
-		
+		p.afficher(6);
+		System.out.println("\n-------------------------------------------------");
+		TuileDomino t7 = new TuileDomino(t4);
+		p.placer(-2, 1, t7);
+		p.afficher();
+		System.out.println("\n-------------------------------------------------");
+		p.afficher(7);
 	}
 }
