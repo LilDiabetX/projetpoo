@@ -2,6 +2,8 @@ package dominos;
 
 import java.util.ArrayList;
 
+import javax.swing.text.html.HTMLDocument.RunElement;
+
 import common.*;
 
 public class PlateauDomino extends Plateau {
@@ -28,11 +30,12 @@ public class PlateauDomino extends Plateau {
 		super.largeur = 1;
 		tuile.setPosee();
 		super.placees = 1;
+		super.idDerniereTuilePlacee = tuile.getId();
 	}
 
 	
 	@Override
-	public void placer(int x, int y, Tuile tuile){
+	public boolean placer(int x, int y, Tuile tuile){
 
 
 		//on transforme les coordonnées relatives x et y en coordonnées reconnaissables par la grille
@@ -47,12 +50,16 @@ public class PlateauDomino extends Plateau {
 				grille.get(yfinal).set(xfinal, tuile);
 				tuile.setPosee();
 				placees++;
+				super.idDerniereTuilePlacee = tuile.getId();
 				System.out.println("Tuile placée avec succès");
+				return true;
 			} else {
 				System.out.println("Rééssayez");
+				return false;
 			}
 		} else {
 			System.out.println("Rééssayez");
+			return false;
 		}
 		
 	}
@@ -393,7 +400,7 @@ public class PlateauDomino extends Plateau {
 	}
 
 	/**
-	 * renvoie les coordonnées relatives à la grille de la tuile d'indice id
+	 * renvoie les coordonnées de la tuile d'indice id
 	 * @param id l'identifiant de la tuile voulue
 	 * @return les coordonnées sous la forme [x, y]
 	 */
@@ -512,37 +519,6 @@ public class PlateauDomino extends Plateau {
 		TileNotPlacedException(String msg) {
 			super(msg);
 		}
-	}
-
-	/**
-	 * renvoie la somme des valeurs des côtés adjacents à d'autres tuiles
-	 * @param tuile 
-	 * @return la somme
-	 */
-	public int sommeCotesAdja(Tuile tuile) {
-		int sum = 0;
-		int[] coordonnes = getXY(tuile.getId());
-		Tuile[] voisins = listVoisins(coordonnes[0], coordonnes[1]);
-
-		Tuile voisinHaut = voisins[0];
-		Tuile voisinDroit = voisins[1];
-		Tuile voisinBas = voisins[2];
-		Tuile voisinGauche = voisins[3];
-
-		if (voisinHaut != null) {
-			sum += ((CoteDomino) voisinHaut.getSud()).sommeChiffres();
-		}
-		if (voisinDroit != null) {
-			sum += ((CoteDomino) voisinDroit.getOuest()).sommeChiffres();
-		}
-		if (voisinBas != null) {
-			sum += ((CoteDomino) voisinBas.getNord()).sommeChiffres();
-		}
-		if (voisinGauche != null) {
-			sum += ((CoteDomino) voisinGauche.getEst()).sommeChiffres();
-		}
-
-		return sum;
 	}
 
 

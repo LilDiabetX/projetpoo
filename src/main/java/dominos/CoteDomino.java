@@ -76,17 +76,6 @@ public class CoteDomino extends Cote{
 		return str;
 	}
 
-	/**
-	 * effectue la somme des chiffres du côté
-	 * @return la somme
-	 */
-	public int sommeChiffres() {
-		int x = Character.getNumericValue(cote.charAt(0));
-		int y = Character.getNumericValue(cote.charAt(1));
-		int z = Character.getNumericValue(cote.charAt(2));
-		return x + y + z;
-	}
-
 	private class InvalidIndexException extends RuntimeException{
 		InvalidIndexException(String msg){
 			super(msg);

@@ -53,10 +53,24 @@ public class SacDomino extends Sac{
 	 */
 	public TuileDomino getSac(int i) throws InvalidIndexException{
 		if(i>=0&&i<sac.length){
-			return sac[i];
+			TuileDomino temp = new TuileDomino(sac[i]);
+			sac[i] = null;
+			return temp;
 		}
 		throw new InvalidIndexException("L'indice recherché n'est pas valide");
 	}
+
+	/**
+	 * @return renvoie vrai si le sac est vide et faux sinon
+	 */
+	public boolean estVide(){
+        for(int i=0;i<sac.length;i++){
+            if(sac[i]!=null){
+                return false;
+            }
+        }
+        return true;
+    }
 
 	private class InvalidIndexException extends RuntimeException{
 		InvalidIndexException(String message){
