@@ -1,11 +1,6 @@
 package common;
 
 public abstract class Sac{
-	
-	/**
-	 * contenu du sac
-	 */
-	protected Tuile[] sac;
 
 	/**
 	 * mélange le contenu du sac
@@ -23,4 +18,8 @@ public abstract class Sac{
 	 */
 	public abstract Tuile getSac(int i);
 
+	/**
+	 * @return renvoie vrai si le sac est vide et faux sinon
+	 */
+	public abstract boolean estVide();
 }

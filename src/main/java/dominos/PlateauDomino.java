@@ -2,6 +2,8 @@ package dominos;
 
 import java.util.ArrayList;
 
+import javax.swing.text.html.HTMLDocument.RunElement;
+
 import common.*;
 
 public class PlateauDomino extends Plateau {
@@ -28,11 +30,12 @@ public class PlateauDomino extends Plateau {
 		super.largeur = 1;
 		tuile.setPosee();
 		super.placees = 1;
+		super.idDerniereTuilePlacee = tuile.getId();
 	}
 
 	
 	@Override
-	public void placer(int x, int y, Tuile tuile){
+	public boolean placer(int x, int y, Tuile tuile){
 
 
 		//on transforme les coordonnées relatives x et y en coordonnées reconnaissables par la grille
@@ -47,12 +50,16 @@ public class PlateauDomino extends Plateau {
 				grille.get(yfinal).set(xfinal, tuile);
 				tuile.setPosee();
 				placees++;
+				super.idDerniereTuilePlacee = tuile.getId();
 				System.out.println("Tuile placée avec succès");
+				return true;
 			} else {
 				System.out.println("Rééssayez");
+				return false;
 			}
 		} else {
 			System.out.println("Rééssayez");
+			return false;
 		}
 		
 	}
