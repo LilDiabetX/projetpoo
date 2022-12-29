@@ -6,6 +6,7 @@ import common.*;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import dominos.PlateauDomino.TileNotPlacedException;
 
 public class ModelDomino extends Model {
 
@@ -83,11 +84,13 @@ public class ModelDomino extends Model {
                     System.out.println("Votre tuile :");
                     actuel.getTuile().afficher();
                     boolean action = false; // détermine si une action a été effectuée durant le tour
+                    // choix et exécution de l'action du joueur
                     while(!action){
                         System.out.println("Voulez vous placer votre tuile, vous déplacer sur le plateau, vous défaussez ou bien abandonner ? (répondez par \"placer\", \"déplacer\", \"défausser\" ou \"abandonner\")");
                         sc.reset();
                         String choix = sc.nextLine();
                         switch(choix){
+
                             case "placer" : 
                             boolean placee = false; // détermine si le joueur a placé sa tuile ou s'il a finalement renoncé à la placer
                             while(!placee){
@@ -127,21 +130,51 @@ public class ModelDomino extends Model {
                             }
                             break;
 
-                            case "déplacer" :
+                            case "déplacer" : 
+                            boolean deplace = false; // détermine si le joueur s'est déplacé ou bien s'il a renoncé à se déplacer
+                            while(!deplace){
+                                System.out.println("Où souhaitez vous vous déplacer ? Entrez l'id de la tuile sur laquelle vous voulez vous centrer : ");
+                                try{
+                                    int id = sc.nextInt();
+                                    try{
+                                        plateau.afficher(id);
+                                        deplace = true;
+                                    }
+                                    catch(TileNotPlacedException e){
+                                        System.out.println("La tuile d'id "+id+" n'a pas été placée.");
+                                    }
+                                }
+                                catch(InputMismatchException e){
+                                    System.out.println("Veuillez entrer un entier.");
+                                }
 
-                            case "défausser" :
+                            }
+
+                            case "défausser" : 
+                            actuel.defausser();
+                            System.out.println("C'est au tour du joueur n°"+(tourDeJeu+1)%tabJoueurs.size());
+                            action = true;
 
                             case "abandonner" :
+                            actuel.abandonner();
+                            System.out.println("C'est au tour du joueur n°"+(tourDeJeu+1)%tabJoueurs.size());
+                            action = true;
 
-                            default :
+                            default : 
+                            System.out.println("Veuillez choisir une action valable.");
                         }
                     }
-                    // choix et exécution de l'action du joueur
-                    // passage au joueur suivant
+                    tourDeJeu++; // passage au joueur suivant   
                 }
-                else{
+                else{ // C'est au tour d'une IA de jouer
                     // vérification qu'il y a une action possible
-                    // sinon, défausse de la tuile et passage au joueur suivant
+                    if(actuel.placerIA()){
+                        tourDeJeu++;
+                    }
+                    else{ // sinon, défausse de la tuile et passage au joueur suivant
+                        actuel.defausser();
+                        tourDeJeu++;
+                    }
                 }
             }
         }

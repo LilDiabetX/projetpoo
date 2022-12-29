@@ -1,11 +1,6 @@
 package common;
 
 public abstract class Joueur {
-    
-    /**
-     * Le plateau de jeu
-     */
-    protected Plateau plateau;
 
     /**
      * détermine si le joueur a abandonné ou pas 

@@ -9,13 +9,15 @@ public class JoueurDomino extends Joueur {
      */
     private TuileDomino tuile = null;
 
+    private PlateauDomino plateau;
+
     /**
      * Constructeur
      * @param p le plateau de jeu
      * @param humain définit si le joueur est un humain ou une IA
      */
-    JoueurDomino(Plateau p, boolean humain) {
-        super.plateau = p;
+    JoueurDomino(PlateauDomino p, boolean humain) {
+        this.plateau = p;
         super.humain = humain;
     }
     
@@ -26,7 +28,7 @@ public class JoueurDomino extends Joueur {
 
     @Override
     public void defausser() {
-        plateau = null;
+        tuile = null;
     }
 
     /**
@@ -43,6 +45,17 @@ public class JoueurDomino extends Joueur {
      */
     public TuileDomino getTuile(){
         return tuile;
+    }
+
+    /**
+     * Méthode qui n'agit que si le joueur est une IA. Dans ce cas, elle vérifie que la tuile du joueur est plaçable quelque part sur le plateau et si oui la place.
+     * @return renvoie vrai si la tuile a été placée et faux sinon
+     */
+    public boolean placerIA(){
+        if(!humain){
+            return plateau.placableIA(tuile);
+        }
+        return false;
     }
     
 }

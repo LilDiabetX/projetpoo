@@ -170,6 +170,38 @@ public class PlateauDomino extends Plateau {
 		return false;
 	}
 
+	/**
+	 * Vérifie si l'IA peut placer sa tuile quelque part sur le plateau et la place si possible
+	 * @param t Tuile de l'IA
+	 * @return renvoie vrai si la tuile a été placée et faux sinon
+	 */
+	public boolean placableIA(TuileDomino t){
+		for(int i=0;i<hauteur;i++){
+			for(int j=0;j<largeur;j++){
+				//on crée une liste contenant les voisins de la position voulue
+				Tuile[] voisins = listVoisins(j, i);
+
+				Tuile voisinHaut = voisins[0];
+				Tuile voisinDroit = voisins[1];
+				Tuile voisinBas = voisins[2];
+				Tuile voisinGauche = voisins[3];
+
+				//on vérifie si les côtés correspondent
+				if ((voisinHaut == null || voisinHaut.getSud().getCote().equals(((CoteDomino) t.getNord()).getInverse()))
+				&& (voisinDroit == null || voisinDroit.getOuest().getCote().equals(((CoteDomino) t.getEst()).getInverse()))
+				&& (voisinBas == null || voisinBas.getNord().getCote().equals(((CoteDomino) t.getSud()).getInverse()))
+				&& (voisinGauche == null || voisinGauche.getEst().getCote().equals(((CoteDomino) t.getOuest()).getInverse()))) {
+					grille.get(j).set(i, t);
+					t.setPosee();
+					placees++;
+					super.idDerniereTuilePlacee = t.getId();
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 
 	/**
 	 * renvoie la liste des tuiles voisines de la position (xfinal, yfinal)
@@ -514,7 +546,7 @@ public class PlateauDomino extends Plateau {
 	/**
 	 * Exception active quand on cherche l'id d'une tuile non placée sur le plateau
 	 */
-	private class TileNotPlacedException extends RuntimeException {
+	public class TileNotPlacedException extends RuntimeException {
 
 		TileNotPlacedException(String msg) {
 			super(msg);
