@@ -9,7 +9,15 @@ public class JoueurDomino extends Joueur {
      */
     private TuileDomino tuile = null;
 
+    /**
+     * plateau sur lequel joue le joueur
+     */
     private PlateauDomino plateau;
+
+    /**
+     * score du joueur
+     */
+    private int score = 0;
 
     /**
      * Constructeur
@@ -23,7 +31,11 @@ public class JoueurDomino extends Joueur {
     
     @Override
     public boolean placerTuile(int x, int y) {
-        return plateau.placer(x, y, tuile);
+        if(plateau.placer(x, y, tuile)){
+            score += plateau.sommeCotesAdja(tuile);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -56,6 +68,14 @@ public class JoueurDomino extends Joueur {
             return plateau.placableIA(tuile);
         }
         return false;
+    }
+
+    /**
+     * getter
+     * @return renvoie le score du joueur
+     */
+    public int getScore(){
+        return score;
     }
     
 }

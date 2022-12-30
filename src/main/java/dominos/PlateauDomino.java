@@ -232,6 +232,38 @@ public class PlateauDomino extends Plateau {
 	}
 
 	/**
+	 * renvoie la somme des valeurs des côtés adjacents à d'autres tuiles
+	 * @param tuile 
+	 * @return la somme
+	 */
+	public int sommeCotesAdja(Tuile tuile) {
+		int sum = 0;
+		int[] coordonnes = getXY(tuile.getId());
+		Tuile[] voisins = listVoisins(coordonnes[0], coordonnes[1]);
+
+		Tuile voisinHaut = voisins[0];
+		Tuile voisinDroit = voisins[1];
+		Tuile voisinBas = voisins[2];
+		Tuile voisinGauche = voisins[3];
+
+		if (voisinHaut != null) {
+			sum += ((CoteDomino) voisinHaut.getSud()).sommeChiffres();
+		}
+		if (voisinDroit != null) {
+			sum += ((CoteDomino) voisinDroit.getOuest()).sommeChiffres();
+		}
+		if (voisinBas != null) {
+			sum += ((CoteDomino) voisinBas.getNord()).sommeChiffres();
+		}
+		if (voisinGauche != null) {
+			sum += ((CoteDomino) voisinGauche.getEst()).sommeChiffres();
+		}
+
+		return sum;
+	}
+
+
+	/**
 	 * vérifie si tous les éléments d'un tableau de tuiles sont null
 	 * @param tab le tableau à parcourir
 	 * @return true si tout le tableau est null, false sinon

@@ -81,4 +81,16 @@ public class CoteDomino extends Cote{
 			super(msg);
 		}
 	}
+
+	/**
+	 * effectue la somme des chiffres du côté
+	 * @return la somme
+	 */
+	public int sommeChiffres() {
+		int x = Character.getNumericValue(cote.charAt(0));
+		int y = Character.getNumericValue(cote.charAt(1));
+		int z = Character.getNumericValue(cote.charAt(2));
+		return x + y + z;
+	}
+
 }

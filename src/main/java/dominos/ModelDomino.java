@@ -68,7 +68,7 @@ public class ModelDomino extends Model {
 
     /**
      * à faire
-     * fonction qui lance le jeu
+     * fonction qui lance et joue une partie de domino textuel
      */
     public void play() {
         Scanner sc = new Scanner(System.in);
@@ -180,9 +180,37 @@ public class ModelDomino extends Model {
         }
         if(victoireParAbandon()){
             // victoire du seul joueur qui n'a pas abandonné
+            for(int i=0;i<tabJoueurs.size();i++){
+                if(!tabJoueurs.get(i).getAbandon()){
+                    System.out.println("Bravo au joueur n°"+i+". Vous avez gagné avec un score de : "+tabJoueurs.get(i).getScore());
+                }
+            }
         }
         else{
-            // victoire du joueur qui a le plus de points
+            // victoire du ou des joueur(s) qui a/ont le plus de points
+            int scoreMax = 0;
+            for(int i=0;i<tabJoueurs.size();i++){
+                if(tabJoueurs.get(i).getScore()>scoreMax){
+                    scoreMax=tabJoueurs.get(i).getScore();
+                }
+            }
+            ArrayList<Integer> vainqueurs = new ArrayList<Integer>();
+            for(int i=0;i<tabJoueurs.size();i++){
+                if(tabJoueurs.get(i).getScore()==scoreMax){
+                    vainqueurs.add(i);
+                }
+            }
+            if(vainqueurs.size()==1){
+                System.out.println("Bravo au joueur n°"+vainqueurs.get(0)+". Vous avez gagné avec un score de : "+scoreMax);
+            }
+            else{
+                String gagnants = "";
+                for(int i=0;i<vainqueurs.size();i++){
+                    gagnants+=vainqueurs.get(i)+", ";
+                }
+                gagnants = gagnants.substring(0,gagnants.length()-3);
+                System.out.println("Bravo aux joueurs n°"+gagnants+". Vous avez gagné avec un score de : "+scoreMax);
+            }
         }
     }
     
