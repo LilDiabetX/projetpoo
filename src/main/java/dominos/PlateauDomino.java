@@ -2,7 +2,6 @@ package dominos;
 
 import java.util.ArrayList;
 
-import javax.swing.text.html.HTMLDocument.RunElement;
 
 import common.*;
 
@@ -347,9 +346,8 @@ public class PlateauDomino extends Plateau {
 	/**
 	 * affiche dans la console une partie du tableau centrée sur la tuile voulue
 	 * @param id l'identifiant de la tuile voulue
-	 * @throws TileNotPlacedException
 	 */
-	public void afficher(int id) throws TileNotPlacedException {
+	public void afficher(int id){
 		
 		try {
 			int[] xy = getXY(id);
