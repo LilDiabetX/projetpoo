@@ -237,29 +237,34 @@ public class PlateauDomino extends Plateau {
 	 * @return la somme
 	 */
 	public int sommeCotesAdja(Tuile tuile) {
-		int sum = 0;
-		int[] coordonnes = getXY(tuile.getId());
-		Tuile[] voisins = listVoisins(coordonnes[0], coordonnes[1]);
+		try {
+			int[] coordonnes = getXY(tuile.getId());
+			Tuile[] voisins = listVoisins(coordonnes[0], coordonnes[1]);
 
-		Tuile voisinHaut = voisins[0];
-		Tuile voisinDroit = voisins[1];
-		Tuile voisinBas = voisins[2];
-		Tuile voisinGauche = voisins[3];
+			Tuile voisinHaut = voisins[0];
+			Tuile voisinDroit = voisins[1];
+			Tuile voisinBas = voisins[2];
+			Tuile voisinGauche = voisins[3];
+			int sum = 0;
+			if (voisinHaut != null) {
+				sum += ((CoteDomino) voisinHaut.getSud()).sommeChiffres();
+			}
+			if (voisinDroit != null) {
+				sum += ((CoteDomino) voisinDroit.getOuest()).sommeChiffres();
+			}
+			if (voisinBas != null) {
+				sum += ((CoteDomino) voisinBas.getNord()).sommeChiffres();
+			}
+			if (voisinGauche != null) {
+				sum += ((CoteDomino) voisinGauche.getEst()).sommeChiffres();
+			}
 
-		if (voisinHaut != null) {
-			sum += ((CoteDomino) voisinHaut.getSud()).sommeChiffres();
+			return sum;
+		} catch (TileNotPlacedException e) {
+			e.printStackTrace();
+			return -1;
 		}
-		if (voisinDroit != null) {
-			sum += ((CoteDomino) voisinDroit.getOuest()).sommeChiffres();
-		}
-		if (voisinBas != null) {
-			sum += ((CoteDomino) voisinBas.getNord()).sommeChiffres();
-		}
-		if (voisinGauche != null) {
-			sum += ((CoteDomino) voisinGauche.getEst()).sommeChiffres();
-		}
-
-		return sum;
+		
 	}
 
 
@@ -345,24 +350,24 @@ public class PlateauDomino extends Plateau {
 	 * @throws TileNotPlacedException
 	 */
 	public void afficher(int id) throws TileNotPlacedException {
-		// La condition de lancement de l'exception n'est pas bonne car ce n'est pas forcément la tuile numéro 0 qui est placée en premier
-		/*
-		if (id >= placees) {
-			throw new TileNotPlacedException("La tuile n'a pas été placée");
-		}
-		*/
-		int[] xy = getXY(id);
-		int x = xy[0];
-		int y = xy[1];
+		
+		try {
+			int[] xy = getXY(id);
+			int x = xy[0];
+			int y = xy[1];
 
-		for (int i = y + 1; i >= y - 1; i--) {
-			if (i == -1 || i == hauteur) {
-				this.afficherLigneVide();
-			} else {
-				this.afficherPetiteLigne(i, x);
+			for (int i = y + 1; i >= y - 1; i--) {
+				if (i == -1 || i == hauteur) {
+					this.afficherLigneVide();
+				} else {
+					this.afficherPetiteLigne(i, x);
+				}
 			}
+			System.out.println();
+		} catch (TileNotPlacedException e) {
+			e.printStackTrace();
 		}
-		System.out.println();
+		
 	}
 
 	/**
@@ -428,9 +433,13 @@ public class PlateauDomino extends Plateau {
 			if (j == x-1 && !videGauche || j == x+1 && !videDroit || j == x) {
 				tuile = grille.get(i).get(j);
 			}
-
+			
 			if (tuile != null) {
-				System.out.print(tuile.getOuest().getCote().charAt(1)+"   "+tuile.getId()+"   "+tuile.getEst().getCote().charAt(1)+" ");
+				String space = "  ";
+				if (tuile.getId() < 10) {
+					space+=" ";
+				}
+				System.out.print(tuile.getOuest().getCote().charAt(1)+space+tuile.getId()+"   "+tuile.getEst().getCote().charAt(1)+" ");
 			} else {
 				System.out.print("          ");
 			}
@@ -467,17 +476,18 @@ public class PlateauDomino extends Plateau {
 	}
 
 	/**
-	 * renvoie les coordonnées de la tuile d'indice id
+	 * renvoie les coordonnées relatives à la grille de la tuile d'indice id
 	 * @param id l'identifiant de la tuile voulue
 	 * @return les coordonnées sous la forme [x, y]
 	 */
-	public int[] getXY(int id) {
-		int[] tab = new int[2];
+	public int[] getXY(int id) throws TileNotPlacedException {
+		int[] tab = {-1, -1};
 		boolean found = false;
 			for (int i = 0; i < hauteur; i++) {
 
 				for (int j = 0; j < largeur; j++) {
 					if (grille.get(i).get(j) != null && grille.get(i).get(j).getId() == id) {
+						tab = new int[2];
 						tab[0] = j;
 						tab[1] = i;
 						found = true;
@@ -488,7 +498,13 @@ public class PlateauDomino extends Plateau {
 					break;
 				}
 			}
-		return tab;
+
+		if (tab[0] == -1 || tab[1] == -1) {
+			throw new TileNotPlacedException("La tuile d'indice "+id+"n'a pas été placée");
+		} else {
+			return tab;
+		}
+		
 	}
 
 	/**
