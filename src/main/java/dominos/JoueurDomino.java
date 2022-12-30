@@ -65,7 +65,11 @@ public class JoueurDomino extends Joueur {
      */
     public boolean placerIA(){
         if(!humain){
-            return plateau.placableIA(tuile);
+            if(plateau.placableIA(tuile)){
+                score += plateau.sommeCotesAdja(tuile);
+                return true;
+            }
+            
         }
         return false;
     }

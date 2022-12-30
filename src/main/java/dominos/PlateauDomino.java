@@ -173,6 +173,10 @@ public class PlateauDomino extends Plateau {
 	 * @return renvoie vrai si la tuile a été placée et faux sinon
 	 */
 	public boolean placableIA(TuileDomino t){
+		this.agrandirBas();
+		this.agrandirHaut();
+		this.agrandirGauche();
+		this.agrandirDroite();
 		for(int i=0;i<hauteur;i++){
 			for(int j=0;j<largeur;j++){
 				//on crée une liste contenant les voisins de la position voulue
@@ -187,7 +191,9 @@ public class PlateauDomino extends Plateau {
 				if ((voisinHaut == null || voisinHaut.getSud().getCote().equals(((CoteDomino) t.getNord()).getInverse()))
 				&& (voisinDroit == null || voisinDroit.getOuest().getCote().equals(((CoteDomino) t.getEst()).getInverse()))
 				&& (voisinBas == null || voisinBas.getNord().getCote().equals(((CoteDomino) t.getSud()).getInverse()))
-				&& (voisinGauche == null || voisinGauche.getEst().getCote().equals(((CoteDomino) t.getOuest()).getInverse()))) {
+				&& (voisinGauche == null || voisinGauche.getEst().getCote().equals(((CoteDomino) t.getOuest()).getInverse()))
+				&& (grille.get(i).get(j)==null)
+				&& (voisinHaut != null || voisinDroit != null || voisinBas != null || voisinGauche != null)) {
 					grille.get(j).set(i, t);
 					t.setPosee();
 					placees++;
