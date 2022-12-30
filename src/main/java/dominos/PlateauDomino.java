@@ -87,16 +87,18 @@ public class PlateauDomino extends Plateau {
 			plusGauche = true;
 		} else if (xindex == largeur) {
 			plusDroite = true;
-		} else if (yindex < -1 || yindex > largeur){
-			System.out.println("Erreur sur la coordonnée y");
+		} else if (xindex < -1 || xindex > largeur){
+			System.out.println("Erreur sur la coordonnée x");
 			errorx = true;
 		}
+		System.out.println("xindex :" + xindex);
+		System.out.println("largeur :" + largeur);
 		if (yindex == -1) {
 			plusHaut = true;
 		} else if (yindex == hauteur) {
 			plusBas = true;
 		} else if (yindex < -1 || yindex > hauteur) {
-			System.out.println("Erreur sur la coordonnée x");
+			System.out.println("Erreur sur la coordonnée y");
 			errory = true;
 		}
 		if (errorx || errory) {
