@@ -30,9 +30,9 @@ public class Test{
 		CoteDomino c2 = new CoteDomino("321");
 		CoteDomino c3 = new CoteDomino("111");
 		TuileDomino t0 = new TuileDomino(c3, c1, c3, c1);
-		//t1.afficher();
+		
 		TuileDomino t1 = new TuileDomino(c1, c3, c2, c1);
-		//t2.afficher();
+		
 		PlateauDomino p = new PlateauDomino(t0);
 		
 		for(int i=0;i<3;i++){
@@ -85,5 +85,27 @@ public class Test{
 		ModelDomino model = new ModelDomino(2);
 		model.play();
 		
+		/*CoteDomino c1 = new CoteDomino("104");
+		CoteDomino c2 = new CoteDomino("313");
+		CoteDomino c3 = new CoteDomino("000");
+
+		TuileDomino t0 = new TuileDomino(c1, c3, c3, c3);
+		TuileDomino t2 = new TuileDomino(c2, new CoteDomino(c1, true), c3, c3);
+		TuileDomino t3 = new TuileDomino(c3, new CoteDomino(c2, true), c3, c3);
+
+		PlateauDomino p = new PlateauDomino(t0);
+
+		p.afficher();
+
+		t2.afficher();
+
+		p.placer(0, 1, t2);
+
+		p.placer(0, 2, t3);
+
+		t3.afficher();
+		System.out.println("-----------");
+
+		p.afficher();/* */
 	}
 }
