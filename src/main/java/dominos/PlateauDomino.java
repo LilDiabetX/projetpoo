@@ -2,7 +2,6 @@ package dominos;
 
 import java.util.ArrayList;
 
-
 import common.*;
 
 public class PlateauDomino extends Plateau {
@@ -31,7 +30,6 @@ public class PlateauDomino extends Plateau {
 		super.placees = 1;
 		super.idDerniereTuilePlacee = tuile.getId();
 	}
-
 	
 	@Override
 	public boolean placer(int x, int y, Tuile tuile){
@@ -91,8 +89,6 @@ public class PlateauDomino extends Plateau {
 			System.out.println("Erreur sur la coordonnée x");
 			errorx = true;
 		}
-		System.out.println("xindex :" + xindex);
-		System.out.println("largeur :" + largeur);
 		if (yindex == -1) {
 			plusHaut = true;
 		} else if (yindex == hauteur) {
@@ -259,13 +255,13 @@ public class PlateauDomino extends Plateau {
 			if (voisinGauche != null) {
 				sum += ((CoteDomino) voisinGauche.getEst()).sommeChiffres();
 			}
-
 			return sum;
-		} catch (TileNotPlacedException e) {
+		} 
+		catch (TileNotPlacedException e) {
 			e.printStackTrace();
 			return -1;
 		}
-		
+
 	}
 
 
@@ -348,9 +344,9 @@ public class PlateauDomino extends Plateau {
 	/**
 	 * affiche dans la console une partie du tableau centrée sur la tuile voulue
 	 * @param id l'identifiant de la tuile voulue
+	 * @throws TileNotPlacedException
 	 */
-	public void afficher(int id){
-		
+	public void afficher(int id) throws TileNotPlacedException {
 		try {
 			int[] xy = getXY(id);
 			int x = xy[0];
@@ -367,7 +363,7 @@ public class PlateauDomino extends Plateau {
 		} catch (TileNotPlacedException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/**
@@ -433,13 +429,14 @@ public class PlateauDomino extends Plateau {
 			if (j == x-1 && !videGauche || j == x+1 && !videDroit || j == x) {
 				tuile = grille.get(i).get(j);
 			}
-			
+
 			if (tuile != null) {
 				String space = "  ";
 				if (tuile.getId() < 10) {
 					space+=" ";
 				}
 				System.out.print(tuile.getOuest().getCote().charAt(1)+space+tuile.getId()+"   "+tuile.getEst().getCote().charAt(1)+" ");
+
 			} else {
 				System.out.print("          ");
 			}
@@ -498,13 +495,13 @@ public class PlateauDomino extends Plateau {
 					break;
 				}
 			}
-
-		if (tab[0] == -1 || tab[1] == -1) {
-			throw new TileNotPlacedException("La tuile d'indice "+id+"n'a pas été placée");
-		} else {
-			return tab;
-		}
-		
+			if (tab[0] == -1 || tab[1] == -1) {
+				throw new TileNotPlacedException("La tuile d'indice "+id+"n'a pas été placée");
+			} 
+			else {
+				return tab;
+			}
+	
 	}
 
 	/**
@@ -592,6 +589,17 @@ public class PlateauDomino extends Plateau {
 			System.out.print("], ");
 		}
 		System.out.print("]");
+	}
+
+	public boolean placee(int id){
+		for(int i=0;i<hauteur;i++){
+			for(int j=0;j<largeur;j++){
+				if(grille.get(i).get(j)!=null&&grille.get(i).get(j).getId()==id){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
