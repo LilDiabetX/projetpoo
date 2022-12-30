@@ -396,6 +396,7 @@ public class PlateauDomino extends Plateau {
 	 * renvoie les coordonnées relatives à la grille de la tuile d'indice id
 	 * @param id l'identifiant de la tuile voulue
 	 * @return les coordonnées sous la forme [x, y]
+	 * @throws TileNotPlacedException si la tuile d'identifiant id n'a pas été placée
 	 */
 	public int[] getXY(int id) throws TileNotPlacedException {
 		if (id >= placees) {
@@ -512,8 +513,9 @@ public class PlateauDomino extends Plateau {
 	 * renvoie la somme des valeurs des côtés adjacents à d'autres tuiles
 	 * @param tuile 
 	 * @return la somme
+	 * @throws TileNotPlacedException si la tuile n'est pas encore placée
 	 */
-	public int sommeCotesAdja(Tuile tuile) {
+	public int sommeCotesAdja(Tuile tuile) throws TileNotPlacedException{
 		try {
 			int sum = 0;
 			int[] coordonnes = getXY(tuile.getId());
