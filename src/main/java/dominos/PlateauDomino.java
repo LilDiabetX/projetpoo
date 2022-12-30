@@ -397,7 +397,10 @@ public class PlateauDomino extends Plateau {
 	 * @param id l'identifiant de la tuile voulue
 	 * @return les coordonnées sous la forme [x, y]
 	 */
-	public int[] getXY(int id) {
+	public int[] getXY(int id) throws TileNotPlacedException {
+		if (id >= placees) {
+			throw new TileNotPlacedException("La tuile n'a pas été placée");
+		}
 		int[] tab = new int[2];
 		boolean found = false;
 			for (int i = 0; i < hauteur; i++) {
@@ -504,6 +507,44 @@ public class PlateauDomino extends Plateau {
 		System.out.print("]");
 	}
 
+
+	/**
+	 * renvoie la somme des valeurs des côtés adjacents à d'autres tuiles
+	 * @param tuile 
+	 * @return la somme
+	 */
+	public int sommeCotesAdja(Tuile tuile) {
+		try {
+			int sum = 0;
+			int[] coordonnes = getXY(tuile.getId());
+			Tuile[] voisins = listVoisins(coordonnes[0], coordonnes[1]);
+
+			Tuile voisinHaut = voisins[0];
+			Tuile voisinDroit = voisins[1];
+			Tuile voisinBas = voisins[2];
+			Tuile voisinGauche = voisins[3];
+
+			if (voisinHaut != null) {
+				sum += ((CoteDomino) voisinHaut.getSud()).sommeChiffres();
+			}
+			if (voisinDroit != null) {
+				sum += ((CoteDomino) voisinDroit.getOuest()).sommeChiffres();
+			}
+			if (voisinBas != null) {
+				sum += ((CoteDomino) voisinBas.getNord()).sommeChiffres();
+			}
+			if (voisinGauche != null) {
+				sum += ((CoteDomino) voisinGauche.getEst()).sommeChiffres();
+			}
+
+			return sum;
+		} catch (TileNotPlacedException error) {
+			error.printStackTrace();
+			throw error;
+		}
+		
+	}
+
 	/**
 	 * Exception active quand on cherche l'id d'une tuile non placée sur le plateau
 	 */
@@ -513,37 +554,4 @@ public class PlateauDomino extends Plateau {
 			super(msg);
 		}
 	}
-
-	/**
-	 * renvoie la somme des valeurs des côtés adjacents à d'autres tuiles
-	 * @param tuile 
-	 * @return la somme
-	 */
-	public int sommeCotesAdja(Tuile tuile) {
-		int sum = 0;
-		int[] coordonnes = getXY(tuile.getId());
-		Tuile[] voisins = listVoisins(coordonnes[0], coordonnes[1]);
-
-		Tuile voisinHaut = voisins[0];
-		Tuile voisinDroit = voisins[1];
-		Tuile voisinBas = voisins[2];
-		Tuile voisinGauche = voisins[3];
-
-		if (voisinHaut != null) {
-			sum += ((CoteDomino) voisinHaut.getSud()).sommeChiffres();
-		}
-		if (voisinDroit != null) {
-			sum += ((CoteDomino) voisinDroit.getOuest()).sommeChiffres();
-		}
-		if (voisinBas != null) {
-			sum += ((CoteDomino) voisinBas.getNord()).sommeChiffres();
-		}
-		if (voisinGauche != null) {
-			sum += ((CoteDomino) voisinGauche.getEst()).sommeChiffres();
-		}
-
-		return sum;
-	}
-
-
 }
