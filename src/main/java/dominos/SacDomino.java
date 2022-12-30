@@ -35,8 +35,8 @@ public class SacDomino extends Sac{
 
 		for(int i=0;i<sac.length;i++){
 			int randomIndexSwap = rand.nextInt(sac.length);
-			TuileDomino temp = new TuileDomino(sac[randomIndexSwap]);
-			sac[randomIndexSwap] = new TuileDomino(sac[i]);
+			TuileDomino temp = new TuileDomino(sac[randomIndexSwap],sac[randomIndexSwap].getId());
+			sac[randomIndexSwap] = new TuileDomino(sac[i],sac[i].getId());
 			sac[i] = temp;
 		}
 	}
@@ -53,11 +53,16 @@ public class SacDomino extends Sac{
 	 */
 	public TuileDomino getSac(int i) throws InvalidIndexException{
 		if(i>=0&&i<sac.length){
-			TuileDomino temp = new TuileDomino(sac[i]);
-			sac[i] = null;
-			return temp;
+			return sac[i];
 		}
 		throw new InvalidIndexException("L'indice recherché n'est pas valide");
+	}
+
+	/**
+	 * @return renvoie la taille du sac
+	 */
+	public int size(){
+		return sac.length;
 	}
 
 	/**

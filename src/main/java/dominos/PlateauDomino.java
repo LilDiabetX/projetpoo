@@ -345,9 +345,12 @@ public class PlateauDomino extends Plateau {
 	 * @throws TileNotPlacedException
 	 */
 	public void afficher(int id) throws TileNotPlacedException {
+		// La condition de lancement de l'exception n'est pas bonne car ce n'est pas forcément la tuile numéro 0 qui est placée en premier
+		/*
 		if (id >= placees) {
 			throw new TileNotPlacedException("La tuile n'a pas été placée");
 		}
+		*/
 		int[] xy = getXY(id);
 		int x = xy[0];
 		int y = xy[1];

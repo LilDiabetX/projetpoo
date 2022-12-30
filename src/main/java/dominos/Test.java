@@ -1,4 +1,5 @@
 package dominos;
+
 public class Test{
 	public static void main(String[] args){
 		
@@ -23,6 +24,7 @@ public class Test{
 			sac.getSac(i).afficher();
 		}
 		*/
+		/*
 		//sac.getSac(50).afficher();
 		CoteDomino c1 = new CoteDomino("123");
 		CoteDomino c2 = new CoteDomino("321");
@@ -32,13 +34,13 @@ public class Test{
 		TuileDomino t1 = new TuileDomino(c1, c3, c2, c1);
 		//t2.afficher();
 		PlateauDomino p = new PlateauDomino(t0);
-		/*
+		
 		for(int i=0;i<3;i++){
 			for(int j=0;j<3;j++){
 				p.placer(i,j,new TuileDomino());
 			}
 		}
-		*/
+		
 		System.out.println("\n-------------------------------------------------");
 		p.placer(-1, 0, t1);
 		//p.afficher();
@@ -74,5 +76,14 @@ public class Test{
 		p.afficher();
 		System.out.println("\n-------------------------------------------------");
 		p.afficher(7);
+
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		*/
+		 
+		ModelDomino model = new ModelDomino(2);
+		model.play();
+		
 	}
 }

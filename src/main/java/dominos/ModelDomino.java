@@ -37,7 +37,7 @@ public class ModelDomino extends Model {
     public ModelDomino(int n) {
         Scanner sc = new Scanner(System.in);
         sac = new SacDomino();
-        plateau = new PlateauDomino((TuileDomino) sac.getSac(tourDeJeu));
+        plateau = new PlateauDomino(sac.getSac(tourDeJeu));
         super.nbJoueurs = n;
         tabJoueurs = new ArrayList<JoueurDomino>();
         for (int i = 0; i < n; i++) {
@@ -67,12 +67,11 @@ public class ModelDomino extends Model {
     }
 
     /**
-     * à faire
      * fonction qui lance et joue une partie de domino textuel
      */
     public void play() {
         Scanner sc = new Scanner(System.in);
-        while(!sac.estVide()&&!victoireParAbandon()){
+        while(!(super.tourDeJeu>=sac.size())&&!victoireParAbandon()){
             // déroulement de la partie
             actuel = tabJoueurs.get(super.tourDeJeu%tabJoueurs.size());
             // on vérifie que le joueur n'a pas déjà abandonné
