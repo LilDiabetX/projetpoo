@@ -12,9 +12,9 @@ public class SacDomino extends Sac{
 	 */
 	SacDomino(){
 		sac = new TuileDomino[50];			// On initialise le sac à une taille de 50 tuiles
-		CoteDomino[] cotes = new CoteDomino[30];			// On souhaite créer 25 cotés de tuiles aléatoires et leur inverse pour créer 50 tuiles qui pourront donc être posées les unes à coté des autres
+		CoteDomino[] cotes = new CoteDomino[30];			// On souhaite créer 15 cotés de tuiles aléatoires et leur inverse pour créer 50 tuiles qui pourront donc être posées les unes à coté des autres
 		for(int i=0;i<15;i++){
-			cotes[i]=new CoteDomino();			// On crée les 25 cotés aléatoires
+			cotes[i]=new CoteDomino();			// On crée les 15 cotés aléatoires
 			cotes[i+15]=new CoteDomino(cotes[i],true);			// Et leur inverse
 		}
 		int k=0;

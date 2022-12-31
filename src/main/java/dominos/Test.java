@@ -81,8 +81,8 @@ public class Test{
 		System.out.println();
 		System.out.println();
 		*/
-		 
-		ModelDomino model = new ModelDomino(2);
+		
+		ModelDomino model = new ModelDomino();
 		model.play();
 		
 	}

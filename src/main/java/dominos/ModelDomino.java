@@ -6,7 +6,7 @@ import common.*;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
-import dominos.PlateauDomino.TileNotPlacedException;
+
 
 public class ModelDomino extends Model {
 
@@ -39,18 +39,54 @@ public class ModelDomino extends Model {
      * Constructeur
      * @param n le nombre de joueurs
      */
-    public ModelDomino(int n) {
+    public ModelDomino() {
         Scanner sc = new Scanner(System.in);
         sac = new SacDomino();
         plateau = new PlateauDomino(sac.getSac(tourDeJeu));
         dernierePosition = sac.getSac(tourDeJeu).getId();
         super.tourDeJeu++;
-        super.nbJoueurs = n;
+        boolean entier = false;
+        boolean joueurs = false;
+        while(!joueurs){
+            while(!entier){
+                System.out.println("Combien de joueurs souhaitent jouer ?");
+                String choix = sc.next();
+                try{
+                    nbJoueurs = Integer.valueOf(choix);
+                    entier = true;
+                }
+                catch(NumberFormatException e){
+                    System.out.println("Veuillez entrer un entier supérieur à 1");
+                }
+            }
+            if(nbJoueurs>1){
+                joueurs = true;
+            }
+            else{
+                System.out.println("Veuillez entrer un entier supérieur à 1");
+                entier = false;
+            }
+        }
         tabJoueurs = new ArrayList<JoueurDomino>();
-        for (int i = 0; i < n; i++) {
-            System.out.println("Le joueur numéro "+i+" est il un humain ? (répondez par \"oui\" ou par \"non\")");
-            boolean humain = sc.next().equals("oui");
-            tabJoueurs.add(new JoueurDomino(plateau,humain));
+        for (int i = 0; i < nbJoueurs; i++) {
+            boolean IA = false;
+            while(!IA){
+                System.out.println("Le joueur numéro "+i+" est il un humain ? (répondez par \"oui\" ou par \"non\")");
+                switch(sc.next()){
+                    case "oui":
+                    tabJoueurs.add(new JoueurDomino(plateau,true));
+                    IA = true;
+                    break;
+
+                    case "non":
+                    tabJoueurs.add(new JoueurDomino(plateau,false));
+                    IA = true;
+                    break;
+
+                    default:
+                    System.out.println("Réponse invalide");
+                }
+            }
         }
         actuel = tabJoueurs.get(0);
     }
@@ -86,7 +122,8 @@ public class ModelDomino extends Model {
                 System.out.println("C'est au tour du joueur n°"+(tourDeJeu-1)%tabJoueurs.size()); 
                 piocher(actuel);
                 // on vérifie si le joueur est humain
-                if(actuel.getHumain()){        
+                if(actuel.getHumain()){ 
+                           
                     boolean action = false; // détermine si une action a été effectuée durant le tour
                     // choix et exécution de l'action du joueur
                     while(!action){
@@ -94,18 +131,20 @@ public class ModelDomino extends Model {
                         System.out.println("Votre tuile :");
                         actuel.getTuile().afficher();
                         System.out.println("Voulez vous placer votre tuile, la tourner, vous déplacer sur le plateau, vous défaussez ou bien abandonner ? (répondez par \"placer\", \"tourner\", \"déplacer\", \"défausser\" ou \"abandonner\")");
-                        String choix = sc.nextLine();
+                        String choix = sc.next();
                         switch(choix){
 
                             case "placer" : 
                             boolean placee = false; // détermine si le joueur a placé sa tuile ou s'il a finalement renoncé à la placer
                             while(!placee){
                                 System.out.println("Où voulez vous placer votre tuile en sachant que la tuile d'origine est placée en 0/0 ? Pour rappel, la tuile d'origine est la tuile n°"+sac.getSac(0).getId()+". Indiquez l'abscisse :");
+                                String abscisse = sc.next();
                                 try {
-                                    int x = sc.nextInt();
+                                    int x = Integer.valueOf(abscisse);
                                     System.out.println("Indiquez l'ordonnée : ");
+                                    String ordonnee = sc.next();
                                     try {
-                                        int y = sc.nextInt();
+                                        int y = Integer.valueOf(ordonnee);
                                         if(actuel.placerTuile(x, y)){        
                                             placee = true;
                                             action = true;
@@ -116,7 +155,7 @@ public class ModelDomino extends Model {
                                             boolean renoncer = false; // détermine si le joueur renonce à placer sa tuile ou souhaite réessayer de la placer
                                             while(!renoncer){
                                                 System.out.println("Souhaitez vous retourner au choix des actions ou bien entrer de nouvelles coordonnées ? Répondez par \"action\" ou par \"placer\".");
-                                                switch(sc.nextLine()){
+                                                switch(sc.next()){
                                                     case "action" : renoncer = true; placee = true; break;
                                                     case "placer" : renoncer = true; break;
                                                     default : System.out.println("Choix invalide"); break;
@@ -124,12 +163,12 @@ public class ModelDomino extends Model {
                                             }
                                         }
                                     } 
-                                    catch (InputMismatchException e) {
+                                    catch (NumberFormatException e) {
                                         System.out.println("Veuillez entrer un entier pour l'ordonnée. ");
                                     }
                                     
                                 }
-                                catch(InputMismatchException e){
+                                catch(NumberFormatException e){
                                     System.out.println("Veuillez entrer un entier pour l'abscisse. ");
                                 }
                             }
@@ -170,7 +209,7 @@ public class ModelDomino extends Model {
                             boolean tourne = false;
                             while(!tourne){
                                 System.out.println("Voulez vous tourner votre tuile vers la gauche ou vers la droite ? Répondez par \"gauche\" ou par \"droite\".");
-                                switch (sc.nextLine()) {
+                                switch (sc.next()) {
                                     case "gauche" :
                                     actuel.getTuile().tournerGauche();
                                     tourne = true;
@@ -198,37 +237,43 @@ public class ModelDomino extends Model {
                 else{ // C'est au tour d'une IA de jouer
                     actuel.getTuile().afficher();
                     // vérification qu'il y a une action possible
-                    boolean placee = false;
+                    plateau.agrandirHaut();
+                    plateau.agrandirBas();
+                    plateau.agrandirGauche();
+                    plateau.agrandirDroite();
+                    boolean pose = false;
                     for(int i=0;i<4;i++){
-                        if(!placee){
+                        if(!pose){
                             actuel.getTuile().tournerDroite();
                             if(actuel.placerIA()){
                                 System.out.println("Tuile placée");
                                 tourDeJeu++;
-                                placee = true;
+                                pose = true;
                             }
                         }
                     }
-                    if(!placee){ // sinon, défausse de la tuile et passage au joueur suivant
+                    if(!pose){ // sinon, défausse de la tuile et passage au joueur suivant
                         System.out.println("Tuile défaussée");
                         actuel.defausser();
                         tourDeJeu++;
                     }
                 }
             }
+            else{
+                tourDeJeu++;
+            }
         }
+        sc.close();
         if(victoireParAbandon()){
             // victoire du seul joueur qui n'a pas abandonné
             for(int i=0;i<tabJoueurs.size();i++){
                 if(!tabJoueurs.get(i).getAbandon()){
                     System.out.println("Bravo au joueur n°"+i+". Vous avez gagné avec un score de : "+tabJoueurs.get(i).getScore());
-                    sc.close();
                 }
             }
         }
         else{
             // victoire du ou des joueur(s) qui a/ont le plus de points
-            sc.close();
             int scoreMax = 0;
             for(int i=0;i<tabJoueurs.size();i++){
                 if(tabJoueurs.get(i).getScore()>scoreMax){
