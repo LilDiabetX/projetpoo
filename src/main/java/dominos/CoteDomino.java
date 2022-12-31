@@ -76,6 +76,12 @@ public class CoteDomino extends Cote{
 		return str;
 	}
 
+	private class InvalidIndexException extends RuntimeException{
+		InvalidIndexException(String msg){
+			super(msg);
+		}
+	}
+
 	/**
 	 * effectue la somme des chiffres du côté
 	 * @return la somme
@@ -87,9 +93,4 @@ public class CoteDomino extends Cote{
 		return x + y + z;
 	}
 
-	private class InvalidIndexException extends RuntimeException{
-		InvalidIndexException(String msg){
-			super(msg);
-		}
-	}
 }

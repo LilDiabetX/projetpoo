@@ -75,14 +75,10 @@ public class SacCarcassonne extends Sac {
             sac[i] = new TuileCarcassonne(14);
             i++;
         }
-        for(int j=0;j<1;j++){
-            sac[i] = new TuileCarcassonne(15);
-            i++;
-        }
-        for(int j=0;j<1;j++){
-            sac[i] = new TuileCarcassonne(16);
-            i++;
-        }
+        sac[i] = new TuileCarcassonne(15);
+        i++;
+        sac[i] = new TuileCarcassonne(16);
+        i++;
     }
 
     /**
@@ -107,13 +103,28 @@ public class SacCarcassonne extends Sac {
     }
 
     /**
-     * @retunr renvoie la tuile situé à l'indice i du sac
+     * @return renvoie et supprime du sac la tuile situé à l'indice i du sac
+     * @throws InvalidIndexException
      */
     public TuileCarcassonne getSac(int i)throws InvalidIndexException{
         if(i>=0&&i<sac.length){
-			return sac[i];
+            TuileCarcassonne temp = new TuileCarcassonne(sac[i]);
+            sac[i] = null;
+			return temp;
 		}
 		throw new InvalidIndexException("L'indice recherché n'est pas valide");
+    }
+
+    /**
+	 * @return renvoie vrai si le sac est vide et faux sinon
+	 */
+    public boolean estVide(){
+        for(int i=0;i<sac.length;i++){
+            if(sac[i]!=null){
+                return false;
+            }
+        }
+        return true;
     }
 
     private class InvalidIndexException extends RuntimeException{

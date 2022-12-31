@@ -34,6 +34,7 @@ public class TuileCarcassonne extends Tuile{
     /**
      * crée une tuile existante dans le jeu de plateau Carcassonne et lui associe l'image correspondante
      * @param typeTuile numéro indiquant quelle tuile du jeu doit être créée
+     * @throws InvalidTileTypeException lance une exception si on essaie de créer une tuile dont le type n'est pas implémenté
      */
     TuileCarcassonne(int typeTuile) throws InvalidTileTypeException{
         try{

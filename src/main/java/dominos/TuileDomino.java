@@ -29,8 +29,8 @@ public class TuileDomino extends Tuile{
 	 * Crée une copie d'un domino
 	 * @param t domino à copier
 	 */
-	TuileDomino(TuileDomino t){
-		id = nbTuiles;
+	TuileDomino(TuileDomino t, int id){
+		this.id = id;
 		nbTuiles++;
 		this.nord=t.nord;
 		this.sud=t.sud;

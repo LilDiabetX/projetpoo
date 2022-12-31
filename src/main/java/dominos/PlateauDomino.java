@@ -6,11 +6,13 @@ import common.*;
 
 public class PlateauDomino extends Plateau {
 
+	private ArrayList<ArrayList<TuileDomino>> grille;
+
 	/**
 	 * Constructeur vide
 	 */
 	PlateauDomino(){
-		super.grille = new ArrayList<ArrayList<Tuile>>();
+		grille = new ArrayList<ArrayList<TuileDomino>>();
 		super.hauteur = 0;
 		super.largeur = 0;
 	}
@@ -20,19 +22,17 @@ public class PlateauDomino extends Plateau {
 	 * @param tuile
 	 */
 	PlateauDomino(TuileDomino tuile) {
-		ArrayList<Tuile> ligne = new ArrayList<Tuile>();
+		ArrayList<TuileDomino> ligne = new ArrayList<TuileDomino>();
 		ligne.add(tuile);
-		super.grille = new ArrayList<ArrayList<Tuile>>();
-		super.grille.add(ligne);
+		grille = new ArrayList<ArrayList<TuileDomino>>();
+		grille.add(ligne);
 		super.hauteur = 1;
 		super.largeur = 1;
 		tuile.setPosee();
 		super.placees = 1;
 	}
-
 	
-	@Override
-	public void placer(int x, int y, Tuile tuile){
+	public boolean placer(int x, int y, TuileDomino tuile){
 
 
 		//on transforme les coordonnées relatives x et y en coordonnées reconnaissables par la grille
@@ -48,11 +48,14 @@ public class PlateauDomino extends Plateau {
 				tuile.setPosee();
 				placees++;
 				System.out.println("Tuile placée avec succès");
+				return true;
 			} else {
 				System.out.println("Rééssayez");
+				return false;
 			}
 		} else {
 			System.out.println("Rééssayez");
+			return false;
 		}
 		
 	}
@@ -81,8 +84,8 @@ public class PlateauDomino extends Plateau {
 			plusGauche = true;
 		} else if (xindex == largeur) {
 			plusDroite = true;
-		} else if (yindex < -1 || yindex > largeur){
-			System.out.println("Erreur sur la coordonnée y");
+		} else if (xindex < -1 || xindex > largeur){
+			System.out.println("Erreur sur la coordonnée x");
 			errorx = true;
 		}
 		if (yindex == -1) {
@@ -90,7 +93,7 @@ public class PlateauDomino extends Plateau {
 		} else if (yindex == hauteur) {
 			plusBas = true;
 		} else if (yindex < -1 || yindex > hauteur) {
-			System.out.println("Erreur sur la coordonnée x");
+			System.out.println("Erreur sur la coordonnée y");
 			errory = true;
 		}
 		if (errorx || errory) {
@@ -138,10 +141,10 @@ public class PlateauDomino extends Plateau {
 	 * @param tuile la tuile à placer
 	 * @return true si la tuile est plaçable, false sinon
 	 */
-	private boolean placableTuile(int xfinal, int yfinal, Tuile tuile) {
+	private boolean placableTuile(int xfinal, int yfinal, TuileDomino tuile) {
 
 		//on crée une liste contenant les voisins de la position voulue
-		Tuile[] voisins = listVoisins(xfinal, yfinal);
+		TuileDomino[] voisins = listVoisins(xfinal, yfinal);
 		if (allNull(voisins)) {
 			System.out.println("Pas de voisins à cet emplacement");
 			return false;
@@ -153,13 +156,49 @@ public class PlateauDomino extends Plateau {
 
 
 		//on vérifie si les côtés correspondent
-		if ((voisinHaut == null || voisinHaut.getSud().getCote().equals(((CoteDomino) tuile.getNord()).getInverse()))
-		&& (voisinDroit == null || voisinDroit.getOuest().getCote().equals(((CoteDomino) tuile.getEst()).getInverse()))
-		&& (voisinBas == null || voisinBas.getNord().getCote().equals(((CoteDomino) tuile.getSud()).getInverse()))
-		&& (voisinGauche == null || voisinGauche.getEst().getCote().equals(((CoteDomino) tuile.getOuest()).getInverse()))) {
+		if ((voisinHaut == null || voisinHaut.getSud().getCote().equals((tuile.getNord()).getInverse()))
+		&& (voisinDroit == null || voisinDroit.getOuest().getCote().equals((tuile.getEst()).getInverse()))
+		&& (voisinBas == null || voisinBas.getNord().getCote().equals((tuile.getSud()).getInverse()))
+		&& (voisinGauche == null || voisinGauche.getEst().getCote().equals((tuile.getOuest()).getInverse()))) {
 			return true;
 		}
 		System.out.println("La tuile ne rentre pas ici ! Vérifiez les voisins");
+		return false;
+	}
+
+	/**
+	 * Vérifie si l'IA peut placer sa tuile quelque part sur le plateau et la place si possible
+	 * @param t Tuile de l'IA
+	 * @return renvoie vrai si la tuile a été placée et faux sinon
+	 */
+	public boolean placableIA(TuileDomino t){ 
+		for(int i=0;i<largeur;i++){
+			for(int j=0;j<hauteur;j++){
+				//on crée une liste contenant les voisins de la position voulue
+				
+				if(grille.get(j).get(i)==null){
+					TuileDomino[] voisins = listVoisins(i, j);
+
+					if (!allNull(voisins)) {
+						Tuile voisinHaut = voisins[0];
+						Tuile voisinDroit = voisins[1];
+						Tuile voisinBas = voisins[2];
+						Tuile voisinGauche = voisins[3];
+
+						//on vérifie si les côtés correspondent
+						if ((voisinHaut == null || voisinHaut.getSud().getCote().equals((t.getNord()).getInverse()))
+						&& (voisinDroit == null || voisinDroit.getOuest().getCote().equals((t.getEst()).getInverse()))
+						&& (voisinBas == null || voisinBas.getNord().getCote().equals((t.getSud()).getInverse()))
+						&& (voisinGauche == null || voisinGauche.getEst().getCote().equals((t.getOuest()).getInverse()))) {
+							grille.get(j).set(i, t);
+							t.setPosee();
+							placees++;
+							return true;
+						}
+					}
+				}
+			}
+		}
 		return false;
 	}
 
@@ -170,8 +209,8 @@ public class PlateauDomino extends Plateau {
 	 * @param yfinal coordonnée y
 	 * @return la liste des voisins sous la forme : [haut, droite, bas, gauche]
 	 */
-	private Tuile[] listVoisins(int xfinal, int yfinal) {
-		Tuile[] tab = new Tuile[4];
+	private TuileDomino[] listVoisins(int xfinal, int yfinal) {
+		TuileDomino[] tab = new TuileDomino[4];
 		if (yfinal == 0 && yfinal != hauteur - 1) {
 			tab[0] = grille.get(yfinal + 1).get(xfinal);
 		} else if (yfinal == hauteur - 1 && yfinal != 0) {
@@ -193,12 +232,49 @@ public class PlateauDomino extends Plateau {
 	}
 
 	/**
+	 * renvoie la somme des valeurs des côtés adjacents à d'autres tuiles
+	 * @param tuile 
+	 * @return la somme
+	 */
+	public int sommeCotesAdja(Tuile tuile) {
+		try {
+			int[] coordonnes = getXY(tuile.getId());
+			Tuile[] voisins = listVoisins(coordonnes[0], coordonnes[1]);
+
+			Tuile voisinHaut = voisins[0];
+			Tuile voisinDroit = voisins[1];
+			Tuile voisinBas = voisins[2];
+			Tuile voisinGauche = voisins[3];
+			int sum = 0;
+			if (voisinHaut != null) {
+				sum += ((CoteDomino) voisinHaut.getSud()).sommeChiffres();
+			}
+			if (voisinDroit != null) {
+				sum += ((CoteDomino) voisinDroit.getOuest()).sommeChiffres();
+			}
+			if (voisinBas != null) {
+				sum += ((CoteDomino) voisinBas.getNord()).sommeChiffres();
+			}
+			if (voisinGauche != null) {
+				sum += ((CoteDomino) voisinGauche.getEst()).sommeChiffres();
+			}
+			return sum;
+		} 
+		catch (TileNotPlacedException e) {
+			e.printStackTrace();
+			return -1;
+		}
+
+	}
+
+
+	/**
 	 * vérifie si tous les éléments d'un tableau de tuiles sont null
 	 * @param tab le tableau à parcourir
 	 * @return true si tout le tableau est null, false sinon
 	 */
-	private boolean allNull(Tuile[] tab) {
-		for (Tuile t : tab) {
+	private boolean allNull(TuileDomino[] tab) {
+		for (TuileDomino t : tab) {
 			if (t != null) {
 				return false;
 			}
@@ -274,21 +350,23 @@ public class PlateauDomino extends Plateau {
 	 * @throws TileNotPlacedException
 	 */
 	public void afficher(int id) throws TileNotPlacedException {
-		if (id >= placees) {
-			throw new TileNotPlacedException("La tuile n'a pas été placée");
-		}
-		int[] xy = getXY(id);
-		int x = xy[0];
-		int y = xy[1];
+		try {
+			int[] xy = getXY(id);
+			int x = xy[0];
+			int y = xy[1];
 
-		for (int i = y + 1; i >= y - 1; i--) {
-			if (i == -1 || i == hauteur) {
-				this.afficherLigneVide();
-			} else {
-				this.afficherPetiteLigne(i, x);
+			for (int i = y + 1; i >= y - 1; i--) {
+				if (i == -1 || i == hauteur) {
+					this.afficherLigneVide();
+				} else {
+					this.afficherPetiteLigne(i, x);
+				}
 			}
+			System.out.println();
+		} catch (TileNotPlacedException e) {
+			e.printStackTrace();
 		}
-		System.out.println();
+
 	}
 
 	/**
@@ -356,7 +434,12 @@ public class PlateauDomino extends Plateau {
 			}
 
 			if (tuile != null) {
-				System.out.print(tuile.getOuest().getCote().charAt(1)+"   "+tuile.getId()+"   "+tuile.getEst().getCote().charAt(1)+" ");
+				String space = "  ";
+				if (tuile.getId() < 10) {
+					space+=" ";
+				}
+				System.out.print(tuile.getOuest().getCote().charAt(1)+space+tuile.getId()+"   "+tuile.getEst().getCote().charAt(1)+" ");
+
 			} else {
 				System.out.print("          ");
 			}
@@ -397,13 +480,14 @@ public class PlateauDomino extends Plateau {
 	 * @param id l'identifiant de la tuile voulue
 	 * @return les coordonnées sous la forme [x, y]
 	 */
-	public int[] getXY(int id) {
-		int[] tab = new int[2];
+	public int[] getXY(int id) throws TileNotPlacedException {
+		int[] tab = {-1, -1};
 		boolean found = false;
 			for (int i = 0; i < hauteur; i++) {
 
 				for (int j = 0; j < largeur; j++) {
 					if (grille.get(i).get(j) != null && grille.get(i).get(j).getId() == id) {
+						tab = new int[2];
 						tab[0] = j;
 						tab[1] = i;
 						found = true;
@@ -414,14 +498,20 @@ public class PlateauDomino extends Plateau {
 					break;
 				}
 			}
-		return tab;
+			if (tab[0] == -1 || tab[1] == -1) {
+				throw new TileNotPlacedException("La tuile d'indice "+id+"n'a pas été placée");
+			} 
+			else {
+				return tab;
+			}
+	
 	}
 
 	/**
 	 * agrandit le plateau d'une ligne vers le haut en conservant les tuiles déjà placées
 	 */
 	public void agrandirHaut(){
-		ArrayList<Tuile> ligne = new ArrayList<Tuile>();
+		ArrayList<TuileDomino> ligne = new ArrayList<TuileDomino>();
 		for (int i = 0; i < largeur; i++) {
 			ligne.add(null);
 		}
@@ -433,8 +523,8 @@ public class PlateauDomino extends Plateau {
 	/**
 	 * agrandit le plateau d'une ligne vers le bas en conservant les tuiles déjà placées
 	 */
-	private void agrandirBas() {
-		ArrayList<Tuile> ligne = new ArrayList<Tuile>();
+	 void agrandirBas() {
+		ArrayList<TuileDomino> ligne = new ArrayList<TuileDomino>();
 		for (int i = 0; i < largeur; i++) {
 			ligne.add(null);
 		}
@@ -445,7 +535,7 @@ public class PlateauDomino extends Plateau {
 	/**
 	 * agrandit le plateau d'une colonne vers la droite en conservant les tuiles déjà placées
 	 */
-	private void agrandirDroite() {
+	 void agrandirDroite() {
 		for (int i = 0; i < hauteur; i++) {
 			grille.get(i).add(null);
 		}
@@ -455,7 +545,7 @@ public class PlateauDomino extends Plateau {
 	/**
 	 * agrandit le plateau d'une colonne vers la gauche en conservant les tuiles déjà placées
 	 */
-	private void agrandirGauche() {
+	 void agrandirGauche() {
 		for (int i = 0; i < hauteur; i++) {
 			grille.get(i).add(0, null);
 		}
@@ -490,7 +580,7 @@ public class PlateauDomino extends Plateau {
 	 */
 	public void printGrille() {
 		System.out.print("[");
-		for(ArrayList<Tuile> list : grille) {
+		for(ArrayList<TuileDomino> list : grille) {
 			System.out.print("[");
 			for (Tuile t : list) {
 				if (t!= null) {
@@ -504,45 +594,25 @@ public class PlateauDomino extends Plateau {
 		System.out.print("]");
 	}
 
+	public boolean placee(int id){
+		for(int i=0;i<hauteur;i++){
+			for(int j=0;j<largeur;j++){
+				if(grille.get(i).get(j)!=null&&grille.get(i).get(j).getId()==id){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Exception active quand on cherche l'id d'une tuile non placée sur le plateau
 	 */
-	private class TileNotPlacedException extends RuntimeException {
+	public class TileNotPlacedException extends RuntimeException {
 
 		TileNotPlacedException(String msg) {
 			super(msg);
 		}
-	}
-
-	/**
-	 * renvoie la somme des valeurs des côtés adjacents à d'autres tuiles
-	 * @param tuile 
-	 * @return la somme
-	 */
-	public int sommeCotesAdja(Tuile tuile) {
-		int sum = 0;
-		int[] coordonnes = getXY(tuile.getId());
-		Tuile[] voisins = listVoisins(coordonnes[0], coordonnes[1]);
-
-		Tuile voisinHaut = voisins[0];
-		Tuile voisinDroit = voisins[1];
-		Tuile voisinBas = voisins[2];
-		Tuile voisinGauche = voisins[3];
-
-		if (voisinHaut != null) {
-			sum += ((CoteDomino) voisinHaut.getSud()).sommeChiffres();
-		}
-		if (voisinDroit != null) {
-			sum += ((CoteDomino) voisinDroit.getOuest()).sommeChiffres();
-		}
-		if (voisinBas != null) {
-			sum += ((CoteDomino) voisinBas.getNord()).sommeChiffres();
-		}
-		if (voisinGauche != null) {
-			sum += ((CoteDomino) voisinGauche.getEst()).sommeChiffres();
-		}
-
-		return sum;
 	}
 
 

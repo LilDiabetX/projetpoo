@@ -3,10 +3,7 @@ package common;
 import java.util.ArrayList;
 
 public abstract class Plateau {
-    /**
-     * La grille de jeu
-     */
-    protected ArrayList<ArrayList<Tuile>> grille;
+
     /**
      * les dimensions de la grille
      */
@@ -22,11 +19,4 @@ public abstract class Plateau {
      */
     protected int placees = 0;
 
-    /**
-     * place une tuile aux coordonnées demandées
-     * @param x l'abscisse relative à la tuile d'origine
-     * @param y l'ordonnée relative à la tuile d'origine
-     * @param tuile la tuile à placer
-     */
-    public abstract void placer(int x, int y, Tuile tuile);
 }
