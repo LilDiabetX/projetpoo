@@ -113,26 +113,6 @@ public class PlateauDomino extends Plateau {
 		}
 		return true;
 	}
-	
-	/**
-	 * Met à jour la variable xindex après un éventuel agrandissement de la grille
-	 * @param xindex l'indice à mettre à jour
-	 * @param x l'abscisse relative à la tuile d'origine
-	 * @return l'abscisse relative à la grille
-	 */
-	private int majX(int xindex, int x) {
-		return x0 + x;
-	}
-	/**
-	 * Met à jour la variable yindex après un éventuel agrandissement de la grille
-	 * @param yindex l'indice à mettre à jour
-	 * @param y l'ordonnée relative à la tuile d'origine
-	 * @return l'ordonnée relative à la grille
-	 */
-	private int majY(int yindex, int y) {
-		return y0 + y;
-	}
-
 
 	/**
 	 * vérifie si l'emplacement cible a des tuiles voisines, et si les côtés correspondent
