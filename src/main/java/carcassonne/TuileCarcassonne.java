@@ -24,7 +24,17 @@ public class TuileCarcassonne extends Tuile{
     /**
      * indique la présence ou non d'une abbaye sur la tuile
      */
-    private boolean abbaye; 
+    private boolean abbaye;
+    
+    /**
+     * indique la présence d'un partisan sur la tuile
+     */
+    private boolean pion = false;
+
+    /**
+     * Indique à qui appartient l'éventuel pion sur la Tuile
+     */
+    JoueurCarcassonne joueur = null;
 
     /**
      * illustration de la tuile
@@ -282,6 +292,32 @@ public class TuileCarcassonne extends Tuile{
      */
     public boolean getAbbaye(){
         return abbaye;
+    }
+
+    /**
+     * getter
+     * @return renvoie vrai si un pion se trouve sur la tuile
+     */
+    public boolean getPion(){
+        return pion;
+    }
+
+    /**
+     * getter
+     * @return renvoie le joueur à qui appartient l'éventuel pion sur la tuile
+     */
+    public JoueurCarcassonne getJoueur(){
+        return joueur;
+    }
+
+    /**
+     * setter
+     * place un partisan sur la tuile
+     * @param j joueur à qui le pion appartient
+     */
+    public void setPion(JoueurCarcassonne j){
+        pion = true;
+        joueur = j;
     }
 
 	public void afficher(){
