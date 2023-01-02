@@ -24,8 +24,8 @@ public class TuileCarcassonne extends Tuile{
     /**
      * indique la présence ou non d'une abbaye sur la tuile
      */
-    private boolean abbaye;
-    
+    private boolean abbaye; 
+
     /**
      * indique la présence d'un partisan sur la tuile
      */
@@ -313,7 +313,7 @@ public class TuileCarcassonne extends Tuile{
     /**
      * setter
      * place un partisan sur la tuile
-     * @param j joueur à qui le pion appartient
+     * @param j joueur à qui appartient le pion posé
      */
     public void setPion(JoueurCarcassonne j){
         pion = true;

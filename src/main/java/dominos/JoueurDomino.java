@@ -24,7 +24,7 @@ public class JoueurDomino extends Joueur {
      * @param p le plateau de jeu
      * @param humain définit si le joueur est un humain ou une IA
      */
-    JoueurDomino(PlateauDomino p, boolean humain) {
+    public JoueurDomino(PlateauDomino p, boolean humain) {
         this.plateau = p;
         super.humain = humain;
     }

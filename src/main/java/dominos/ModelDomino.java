@@ -35,60 +35,35 @@ public class ModelDomino extends Model {
      */
     private int dernierePosition;
 
+    // TODO ajouter un attribut View (potentiellement null si on veut jouer mode textuel)
+
     /**
      * Constructeur
      * @param n le nombre de joueurs
      */
-    public ModelDomino() {
-        Scanner sc = new Scanner(System.in);
+    public ModelDomino() { // TODO ajouter un paramètre View
+        tabJoueurs = new ArrayList<JoueurDomino>();
         sac = new SacDomino();
         plateau = new PlateauDomino(sac.getSac(tourDeJeu));
         dernierePosition = sac.getSac(tourDeJeu).getId();
         super.tourDeJeu++;
-        boolean entier = false;
-        boolean joueurs = false;
-        while(!joueurs){
-            while(!entier){
-                System.out.println("Combien de joueurs souhaitent jouer ?");
-                String choix = sc.next();
-                try{
-                    nbJoueurs = Integer.valueOf(choix);
-                    entier = true;
-                }
-                catch(NumberFormatException e){
-                    System.out.println("Veuillez entrer un entier supérieur à 1");
-                }
-            }
-            if(nbJoueurs>1){
-                joueurs = true;
-            }
-            else{
-                System.out.println("Veuillez entrer un entier supérieur à 1");
-                entier = false;
-            }
-        }
-        tabJoueurs = new ArrayList<JoueurDomino>();
-        for (int i = 0; i < nbJoueurs; i++) {
-            boolean IA = false;
-            while(!IA){
-                System.out.println("Le joueur numéro "+i+" est il un humain ? (répondez par \"oui\" ou par \"non\")");
-                switch(sc.next()){
-                    case "oui":
-                    tabJoueurs.add(new JoueurDomino(plateau,true));
-                    IA = true;
-                    break;
-
-                    case "non":
-                    tabJoueurs.add(new JoueurDomino(plateau,false));
-                    IA = true;
-                    break;
-
-                    default:
-                    System.out.println("Réponse invalide");
-                }
-            }
-        }
         actuel = tabJoueurs.get(0);
+    }
+
+    /**
+     * getter
+     * @return renvoie le tableau de joueurs
+     */
+    public ArrayList<JoueurDomino> getTabJoueur(){
+        return tabJoueurs;
+    }
+
+    /**
+     * getter
+     * @return renvoie le plateau de jeu
+     */
+    public PlateauDomino getPlateau(){
+        return plateau;
     }
 
     /**

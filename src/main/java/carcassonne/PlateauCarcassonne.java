@@ -63,12 +63,12 @@ public class PlateauCarcassonne extends Plateau {
 	}
 
 	/**
-	 * place un pion sur une tuile du plateau
-	 * @param x abscisse relative à la tuile de départ où l'on veut placer le pion
-	 * @param y ordonnée relative à la tuile de départ où l'on veut placer le pion
-	 * @param j joueur à qui appartient le pion
-	 * @return renvoie vrai si un pion a bien été placé et faux sinon
-	 */
+     * place un pion sur une tuile du plateau
+     * @param x abscisse relative à la tuile de départ du plateau
+     * @param y ordonnée relative à la tuile de départ du plateau
+	 * @param j joueur à qui le pion appartient
+     * @return renvoie vrai si un pion a bien été posé
+     */
 	public boolean placerPion(int x, int y, JoueurCarcassonne j){
 		int xindex = x + x0;
 		int yindex = y + y0;
