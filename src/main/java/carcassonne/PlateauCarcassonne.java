@@ -62,6 +62,30 @@ public class PlateauCarcassonne extends Plateau {
 		}
 	}
 
+	/**
+	 * place un pion sur une tuile du plateau
+	 * @param x abscisse relative à la tuile de départ où l'on veut placer le pion
+	 * @param y ordonnée relative à la tuile de départ où l'on veut placer le pion
+	 * @param j joueur à qui appartient le pion
+	 * @return renvoie vrai si un pion a bien été placé et faux sinon
+	 */
+	public boolean placerPion(int x, int y, JoueurCarcassonne j){
+		int xindex = x + x0;
+		int yindex = y + y0;
+		if(grille.get(yindex).get(xindex)!=null&&grille.get(yindex).get(xindex).getPion()==false){
+			grille.get(yindex).get(xindex).setPion(j);
+			return true;
+		}
+		else if(grille.get(yindex).get(xindex).getPion()){
+			System.out.println("Il y a déjà un pion sur cette case.");
+			return false;
+		}
+		else{
+			System.out.println("Cette case n'existe pas");
+			return false;
+		}
+	}
+
 
 	/**
 	 * vérifie si une tuile est plaçable sur la grille sans tenir compte des autres tuiles, agrandit la grille si besoin
