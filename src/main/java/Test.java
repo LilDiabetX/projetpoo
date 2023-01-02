@@ -1,4 +1,4 @@
-package dominos;
+import dominos.ModelDomino;
 
 public class Test{
 	public static void main(String[] args){
