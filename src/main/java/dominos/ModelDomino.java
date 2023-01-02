@@ -91,14 +91,18 @@ public class ModelDomino extends Model {
         actuel = tabJoueurs.get(0);
     }
 
+    /**
+     * pioche une tuile dans le sac
+     * @param joueur joueur qui pioche la tuile
+     */
     public void piocher(JoueurDomino joueur) {
         joueur.setTuile(sac.getSac(tourDeJeu));
     }
 
-    public void placer(JoueurDomino joueur, int x, int y) {
-        joueur.placerTuile(x, y);
-    }
-
+    /**
+     * vérifie si les conditions de victoire par abandon sont vérifiée
+     * @return renvoie vrai si il ne reste plus qu'un joueur qui n'a pas abandonné et faux sinon
+     */
     public boolean victoireParAbandon(){
         int joueursEnLice = tabJoueurs.size();
         for(int i=0;i<tabJoueurs.size();i++){
