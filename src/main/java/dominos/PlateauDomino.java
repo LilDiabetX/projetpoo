@@ -160,10 +160,10 @@ public class PlateauDomino extends Plateau {
 					TuileDomino[] voisins = listVoisins(i, j);
 
 					if (!allNull(voisins)) {
-						Tuile voisinHaut = voisins[0];
-						Tuile voisinDroit = voisins[1];
-						Tuile voisinBas = voisins[2];
-						Tuile voisinGauche = voisins[3];
+						TuileDomino voisinHaut = voisins[0];
+						TuileDomino voisinDroit = voisins[1];
+						TuileDomino voisinBas = voisins[2];
+						TuileDomino voisinGauche = voisins[3];
 
 						//on vérifie si les côtés correspondent
 						if ((voisinHaut == null || voisinHaut.getSud().getCote().equals((t.getNord()).getInverse()))
@@ -219,12 +219,12 @@ public class PlateauDomino extends Plateau {
 	public int sommeCotesAdja(Tuile tuile) {
 		try {
 			int[] coordonnes = getXY(tuile.getId());
-			Tuile[] voisins = listVoisins(coordonnes[0], coordonnes[1]);
+			TuileDomino[] voisins = listVoisins(coordonnes[0], coordonnes[1]);
 
-			Tuile voisinHaut = voisins[0];
-			Tuile voisinDroit = voisins[1];
-			Tuile voisinBas = voisins[2];
-			Tuile voisinGauche = voisins[3];
+			TuileDomino voisinHaut = voisins[0];
+			TuileDomino voisinDroit = voisins[1];
+			TuileDomino voisinBas = voisins[2];
+			TuileDomino voisinGauche = voisins[3];
 			int sum = 0;
 			if (voisinHaut != null) {
 				sum += ((CoteDomino) voisinHaut.getSud()).sommeChiffres();

@@ -24,7 +24,7 @@ public class JoueurCarcassonne extends Joueur {
      * @param p le plateau de jeu
      * @param humain définit si le joueur est un humain ou une IA
      */
-    JoueurCarcassonne(PlateauCarcassonne p, boolean humain) {
+    public JoueurCarcassonne(PlateauCarcassonne p, boolean humain) {
         this.plateau = p;
         super.humain = humain;
     }
@@ -32,8 +32,6 @@ public class JoueurCarcassonne extends Joueur {
     @Override
     public boolean placerTuile(int x, int y) {
         if(plateau.placer(x, y, tuile)){
-        	// A modifier pour calculer le score Carcassonne
-            //score += plateau.sommeCotesAdja(tuile);
             return true;
         }
         return false;
@@ -67,8 +65,6 @@ public class JoueurCarcassonne extends Joueur {
     public boolean placerIA(){
         if(!humain){
             if(plateau.placableIA(tuile)){
-            	// A modifier pour calculer le score Carcassonne
-                //score += plateau.sommeCotesAdja(tuile);
                 return true;
             }
             
@@ -78,9 +74,9 @@ public class JoueurCarcassonne extends Joueur {
 
     /**
      * place un pion sur une tuile du plateau
-     * @param x abscisse relative à la tuile de départ où l'on veut placer le pion
-     * @param y ordonnée relative à la tuile de départ où l'on veut placer le pion
-     * @return renvoie vrai si un pion à bien été posé et faux sinon
+     * @param x abscisse relative à la tuile de départ du plateau
+     * @param y ordonnée relative à la tuile de départ du plateau
+     * @return renvoie vrai si un pion a bien été posé
      */
     public boolean placerPion(int x, int y){
         if(pions>0&&plateau.placerPion(x,y,this)){
