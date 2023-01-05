@@ -70,7 +70,6 @@ public class ModelCarcassonne extends Model{
      */
     public void piocher(JoueurCarcassonne joueur) {
         joueur.setTuile(sac.getSac(tourDeJeu));
-        //System.out.println(joueur.getTuile().getImage()+"piocherModel");
     }
 
     /**

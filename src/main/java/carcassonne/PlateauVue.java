@@ -2,16 +2,21 @@ package carcassonne;
 
 import java.util.ArrayList;
 
+import java.awt.GridLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class PlateauVue extends JPanel {
     private int hauteur, largeur;
     
-    private ArrayList<ArrayList<EmplacementTuile>> plateau;
+    //private ArrayList<ArrayList<EmplacementTuile>> plateau;
 
-    public PlateauVue(PlateauCarcassonne pCarcassonne) {
-        plateau = new ArrayList<ArrayList<EmplacementTuile>>();
+    public PlateauVue(TuileCarcassonne[][] tab) {
+        setLayout(new GridLayout(5,5));
+        updatePlateau(tab);
+
+        /*plateau = new ArrayList<ArrayList<EmplacementTuile>>();
         int k = 0;
         for (int i = pCarcassonne.getHauteur()-1; i >= 0; i--) {
             plateau.add(new ArrayList<EmplacementTuile>());
@@ -26,8 +31,16 @@ public class PlateauVue extends JPanel {
             k++;
         }
         hauteur = pCarcassonne.getHauteur();
-        largeur = pCarcassonne.getLargeur();
+        largeur = pCarcassonne.getLargeur();*/
         
+    }
+
+    public void updatePlateau(TuileCarcassonne[][] tab) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                add(new EmplacementTuile());
+            }
+        }
     }
 
     

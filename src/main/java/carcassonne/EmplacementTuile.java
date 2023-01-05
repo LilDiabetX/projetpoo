@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 public class EmplacementTuile extends JPanel implements MouseInputListener {
-    private int width = 50;
-    private int height = 50;
+    private int width = 100;
+    private int height = 100;
 
     private int xgrille, ygrille;
 
@@ -23,10 +23,15 @@ public class EmplacementTuile extends JPanel implements MouseInputListener {
     private boolean occupe;
 
     public EmplacementTuile(int xgrille, int ygrille, int xorigin, int yorigin) {
+        this();
         this.xgrille = xgrille;
         this.ygrille = ygrille;
         this.xorigin = xorigin;
         this.yorigin = yorigin;
+        
+    }
+
+    public EmplacementTuile() {
         setBorder(BorderFactory.createDashedBorder(Color.BLUE));
         setBackground(Color.YELLOW);
         this.setPreferredSize(new Dimension(width, height));
@@ -34,7 +39,7 @@ public class EmplacementTuile extends JPanel implements MouseInputListener {
 
     public void fill(BufferedImage img) {
         this.add(new JLabel(new ImageIcon(img)));
-        
+        occupe = true;
     }
     
 

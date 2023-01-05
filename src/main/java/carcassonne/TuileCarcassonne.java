@@ -378,7 +378,6 @@ public class TuileCarcassonne extends Tuile{
     }
 
     public BufferedImage getImage() {
-        //System.out.println(this.image + " getter");
         return this.image;
     }
 

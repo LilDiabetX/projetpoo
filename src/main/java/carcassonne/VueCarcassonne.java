@@ -60,6 +60,7 @@ public class VueCarcassonne extends JFrame {
     public VueCarcassonne(ModelCarcassonne model) {
         this.model = model;
         control = new ControleurCarcassonne(model, this);
+
         //Config de la fenêtre
         setTitle("Carcassonne™");
         setSize(WIDTH, HEIGHT);
@@ -73,8 +74,11 @@ public class VueCarcassonne extends JFrame {
         cadrePreview = new JPanel(new GridLayout(0, 1));
         cadrePioche = new JPanel(new GridLayout(0, 1));
         panneauBoutons = new JPanel();
+
         
-        panneauPlateau = new PlateauVue(model.getPlateau());
+        panneauPlateau = new PlateauVue(model.getPlateau().sousTableau());
+
+        
         
         cadrePreview.setBackground(Color.GREEN);
 
@@ -194,7 +198,6 @@ public class VueCarcassonne extends JFrame {
 
         setContentPane(pane);
         
-
     }
 
     /**

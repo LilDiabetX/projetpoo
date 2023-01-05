@@ -395,11 +395,12 @@ public class PlateauCarcassonne extends Plateau {
 		int[] xy = trouverTuile(tuileCentree);
 		int x = xy[0];
 		int y = xy[1];
-
+		int a = 0;
 		for (int i = y+2; i >= y-2; i--) {
-			if (i > -1 || i < hauteur) {
-				sousTab[i] = sousLigne(i, x);
+			if (i > -1 && i < hauteur) {
+				sousTab[a] = sousLigne(i, x);
 			}
+			a++;
 		}
 		return sousTab;
 	}
@@ -412,15 +413,13 @@ public class PlateauCarcassonne extends Plateau {
 	 */
 	public TuileCarcassonne[] sousLigne(int i, int x) {
 		TuileCarcassonne[] tab = new TuileCarcassonne[5];
-		
-		for (int j = x - 2; x <= x + 2; j++) {
-			TuileCarcassonne tuile = null;
-			try {
-				tuile = grille.get(i).get(j);
-			} catch (IndexOutOfBoundsException e) {
-				continue;
+		int b =0;
+		for (int j = x - 2; j <= x + 2; j++) {
+			if (j>-1 && j < largeur) {
+				tab[b] = grille.get(i).get(j);
+
 			}
-			tab[j] = tuile;
+			b++;
 		}
 		return tab;
 	}

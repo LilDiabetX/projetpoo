@@ -6,6 +6,7 @@ public class TestVueCarcassonne {
     private ControleurCarcassonne control;
 
     public TestVueCarcassonne() {
+       
         view = new VueCarcassonne(new ModelCarcassonne());
         view.setVisible(true);
     }
