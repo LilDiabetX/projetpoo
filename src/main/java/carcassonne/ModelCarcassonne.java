@@ -54,13 +54,21 @@ public class ModelCarcassonne extends Model{
     }
 
     /**
+     * getter
+     * @return renvoie le tour de jeu
+     */
+    public int getTour(){
+        return tourDeJeu;
+    }
+
+    /**
      * pioche une tuile dans le sac
      * @param joueur joueur qui pioche la tuile
      */
     public void piocher(JoueurCarcassonne joueur) {
-        
-        joueur.setTuile(sac.getSac(tourDeJeu));
-        tourDeJeu++;
+        if(sac.getTuilesRestantes()>0){
+            joueur.setTuile(sac.getSac(tourDeJeu));
+        }
         //System.out.println(joueur.getTuile().getImage()+"piocherModel");
     }
 
@@ -72,8 +80,11 @@ public class ModelCarcassonne extends Model{
 
     }
 
-    public ArrayList<JoueurCarcassonne> getTabJoueurs() {
-        return tabJoueurs;
+    /**
+     * fait passer au tour suivant
+     */
+    public void incrementeTour(){
+        tourDeJeu++;
     }
 
     public JoueurCarcassonne getActuel() {

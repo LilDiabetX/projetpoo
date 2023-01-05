@@ -18,14 +18,6 @@ public class CoteDomino extends Cote{
 	}
 
 	/**
-	 * Crée un nouveau côté qui a pour valeur cote
-	 * @param cote le String représentant le cote
-	 */
-	public CoteDomino(String cote) {
-		this.cote = cote;
-	}
-
-	/**
 	 * Crée la copie exacte ou inverse d'un coté de Domino
 	 * @param c Coté de domino à copier
 	 * @param inverse faux si on veut la copie exacte de c et vrai si on veut son inverse ("123" donne "321")

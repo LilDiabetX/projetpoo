@@ -6,6 +6,8 @@ public class ControleurCarcassonne {
 
     private VueCarcassonne vue;
 
+    private boolean piochee = false;
+
     public ControleurCarcassonne(ModelCarcassonne model, VueCarcassonne vue) {
         this.model = model;
         this.vue = vue;
@@ -13,13 +15,19 @@ public class ControleurCarcassonne {
 
     /**
      * gère le tirage dans la pioche
+     * Lorsque l'on appuie une premère fois sur la pioche, on reçoit une tuile. On se défausse en rappuyant
      */
     void piocher() {
-        if (!model.getSac().estVide()) {
+        if (!model.getSac().estVide()&&!piochee) {
             JoueurCarcassonne j = model.getActuel();
             model.piocher(j);
+            piochee = true;
             vue.updatePreview();
             vue.updatePioche(model.getSac().estVide());
+        }
+        else{
+            model.incrementeTour();
+            piochee = false;
         }
         
     }
