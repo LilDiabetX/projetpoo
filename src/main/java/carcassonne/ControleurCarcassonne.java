@@ -38,7 +38,7 @@ public class ControleurCarcassonne {
      * place un pion sur la tuile dans la main du joueur actuel
      */
     public void placerPion(){
-        if(model.getActuel().getTuile() != null && model.getActuel().getPions()>0){
+        if(model.getActuel().getTuile() != null && model.getActuel().getPions()>0 && !model.getActuel().getTuile().getPion()){
             model.getActuel().getTuile().placerPion(model.getActuel());
             model.getActuel().placerPion();
             vue.updatePion();
