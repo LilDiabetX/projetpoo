@@ -7,8 +7,6 @@ public class PlateauCarcassonne extends Plateau {
 
 	private ArrayList<ArrayList<TuileCarcassonne>>grille;
 
-	private int tuileCentree;
-
 	/**
 	 * Constructeur vide
 	 */
