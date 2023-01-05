@@ -35,5 +35,22 @@ public abstract class Plateau {
 	protected int majY(int yindex, int y) {
 		return y0 + y;
 	}
+	public int getHauteur() {
+		return hauteur;
+	}
+	public int getLargeur() {
+		return largeur;
+	}
+	public int getX0() {
+		return x0;
+	}
+	public int getY0() {
+		return y0;
+	}
+	public int getPlacees() {
+		return placees;
+	}
+
+	
 
 }

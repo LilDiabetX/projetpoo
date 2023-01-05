@@ -37,7 +37,7 @@ public class VueCarcassonne extends JFrame {
 
     JPanel panneauHUD;
     
-    JPanel panneauPlateau;
+    PlateauVue panneauPlateau;
     JPanel panneauBoutons;
     JPanel cadrePreview;
     JPanel cadrePioche;
@@ -48,6 +48,8 @@ public class VueCarcassonne extends JFrame {
     JLabel piocheImg;
     JLabel piocheRestantes;
     JLabel previewImg;
+
+    JLabel joueurActuel;
 
     
 
@@ -64,10 +66,10 @@ public class VueCarcassonne extends JFrame {
         GroupLayout layout = new GroupLayout(pane);
         pane.setLayout(layout);
         panneauHUD = new JPanel(new GridLayout(1, 3));
-        cadrePreview = new JPanel();
-        cadrePioche = new JPanel(new GridLayout(0, 1, 0, 0));
+        cadrePreview = new JPanel(new GridLayout(0, 1));
+        cadrePioche = new JPanel(new GridLayout(0, 1));
         panneauBoutons = new JPanel();
-        panneauPlateau = new JPanel();
+        panneauPlateau = new PlateauVue(model.getPlateau());
         
         cadrePreview.setBackground(Color.GREEN);
 
@@ -99,6 +101,8 @@ public class VueCarcassonne extends JFrame {
         }
         previewImg = new JLabel(new ImageIcon(imgCarre));
         cadrePreview.add(previewImg);
+        joueurActuel = new JLabel("Joueur "+ (model.getTour()-1)%model.getTabJoueur().size(), (int) CENTER_ALIGNMENT); 
+        cadrePreview.add(joueurActuel);
 
         piocheImg = new JLabel(new ImageIcon(img1));
         cadrePioche.add(piocheImg);
@@ -155,6 +159,7 @@ public class VueCarcassonne extends JFrame {
                 
             }
         );
+
         
         
 
@@ -202,10 +207,23 @@ public class VueCarcassonne extends JFrame {
      * met à jour l'image de preview des tuiles
      */
     public void updatePreview() {
-        
-        BufferedImage img = model.getActuel().getTuile().getImage();
-        previewImg.setIcon(new ImageIcon(img));
-        
+        if (model.getActuel().getTuile() != null) {
+            BufferedImage img = model.getActuel().getTuile().getImage();
+            previewImg.setIcon(new ImageIcon(img));
+            joueurActuel.setText("Joueur "+(model.getTour()-1)%model.getTabJoueur().size());
+        }
+    }
+
+    /**
+     * retire la tuile de preview
+     */
+    public void updateDefausse() {
+        try {
+            BufferedImage img = ImageIO.read(new File("src/main/ressources/icones/vide.png"));
+            previewImg.setIcon(new ImageIcon(img));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
     /**
