@@ -48,6 +48,7 @@ public class TuileCarcassonne extends Tuile{
      */
     TuileCarcassonne(int typeTuile) throws InvalidTileTypeException{
         try{
+            cotes = new CoteCarcassonne[4];
             switch(typeTuile){
                 case 0:
                 for(int i=0;i<4;i++){
@@ -61,7 +62,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = true;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/0.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/0.png"));
                 break;
 
                 case 1:
@@ -71,7 +72,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = true;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/1.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/1.png"));
                 break;
 
                 case 2:
@@ -82,7 +83,8 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                ImageIO.read(new File("src/main/ressources/2.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/2.png"));
+                break;
 
                 case 3:
                 cotes[0] = new CoteCarcassonne("Ville");
@@ -92,7 +94,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/3.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/3.png"));
                 break;
 
                 case 4:
@@ -107,7 +109,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/4.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/4.png"));
                 break;
 
                 case 5:
@@ -118,7 +120,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/5.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/5.png"));
                 break;
 
                 case 6:
@@ -129,7 +131,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/6.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/6.png"));
                 break;
 
                 case 7:
@@ -140,7 +142,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/7.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/7.png"));
                 break;
 
                 case 8:
@@ -151,7 +153,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/8.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/8.png"));
                 break;
 
                 case 9:
@@ -162,7 +164,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/9.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/9.png"));
                 break;
 
                 case 10:
@@ -173,7 +175,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/10.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/10.png"));
                 break;
 
                 case 11:
@@ -184,7 +186,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/11.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/11.png"));
                 break;
                 
                 case 12:
@@ -195,7 +197,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/12.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/12.png"));
                 break;
 
                 case 13:
@@ -206,7 +208,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/13.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/13.png"));
                 break;
 
                 case 14:
@@ -217,7 +219,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/14.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/14.png"));
                 break;
 
                 case 15:
@@ -228,7 +230,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/15.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/15.png"));
                 break;
 
                 case 16:
@@ -239,7 +241,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/8.png"));
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/8.png"));
                 break;
 
                 default:
@@ -260,6 +262,7 @@ public class TuileCarcassonne extends Tuile{
         for(int i=0;i<4;i++){
             cotes[i]=new CoteCarcassonne(t.cotes[i]);
         }
+        image = t.getImage();
     }
 
     /**
@@ -364,5 +367,18 @@ public class TuileCarcassonne extends Tuile{
         InvalidTileTypeException(String msg){
             super(msg);
         }
+    }
+
+    public static int getNbTuiles() {
+        return nbTuiles;
+    }
+
+    public CoteCarcassonne[] getCotes() {
+        return cotes;
+    }
+
+    public BufferedImage getImage() {
+        //System.out.println(this.image + " getter");
+        return this.image;
     }
 }

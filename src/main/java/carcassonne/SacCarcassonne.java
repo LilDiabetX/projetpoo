@@ -9,22 +9,24 @@ public class SacCarcassonne extends Sac {
      */
     private TuileCarcassonne[] sac;
 
+    private int tuilesRestantes;
+
     /**
      * Crée un nouveau sac de 72 tuiles fidèles au jeu de plateau carcassonne à l'exception des tuiles avec un bouclier qui ont été remplacées par leur équivalent sans bouclier et de quelques tuiles dont la représentation dans ce jeu aurait été identique
      */
     SacCarcassonne(){
         int i = 0;
         sac = new TuileCarcassonne[72];
+        for(int j=0;j<4;j++){
+            sac[i] = new TuileCarcassonne(2); //la tuile de base dans carcassonne est de type 2 donc on met celles-ci en premier
+            i++;
+        }
         for(int j=0;j<2;j++){
             sac[i] = new TuileCarcassonne(0);
             i++;
         }
         for(int j=0;j<4;j++){
             sac[i] = new TuileCarcassonne(1);
-            i++;
-        }
-        for(int j=0;j<4;j++){
-            sac[i] = new TuileCarcassonne(2);
             i++;
         }
         for(int j=0;j<5;j++){
@@ -79,6 +81,8 @@ public class SacCarcassonne extends Sac {
         i++;
         sac[i] = new TuileCarcassonne(16);
         i++;
+        melange();
+        tuilesRestantes = sac.length;
     }
 
     /**
@@ -87,7 +91,7 @@ public class SacCarcassonne extends Sac {
     public void melange(){
         Random rand = new Random();
 
-		for(int i=0;i<sac.length;i++){
+		for(int i=1;i<sac.length;i++){ //on ne mélange pas la première tuile avec le reste
 			int randomIndexSwap = rand.nextInt(sac.length);
 			TuileCarcassonne temp = new TuileCarcassonne(sac[randomIndexSwap]);
 			sac[randomIndexSwap] = new TuileCarcassonne(sac[i]);
@@ -110,6 +114,7 @@ public class SacCarcassonne extends Sac {
         if(i>=0&&i<sac.length){
             TuileCarcassonne temp = new TuileCarcassonne(sac[i]);
             sac[i] = null;
+            tuilesRestantes--;
 			return temp;
 		}
 		throw new InvalidIndexException("L'indice recherché n'est pas valide");
@@ -127,10 +132,16 @@ public class SacCarcassonne extends Sac {
         return true;
     }
 
+    public int getTuilesRestantes() {
+        return tuilesRestantes;
+    }
+
     private class InvalidIndexException extends RuntimeException{
 		InvalidIndexException(String message){
 			super(message);
 		}
 	}
+
+    
     
 }
