@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Launcher {
     
     private ModelCarcassonne modelCarca;
+    private VueCarcassonne viewCarca;
+    private ControleurCarcassonne controllerCarca;
 
     private ModelDomino modelDom;
 
@@ -39,7 +41,7 @@ public class Launcher {
                 break;
 
                 case "carcassonne" :
-                modelCarca = new ModelCarcassonne(); // paramètre : new CarcassonneView
+                modelCarca = new ModelCarcassonne();
                 jeu = true;
                 break;
 
@@ -105,10 +107,14 @@ public class Launcher {
         }
 
         if(modelDom!=null){
+            modelDom.setActuel(0);
             modelDom.play();
         }
         else{
-            modelCarca.play();
+            modelCarca.setActuel(0);
+            viewCarca = new VueCarcassonne(modelCarca);
+            controllerCarca = viewCarca.getController();
+            viewCarca.setVisible(true);
         }
     }
 

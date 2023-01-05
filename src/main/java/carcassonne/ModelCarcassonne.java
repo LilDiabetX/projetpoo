@@ -31,8 +31,6 @@ public class ModelCarcassonne extends Model{
         tabJoueurs = new ArrayList<JoueurCarcassonne>();
         sac = new SacCarcassonne();
         plateau = new PlateauCarcassonne(sac.getSac(tourDeJeu));
-        tabJoueurs.add(new JoueurCarcassonne(plateau, true));
-        actuel = tabJoueurs.get(0);
         tourDeJeu++;
     }
 
@@ -68,6 +66,10 @@ public class ModelCarcassonne extends Model{
     public void piocher(JoueurCarcassonne joueur) {
         joueur.setTuile(sac.getSac(tourDeJeu));
         //System.out.println(joueur.getTuile().getImage()+"piocherModel");
+    }
+
+    public void setActuel(int i){
+        actuel = tabJoueurs.get(i%tabJoueurs.size());
     }
 
 
