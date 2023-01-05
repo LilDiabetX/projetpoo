@@ -45,11 +45,15 @@ public class VueCarcassonne extends JFrame {
     JButton turnRight;
     JButton turnLeft;
 
+    JButton meepleButton;
+
     JLabel piocheImg;
     JLabel piocheRestantes;
     JLabel previewImg;
 
     JLabel joueurActuel;
+
+
 
     
 
@@ -78,19 +82,19 @@ public class VueCarcassonne extends JFrame {
         
         //config des boutons de pivot
         turnLeft = new JButton(new ImageIcon("src/main/ressources/icones/gauche.png"));
-        turnLeft.setSize(10, 10);
         
         turnRight = new JButton(new ImageIcon("src/main/ressources/icones/droite.png"));
-        turnRight.setSize(10, 10);
         
         turnLeft.addActionListener((event) -> control.pivot(270));
         turnRight.addActionListener((event) -> control.pivot(90));
 
-        
+        meepleButton = new JButton(new ImageIcon("src/main/ressources/icones/pionCarcassonne.png")); 
+
+        meepleButton.addActionListener((event) -> control.placerPion());
 
         panneauBoutons.add(turnLeft);
         panneauBoutons.add(turnRight);
-
+        panneauBoutons.add(meepleButton);
         panneauBoutons.setBackground(Color.BLUE);
 
         //Config des images pour la pioche et l'emplacement de la preview de la tuile
@@ -246,6 +250,10 @@ public class VueCarcassonne extends JFrame {
 
 
         previewImg.setIcon(new ImageIcon(img));
+    }
+
+    public void updatePion() {
+        
     }
 
     public ControleurCarcassonne getController(){

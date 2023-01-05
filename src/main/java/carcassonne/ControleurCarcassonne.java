@@ -52,9 +52,16 @@ public class ControleurCarcassonne {
     }
 
 
+    public void placerPion() {
+        
+    }
+
     private class WrongDirectionGivenException extends RuntimeException {
         WrongDirectionGivenException(String msg) {
             super(msg);
         }
     }
+
+
+    
 }
