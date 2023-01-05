@@ -15,16 +15,16 @@ public class SacCarcassonne extends Sac {
     SacCarcassonne(){
         int i = 0;
         sac = new TuileCarcassonne[72];
+        for(int j=0;j<4;j++){
+            sac[i] = new TuileCarcassonne(2);
+            i++;
+        }
         for(int j=0;j<2;j++){
             sac[i] = new TuileCarcassonne(0);
             i++;
         }
         for(int j=0;j<4;j++){
             sac[i] = new TuileCarcassonne(1);
-            i++;
-        }
-        for(int j=0;j<4;j++){
-            sac[i] = new TuileCarcassonne(2);
             i++;
         }
         for(int j=0;j<5;j++){
@@ -79,6 +79,7 @@ public class SacCarcassonne extends Sac {
         i++;
         sac[i] = new TuileCarcassonne(16);
         i++;
+        melange();
     }
 
     /**
@@ -87,7 +88,7 @@ public class SacCarcassonne extends Sac {
     public void melange(){
         Random rand = new Random();
 
-		for(int i=0;i<sac.length;i++){
+		for(int i=1;i<sac.length;i++){
 			int randomIndexSwap = rand.nextInt(sac.length);
 			TuileCarcassonne temp = new TuileCarcassonne(sac[randomIndexSwap]);
 			sac[randomIndexSwap] = new TuileCarcassonne(sac[i]);
@@ -132,5 +133,7 @@ public class SacCarcassonne extends Sac {
 			super(message);
 		}
 	}
+
+    
     
 }

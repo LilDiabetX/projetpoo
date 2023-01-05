@@ -27,7 +27,7 @@ public class PlateauCarcassonne extends Plateau {
 		grille.add(ligne);
 		super.hauteur = 1;
 		super.largeur = 1;
-		tuile.setPosee();
+		//tuile.setPosee(); à remettre VITE
 		super.placees = 1;
 	}
 
