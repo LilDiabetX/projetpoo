@@ -88,14 +88,19 @@ public class VueCarcassonne extends JFrame {
         turnLeft.addActionListener((event) -> control.pivot(270));
         turnRight.addActionListener((event) -> control.pivot(90));
 
+        turnLeft.setEnabled(false);
+        turnRight.setEnabled(false);
+
         meepleButton = new JButton(new ImageIcon("src/main/ressources/icones/pionCarcassonne.png")); 
 
         meepleButton.addActionListener((event) -> control.placerPion());
 
+        meepleButton.setEnabled(false);
+
         panneauBoutons.add(turnLeft);
         panneauBoutons.add(turnRight);
         panneauBoutons.add(meepleButton);
-        panneauBoutons.setBackground(Color.BLUE);
+        panneauBoutons.setBackground(Color.DARK_GRAY);
 
         //Config des images pour la pioche et l'emplacement de la preview de la tuile
         BufferedImage img1 = null;
@@ -218,6 +223,9 @@ public class VueCarcassonne extends JFrame {
             BufferedImage img = model.getActuel().getTuile().getImage();
             previewImg.setIcon(new ImageIcon(img));
             joueurActuel.setText("Joueur "+(model.getTour()-1)%model.getTabJoueur().size());
+            turnLeft.setEnabled(true);
+            turnRight.setEnabled(true);
+            meepleButton.setEnabled(true);
         }
     }
 
@@ -228,6 +236,9 @@ public class VueCarcassonne extends JFrame {
         try {
             BufferedImage img = ImageIO.read(new File("src/main/ressources/icones/vide.png"));
             previewImg.setIcon(new ImageIcon(img));
+            turnLeft.setEnabled(false);
+            turnRight.setEnabled(false);
+            meepleButton.setEnabled(false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -252,8 +263,19 @@ public class VueCarcassonne extends JFrame {
         previewImg.setIcon(new ImageIcon(img));
     }
 
-    public void updatePion() {
+    public void updatePion(Color couleur) {
+        ImageIcon icon = ((ImageIcon) previewImg.getIcon());
+        BufferedImage img = ((BufferedImage) icon.getImage());
+
+        Graphics2D g2d = img.createGraphics();
+
+        g2d.setColor(couleur);
+        g2d.fillOval(43, 43, 25, 25);
+
         
+        g2d.dispose();
+
+        previewImg.setIcon(new ImageIcon(img));
     }
 
     public ControleurCarcassonne getController(){

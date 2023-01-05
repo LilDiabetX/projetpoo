@@ -25,11 +25,11 @@ public class ControleurCarcassonne {
             vue.updatePreview();
             vue.updatePioche(model.getSac().estVide());
         }
-        else{
-            System.out.println("on défausse");
+        else{ //on clique pour defausser
             model.getActuel().defausser();
             vue.updateDefausse();
             model.incrementeTour();
+            model.setActuel(model.getTour());
             piochee = false;
         }      
     }
@@ -41,7 +41,7 @@ public class ControleurCarcassonne {
         if(model.getActuel().getTuile() != null && model.getActuel().getPions()>0 && !model.getActuel().getTuile().getPion()){
             model.getActuel().getTuile().placerPion(model.getActuel());
             model.getActuel().placerPion();
-            vue.updatePion();
+            vue.updatePion(model.getActuel().getCouleur());
         }
     }
 

@@ -35,6 +35,7 @@ public class ModelCarcassonne extends Model{
         tabJoueurs.add(new JoueurCarcassonne(plateau, true));
         tabJoueurs.add(new JoueurCarcassonne(plateau, true));
         actuel = tabJoueurs.get(0);
+        setCouleurs();
         tourDeJeu++;
     }
 
