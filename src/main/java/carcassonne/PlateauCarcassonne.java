@@ -7,6 +7,8 @@ public class PlateauCarcassonne extends Plateau {
 
 	private ArrayList<ArrayList<TuileCarcassonne>>grille;
 
+	private int tuileCentree;
+
 	/**
 	 * Constructeur vide
 	 */
@@ -29,6 +31,7 @@ public class PlateauCarcassonne extends Plateau {
 		super.largeur = 1;
 		//tuile.setPosee(); à remettre VITE
 		super.placees = 1;
+		tuileCentree = tuile.getId();
 	}
 
 	/**
@@ -325,6 +328,44 @@ public class PlateauCarcassonne extends Plateau {
 		}
 	}
 
+	/**
+	 * cherche la position dans la grille d'une tuile
+	 * @param id numéro de la tuile que l'on cherche
+	 * @return renvoie la position de la tuile cherchée et renvoie [-1,-1] si elle n'a pas été placée
+	 */
+	public int[] trouverTuile(int id){
+		int[] position = {-1,-1};
+		for(int i=0;i<largeur;i++){
+			for(int j=0;j<hauteur;j++){
+				if(grille.get(j).get(i).getId()==id){
+					position[0] = j;
+					position[1] = i;
+				}
+			}
+		}
+		return position;
+	}
+
+	/**
+	 * méthode mettant à jour l'id de la tuile sur laquelle on se centre en fonction de la direction qu'on donne
+	 * @param direction 0:haut 1:droite 2:bas 3:gauche
+	 * @return renvoie vrai si une tuile existe dans la direction donnée et donc que l'id de tuileCentree a été modifiée et faux sinon
+	 */
+	public boolean deplacer(int direction) throws BadDirectionException{
+		if(direction>=0&&direction<4){ 
+			int[] positionCourante = trouverTuile(tuileCentree);
+			TuileCarcassonne[] voisins = listVoisins(positionCourante[0],positionCourante[1]);
+			if(voisins[direction]!=null){
+				tuileCentree = voisins[direction].getId();
+				return true;
+			}
+			return false;
+		}
+		else{
+			throw new BadDirectionException("Direction non valide");
+		}
+	}
+
 
 	/**
 	 * Fonction de test, affiche la grille dans un état plus brut
@@ -345,5 +386,10 @@ public class PlateauCarcassonne extends Plateau {
 		System.out.print("]");
 	}
 
+	public class BadDirectionException extends RuntimeException{
+		BadDirectionException(String msg){
+			super(msg);
+		}
+	}
 
 }
