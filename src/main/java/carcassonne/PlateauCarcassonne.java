@@ -337,7 +337,7 @@ public class PlateauCarcassonne extends Plateau {
 		int[] position = {-1,-1};
 		for(int i=0;i<largeur;i++){
 			for(int j=0;j<hauteur;j++){
-				if(grille.get(j).get(i).getId()==id){
+				if(grille.get(j).get(i)!=null&&grille.get(j).get(i).getId()==id){
 					position[0] = j;
 					position[1] = i;
 				}
