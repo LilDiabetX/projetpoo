@@ -6,6 +6,9 @@ import java.awt.event.MouseEvent;
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.awt.Component;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,8 +73,13 @@ public class VueCarcassonne extends JFrame {
         
         turnLeft = new JButton(new ImageIcon("src/main/ressources/icones/gauche.png"));
         turnLeft.setSize(10, 10);
+        
         turnRight = new JButton(new ImageIcon("src/main/ressources/icones/droite.png"));
         turnRight.setSize(10, 10);
+
+
+        turnLeft.addActionListener((event) -> control.pivot(270));
+        turnRight.addActionListener((event) -> control.pivot(90));
 
         panneauBoutons.add(turnLeft);
         panneauBoutons.add(turnRight);
@@ -177,8 +185,33 @@ public class VueCarcassonne extends JFrame {
         BufferedImage img = model.getActuel().getTuile().getImage();
         previewImg.setIcon(new ImageIcon(img));
         
-        
     }
+
+    public void updatePivot(int angle) {
+        ImageIcon icon = ((ImageIcon) previewImg.getIcon());
+        BufferedImage img = ((BufferedImage) icon.getImage());
+
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(Math.toRadians(angle), img.getWidth()/2, img.getHeight()/2);
+
+        AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
+
+        img = op.filter(img, null);
+
+
+        /*Graphics2D g2d = img.createGraphics();
+
+        g2d.rotate(Math.toRadians(90), img.getWidth()/3, img.getHeight()/3);
+
+        g2d.drawImage(img, 0, 0, null);
+
+        g2d.dispose();*/
+
+
+        previewImg.setIcon(new ImageIcon(img));
+    }
+
+    
 
     
 
