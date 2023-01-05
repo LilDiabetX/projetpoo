@@ -200,10 +200,22 @@ public class VueCarcassonne extends JFrame {
      * met à jour l'image de preview des tuiles
      */
     public void updatePreview() {
-        
-        BufferedImage img = model.getActuel().getTuile().getImage();
-        previewImg.setIcon(new ImageIcon(img));
-        
+        if (model.getActuel().getTuile() != null) {
+            BufferedImage img = model.getActuel().getTuile().getImage();
+            previewImg.setIcon(new ImageIcon(img));
+        }
+    }
+
+    /**
+     * retire la tuile de preview
+     */
+    public void updateDefausse() {
+        try {
+            BufferedImage img = ImageIO.read(new File("src/main/ressources/icones/vide.png"));
+            previewImg.setIcon(new ImageIcon(img));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
     /**

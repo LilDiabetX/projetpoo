@@ -26,6 +26,8 @@ public class ControleurCarcassonne {
             vue.updatePioche(model.getSac().estVide());
         }
         else{
+            model.getActuel().defausser();
+            vue.updateDefausse();
             model.incrementeTour();
             piochee = false;
         }      
