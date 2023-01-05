@@ -345,5 +345,9 @@ public class PlateauCarcassonne extends Plateau {
 		System.out.print("]");
 	}
 
+	public TuileCarcassonne getGrille(int x, int y) {
+		return grille.get(x).get(y);
+	}
+
 
 }

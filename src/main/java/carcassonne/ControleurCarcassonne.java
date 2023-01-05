@@ -26,6 +26,7 @@ public class ControleurCarcassonne {
             vue.updatePioche(model.getSac().estVide());
         }
         else{
+            System.out.println("on défausse");
             model.getActuel().defausser();
             vue.updateDefausse();
             model.incrementeTour();
