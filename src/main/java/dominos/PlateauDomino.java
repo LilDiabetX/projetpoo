@@ -8,8 +8,6 @@ public class PlateauDomino extends Plateau {
 
 	private ArrayList<ArrayList<TuileDomino>> grille;
 
-	private int tuileCentree;
-
 	/**
 	 * Constructeur vide
 	 */
