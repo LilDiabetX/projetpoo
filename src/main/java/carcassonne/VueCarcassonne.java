@@ -26,8 +26,8 @@ import javax.swing.event.MouseInputListener;
 
 
 public class VueCarcassonne extends JFrame {
-    private ModelCarcassonne model = new ModelCarcassonne();
-    private ControleurCarcassonne control = new ControleurCarcassonne(model, this);
+    private ModelCarcassonne model;
+    private ControleurCarcassonne control;
 
     
     final int WIDTH = 800; //1430;
@@ -51,7 +51,9 @@ public class VueCarcassonne extends JFrame {
 
     
 
-    public VueCarcassonne() {
+    public VueCarcassonne(ModelCarcassonne model) {
+        this.model = model;
+        control = new ControleurCarcassonne(model, this);
         //Config de la fenêtre
         setTitle("Carcassonne™");
         setSize(WIDTH, HEIGHT);
@@ -223,6 +225,10 @@ public class VueCarcassonne extends JFrame {
 
 
         previewImg.setIcon(new ImageIcon(img));
+    }
+
+    public ControleurCarcassonne getController(){
+        return control;
     }
 
     

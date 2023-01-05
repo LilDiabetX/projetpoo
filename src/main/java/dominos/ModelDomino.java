@@ -47,7 +47,6 @@ public class ModelDomino extends Model {
         plateau = new PlateauDomino(sac.getSac(tourDeJeu));
         dernierePosition = sac.getSac(tourDeJeu).getId();
         super.tourDeJeu++;
-        actuel = tabJoueurs.get(0);
     }
 
     /**
@@ -72,6 +71,10 @@ public class ModelDomino extends Model {
      */
     public void piocher(JoueurDomino joueur) {
         joueur.setTuile(sac.getSac(tourDeJeu));
+    }
+
+    public void setActuel(int i){
+        actuel = tabJoueurs.get(i%tabJoueurs.size());
     }
 
     /**
