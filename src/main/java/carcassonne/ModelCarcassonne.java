@@ -25,13 +25,15 @@ public class ModelCarcassonne extends Model{
      */
     private SacCarcassonne sac;
 
+    
+
     public ModelCarcassonne() {
         tabJoueurs = new ArrayList<JoueurCarcassonne>();
         sac = new SacCarcassonne();
         plateau = new PlateauCarcassonne(sac.getSac(tourDeJeu));
         tabJoueurs.add(new JoueurCarcassonne(plateau, true));
         actuel = tabJoueurs.get(0);
-       tourDeJeu++;
+        tourDeJeu++;
     }
 
 
@@ -56,9 +58,9 @@ public class ModelCarcassonne extends Model{
      * @param joueur joueur qui pioche la tuile
      */
     public void piocher(JoueurCarcassonne joueur) {
-        tourDeJeu++;
-        joueur.setTuile(sac.getSac(tourDeJeu));
         
+        joueur.setTuile(sac.getSac(tourDeJeu));
+        tourDeJeu++;
         //System.out.println(joueur.getTuile().getImage()+"piocherModel");
     }
 
@@ -96,6 +98,10 @@ public class ModelCarcassonne extends Model{
 
     public void setSac(SacCarcassonne sac) {
         this.sac = sac;
+    }
+
+    public int tuilesRestantes() {
+        return sac.getTuilesRestantes();
     }
     
 }

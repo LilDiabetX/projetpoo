@@ -9,6 +9,8 @@ public class SacCarcassonne extends Sac {
      */
     private TuileCarcassonne[] sac;
 
+    private int tuilesRestantes;
+
     /**
      * Crée un nouveau sac de 72 tuiles fidèles au jeu de plateau carcassonne à l'exception des tuiles avec un bouclier qui ont été remplacées par leur équivalent sans bouclier et de quelques tuiles dont la représentation dans ce jeu aurait été identique
      */
@@ -80,6 +82,7 @@ public class SacCarcassonne extends Sac {
         sac[i] = new TuileCarcassonne(16);
         i++;
         melange();
+        tuilesRestantes = sac.length;
     }
 
     /**
@@ -111,6 +114,7 @@ public class SacCarcassonne extends Sac {
         if(i>=0&&i<sac.length){
             TuileCarcassonne temp = new TuileCarcassonne(sac[i]);
             sac[i] = null;
+            tuilesRestantes--;
 			return temp;
 		}
 		throw new InvalidIndexException("L'indice recherché n'est pas valide");
@@ -126,6 +130,10 @@ public class SacCarcassonne extends Sac {
             }
         }
         return true;
+    }
+
+    public int getTuilesRestantes() {
+        return tuilesRestantes;
     }
 
     private class InvalidIndexException extends RuntimeException{

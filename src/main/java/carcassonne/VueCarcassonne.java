@@ -30,8 +30,8 @@ public class VueCarcassonne extends JFrame {
     private ControleurCarcassonne control = new ControleurCarcassonne(model, this);
 
     
-    final int WIDTH = 800; //1430
-    final int HEIGHT = 800; //850
+    final int WIDTH = 800; //1430;
+    final int HEIGHT = 800; //850;
 
     JPanel pane; 
 
@@ -46,6 +46,7 @@ public class VueCarcassonne extends JFrame {
     JButton turnLeft;
 
     JLabel piocheImg;
+    JLabel piocheRestantes;
     JLabel previewImg;
 
     
@@ -62,7 +63,7 @@ public class VueCarcassonne extends JFrame {
         pane.setLayout(layout);
         panneauHUD = new JPanel(new GridLayout(1, 3));
         cadrePreview = new JPanel();
-        cadrePioche = new JPanel(new GridLayout(2, 1));
+        cadrePioche = new JPanel(new GridLayout(0, 1, 0, 0));
         panneauBoutons = new JPanel();
         panneauPlateau = new JPanel();
         
@@ -99,8 +100,10 @@ public class VueCarcassonne extends JFrame {
 
         piocheImg = new JLabel(new ImageIcon(img1));
         cadrePioche.add(piocheImg);
-        JLabel textePioche = new JLabel("PIOCHE", (int) CENTER_ALIGNMENT);
-        cadrePioche.add(textePioche);
+        //JLabel textePioche = new JLabel("PIOCHE", (int) CENTER_ALIGNMENT);
+        //cadrePioche.add(textePioche);
+        piocheRestantes = new JLabel("Tuile Restantes : "+model.tuilesRestantes(), (int) CENTER_ALIGNMENT);
+        cadrePioche.add(piocheRestantes);
         
         
         //Config du fonctionnement de la pioche
@@ -176,9 +179,20 @@ public class VueCarcassonne extends JFrame {
     }
 
     /**
+     * on diminue l'affichage des tuiles restantes
      * quand la pioche sera vide on enlève l'image de verso de carcassonne 
+     * @param fini est-ce que le sac est vide ?
      */
-    public void updatePioche() {
+    public void updatePioche(boolean fini) {
+        piocheRestantes.setText("Tuile Restantes : "+model.tuilesRestantes());
+        if (fini) {
+            try {
+            BufferedImage img = ImageIO.read(new File("src/main/ressources/icones/vide.png"));
+            piocheImg.setIcon(new ImageIcon(img));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         
     }
 

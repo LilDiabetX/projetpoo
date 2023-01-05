@@ -15,9 +15,13 @@ public class ControleurCarcassonne {
      * gère le tirage dans la pioche
      */
     void piocher() {
-        JoueurCarcassonne j = model.getActuel();
-        model.piocher(j);
-        vue.updatePreview();
+        if (!model.getSac().estVide()) {
+            JoueurCarcassonne j = model.getActuel();
+            model.piocher(j);
+            vue.updatePreview();
+            vue.updatePioche(model.getSac().estVide());
+        }
+        
     }
 
     /**
