@@ -32,6 +32,7 @@ public class PlateauDomino extends Plateau {
 		super.largeur = 1;
 		tuile.setPosee();
 		super.placees = 1;
+		tuileCentree = tuile.getId();
 	}
 	
 	public boolean placer(int x, int y, TuileDomino tuile){
@@ -595,7 +596,6 @@ public class PlateauDomino extends Plateau {
 	public boolean deplacer(int direction) throws TileNotPlacedException{
 		if(direction>=0&&direction<4){ 
 			int[] positionCourante = getXY(tuileCentree);
-			System.out.println(positionCourante[0]+", "+positionCourante[1]);
 			TuileDomino[] voisins = listVoisins(positionCourante[0],positionCourante[1]);
 			if(voisins[direction]!=null){
 				tuileCentree = voisins[direction].getId();
