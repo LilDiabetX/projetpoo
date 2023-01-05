@@ -1,6 +1,7 @@
 package carcassonne;
 
 import common.Joueur;
+import java.awt.Color;
 
 public class JoueurCarcassonne extends Joueur {
 
@@ -17,7 +18,12 @@ public class JoueurCarcassonne extends Joueur {
     /**
      * nombre de pion restants au joueurs
      */
-    int pions = 10;
+    private int pions = 10;
+
+    /**
+     * Couleur des pions du joueur
+     */
+    private Color couleur;
 
     /**
      * Constructeur
@@ -90,5 +96,20 @@ public class JoueurCarcassonne extends Joueur {
     }
 
 
+    /**
+     * définit la couleur des pions du joueur
+     * @param c couleur des pions
+     */
+    public void setCouleur(Color c){
+        couleur = c;
+    }
+
+    /**
+     * getter
+     * @return renvoie la couleur des pions du joueur
+     */
+    public Color getCouleur(){
+        return couleur;
+    }
 
 }
