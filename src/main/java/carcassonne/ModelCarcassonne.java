@@ -32,6 +32,7 @@ public class ModelCarcassonne extends Model{
         sac = new SacCarcassonne();
         plateau = new PlateauCarcassonne(sac.getSac(tourDeJeu));
         tabJoueurs.add(new JoueurCarcassonne(plateau, true));
+        tabJoueurs.add(new JoueurCarcassonne(plateau, true));
         actuel = tabJoueurs.get(0);
         tourDeJeu++;
     }
