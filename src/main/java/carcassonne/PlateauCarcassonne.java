@@ -390,6 +390,41 @@ public class PlateauCarcassonne extends Plateau {
 		return grille.get(x).get(y);
 	}
 
+	public TuileCarcassonne[][] sousTableau() {
+		TuileCarcassonne[][] sousTab = new TuileCarcassonne[5][5];
+		int[] xy = trouverTuile(tuileCentree);
+		int x = xy[0];
+		int y = xy[1];
+
+		for (int i = y+2; i >= y-2; i--) {
+			if (i > -1 || i < hauteur) {
+				sousTab[i] = sousLigne(i, x);
+			}
+		}
+		return sousTab;
+	}
+
+	/**
+	 * renvoie un tableau centré autour de l'élément d'abscisse x
+	 * @param i la ligne de l'élément
+	 * @param x son abscisse
+	 * @return
+	 */
+	public TuileCarcassonne[] sousLigne(int i, int x) {
+		TuileCarcassonne[] tab = new TuileCarcassonne[5];
+		
+		for (int j = x - 2; x <= x + 2; j++) {
+			TuileCarcassonne tuile = null;
+			try {
+				tuile = grille.get(i).get(j);
+			} catch (IndexOutOfBoundsException e) {
+				continue;
+			}
+			tab[j] = tuile;
+		}
+		return tab;
+	}
+
 	public class BadDirectionException extends RuntimeException{
 		BadDirectionException(String msg){
 			super(msg);

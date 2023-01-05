@@ -69,6 +69,7 @@ public class VueCarcassonne extends JFrame {
         cadrePreview = new JPanel(new GridLayout(0, 1));
         cadrePioche = new JPanel(new GridLayout(0, 1));
         panneauBoutons = new JPanel();
+        
         panneauPlateau = new PlateauVue(model.getPlateau());
         
         cadrePreview.setBackground(Color.GREEN);
@@ -84,6 +85,8 @@ public class VueCarcassonne extends JFrame {
         
         turnLeft.addActionListener((event) -> control.pivot(270));
         turnRight.addActionListener((event) -> control.pivot(90));
+
+        
 
         panneauBoutons.add(turnLeft);
         panneauBoutons.add(turnRight);

@@ -27,6 +27,7 @@ public class PlateauVue extends JPanel {
         }
         hauteur = pCarcassonne.getHauteur();
         largeur = pCarcassonne.getLargeur();
+        
     }
 
     

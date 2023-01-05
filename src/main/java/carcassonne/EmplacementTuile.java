@@ -28,7 +28,7 @@ public class EmplacementTuile extends JPanel implements MouseInputListener {
         this.xorigin = xorigin;
         this.yorigin = yorigin;
         setBorder(BorderFactory.createDashedBorder(Color.BLUE));
-        setBackground(Color.BLACK);
+        setBackground(Color.YELLOW);
         this.setPreferredSize(new Dimension(width, height));
     }
 

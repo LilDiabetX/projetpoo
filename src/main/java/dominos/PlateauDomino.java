@@ -369,14 +369,8 @@ public class PlateauDomino extends Plateau {
 	 * @param x le centre de l'affichage
 	 */
 	public void afficherPetiteLigne(int i, int x) {
-		boolean videGauche = false;
-		boolean videDroit = false;
-		if (x == 0) {
-			videGauche = true;
-		}
-		if (x == largeur - 1) {
-			videDroit = true;
-		}
+		boolean videGauche = x == 0;
+		boolean videDroit = x == largeur -1;
 
 		System.out.println();
 		for(int j=x-1;j<=x+1;j++){
