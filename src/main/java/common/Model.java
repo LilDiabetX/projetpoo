@@ -13,8 +13,4 @@ public abstract class Model {
      */
     protected int tourDeJeu = 0;
 
-    /**
-     * lance le jeu
-     */
-    public abstract void play();
 }

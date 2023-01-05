@@ -72,14 +72,6 @@ public class ModelCarcassonne extends Model{
         actuel = tabJoueurs.get(i%tabJoueurs.size());
     }
 
-
-    /**
-     * fonction qui lance et joue une partie de Carcassonne
-     */
-    public void play(){
-
-    }
-
     /**
      * fait passer au tour suivant
      */
