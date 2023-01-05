@@ -381,4 +381,13 @@ public class TuileCarcassonne extends Tuile{
         //System.out.println(this.image + " getter");
         return this.image;
     }
+
+    /**
+     * place un pion sur la tuile
+     * @param j joueur à qui appartient le pion
+     */
+    public void placerPion(JoueurCarcassonne j){
+        pion = true;
+        joueur = j;
+    }
 }

@@ -35,6 +35,17 @@ public class ControleurCarcassonne {
     }
 
     /**
+     * place un pion sur la tuile dans la main du joueur actuel
+     */
+    public void placerPion(){
+        if(model.getActuel().getTuile() != null && model.getActuel().getPions()>0){
+            model.getActuel().getTuile().placerPion(model.getActuel());
+            model.getActuel().placerPion();
+            vue.updatePion();
+        }
+    }
+
+    /**
      * gère la rotation de la tuile actuelle
      * @param angle à gauche ou à droite
      */
@@ -52,16 +63,9 @@ public class ControleurCarcassonne {
     }
 
 
-    public void placerPion() {
-        
-    }
-
     private class WrongDirectionGivenException extends RuntimeException {
         WrongDirectionGivenException(String msg) {
             super(msg);
         }
     }
-
-
-    
 }
