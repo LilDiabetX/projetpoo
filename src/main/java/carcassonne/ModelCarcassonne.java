@@ -2,6 +2,7 @@ package carcassonne;
 
 import common.Model;
 import java.util.ArrayList;
+import java.awt.Color;
 
 public class ModelCarcassonne extends Model{
     
@@ -71,12 +72,18 @@ public class ModelCarcassonne extends Model{
         //System.out.println(joueur.getTuile().getImage()+"piocherModel");
     }
 
-
     /**
-     * fonction qui lance et joue une partie de Carcassonne
+     * définit le joueur à la position i modulo le nombre de joueurs dans le tableau de joueurs comme le joueur actuel 
      */
-    public void play(){
+    public void setActuel(int i){
+        actuel = tabJoueurs.get(i%tabJoueurs.size());
+    }
 
+    public void setCouleurs(){
+        Color[] couleurs = {Color.BLUE,Color.RED,Color.GREEN,Color.YELLOW,Color.PINK};
+        for(int i = 0;i<tabJoueurs.size();i++){
+            tabJoueurs.get(i).setCouleur(couleurs[i]);
+        }
     }
 
     /**

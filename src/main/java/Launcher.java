@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Launcher {
     
     private ModelCarcassonne modelCarca;
+    private VueCarcassonne viewCarca;
+    private ControleurCarcassonne controllerCarca;
 
     private ModelDomino modelDom;
 
@@ -39,7 +41,7 @@ public class Launcher {
                 break;
 
                 case "carcassonne" :
-                modelCarca = new ModelCarcassonne(); // paramètre : new CarcassonneView
+                modelCarca = new ModelCarcassonne();
                 jeu = true;
                 break;
 
@@ -62,12 +64,23 @@ public class Launcher {
                     System.out.println("Veuillez entrer un entier supérieur à 1");
                 }
             }
-            if(nbJoueurs>1){
-                joueurs = true;
+            if(modelDom!=null){
+                if(nbJoueurs>1){
+                    joueurs = true;
+                }
+                else{
+                    System.out.println("Veuillez entrer un entier supérieur à 1");
+                    entier = false;
+                }
             }
             else{
-                System.out.println("Veuillez entrer un entier supérieur à 1");
-                entier = false;
+                if(nbJoueurs>1&&nbJoueurs<6){
+                    joueurs = true;
+                }
+                else{
+                    System.out.println("Veuillez entrer un entier supérieur à 1 et inférieur à 6");
+                    entier = false;
+                }
             }
         }
                 
@@ -105,10 +118,14 @@ public class Launcher {
         }
 
         if(modelDom!=null){
+            modelDom.setActuel(0);
             modelDom.play();
         }
         else{
-            modelCarca.play();
+            modelCarca.setActuel(0);
+            viewCarca = new VueCarcassonne(modelCarca);
+            controllerCarca = viewCarca.getController();
+            viewCarca.setVisible(true);
         }
     }
 
