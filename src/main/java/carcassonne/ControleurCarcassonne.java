@@ -28,8 +28,7 @@ public class ControleurCarcassonne {
         else{
             model.incrementeTour();
             piochee = false;
-        }
-        
+        }      
     }
 
     /**
@@ -46,8 +45,7 @@ public class ControleurCarcassonne {
                 throw new WrongDirectionGivenException("Erreur : l'angle "+angle+" n'est pas valide");
             }
             vue.updatePivot(angle);
-        }
-        
+        }   
     }
 
 

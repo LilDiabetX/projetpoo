@@ -66,9 +66,7 @@ public class ModelCarcassonne extends Model{
      * @param joueur joueur qui pioche la tuile
      */
     public void piocher(JoueurCarcassonne joueur) {
-        if(sac.getTuilesRestantes()>0){
-            joueur.setTuile(sac.getSac(tourDeJeu));
-        }
+        joueur.setTuile(sac.getSac(tourDeJeu));
         //System.out.println(joueur.getTuile().getImage()+"piocherModel");
     }
 
