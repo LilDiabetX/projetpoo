@@ -8,6 +8,8 @@ public class PlateauDomino extends Plateau {
 
 	private ArrayList<ArrayList<TuileDomino>> grille;
 
+	private int tuileCentree;
+
 	/**
 	 * Constructeur vide
 	 */
@@ -30,6 +32,7 @@ public class PlateauDomino extends Plateau {
 		super.largeur = 1;
 		tuile.setPosee();
 		super.placees = 1;
+		tuileCentree = tuile.getId();
 	}
 	
 	public boolean placer(int x, int y, TuileDomino tuile){
@@ -583,6 +586,30 @@ public class PlateauDomino extends Plateau {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * méthode mettant à jour l'id de la tuile sur laquelle on se centre en fonction de la direction qu'on donne
+	 * @param direction 0:haut 1:droite 2:bas 3:gauche
+	 * @return renvoie vrai si une tuile existe dans la direction donnée et donc que l'id de tuileCentree a été modifiée et faux sinon
+	 */
+	public boolean deplacer(int direction) throws TileNotPlacedException{
+		if(direction>=0&&direction<4){ 
+			int[] positionCourante = getXY(tuileCentree);
+			TuileDomino[] voisins = listVoisins(positionCourante[0],positionCourante[1]);
+			if(voisins[direction]!=null){
+				tuileCentree = voisins[direction].getId();
+				return true;
+			}
+			return false;
+		}
+		else{
+			throw new TileNotPlacedException("Direction non valide");
+		}
+	}
+
+	public int getCentree(){
+		return tuileCentree;
 	}
 
 	/**
