@@ -29,6 +29,7 @@ public class VueCarcassonne extends JFrame {
     private ModelCarcassonne model = new ModelCarcassonne();
     private ControleurCarcassonne control = new ControleurCarcassonne(model, this);
 
+    
     final int WIDTH = 800; //1430
     final int HEIGHT = 800; //850
 
@@ -50,11 +51,12 @@ public class VueCarcassonne extends JFrame {
     
 
     public VueCarcassonne() {
-    
+        //Config de la fenêtre
         setTitle("Carcassonne™");
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        //Config des panneaux
         pane = new JPanel();
         GroupLayout layout = new GroupLayout(pane);
         pane.setLayout(layout);
@@ -64,20 +66,17 @@ public class VueCarcassonne extends JFrame {
         panneauBoutons = new JPanel();
         panneauPlateau = new JPanel();
         
-
-
-        
         cadrePreview.setBackground(Color.GREEN);
 
         cadrePioche.setBackground(Color.RED);
         
+        //config des boutons de pivot
         turnLeft = new JButton(new ImageIcon("src/main/ressources/icones/gauche.png"));
         turnLeft.setSize(10, 10);
         
         turnRight = new JButton(new ImageIcon("src/main/ressources/icones/droite.png"));
         turnRight.setSize(10, 10);
-
-
+        
         turnLeft.addActionListener((event) -> control.pivot(270));
         turnRight.addActionListener((event) -> control.pivot(90));
 
@@ -86,6 +85,7 @@ public class VueCarcassonne extends JFrame {
 
         panneauBoutons.setBackground(Color.BLUE);
 
+        //Config des images pour la pioche et l'emplacement de la preview de la tuile
         BufferedImage img1 = null;
         BufferedImage imgCarre = null;
         try {
@@ -103,49 +103,48 @@ public class VueCarcassonne extends JFrame {
         cadrePioche.add(textePioche);
         
         
-        
+        //Config du fonctionnement de la pioche
         piocheImg.addMouseListener(
             new MouseInputListener() {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     control.piocher();
-                    
                 }
 
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    // TODO Auto-generated method stub
+                    // Pas utilisé
                     
                 }
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    // TODO Auto-generated method stub
+                    // Pas utilisé
                     
                 }
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    // TODO Auto-generated method stub
+                    //Pas utilisé
                     
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    // TODO Auto-generated method stub
+                    // Pas utilisé
                     
                 }
 
                 @Override
                 public void mouseDragged(MouseEvent e) {
-                    // TODO Auto-generated method stub
+                    // Pas utilisé
                     
                 }
 
                 @Override
                 public void mouseMoved(MouseEvent e) {
-                    // TODO Auto-generated method stub
+                    // Pas utilisé
                     
                 }
                 
@@ -154,7 +153,7 @@ public class VueCarcassonne extends JFrame {
         
         
 
-
+        //ajout des différents éléments aux panneaux
 
         panneauHUD.add(cadrePreview);
         panneauHUD.add(panneauBoutons);
@@ -176,10 +175,16 @@ public class VueCarcassonne extends JFrame {
 
     }
 
+    /**
+     * quand la pioche sera vide on enlève l'image de verso de carcassonne 
+     */
     public void updatePioche() {
         
     }
 
+    /**
+     * met à jour l'image de preview des tuiles
+     */
     public void updatePreview() {
         
         BufferedImage img = model.getActuel().getTuile().getImage();
@@ -187,6 +192,10 @@ public class VueCarcassonne extends JFrame {
         
     }
 
+    /**
+     * met à jour l'orientation de la tuile en preview
+     * @param angle à gauche ou à droite
+     */
     public void updatePivot(int angle) {
         ImageIcon icon = ((ImageIcon) previewImg.getIcon());
         BufferedImage img = ((BufferedImage) icon.getImage());
@@ -197,15 +206,6 @@ public class VueCarcassonne extends JFrame {
         AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
 
         img = op.filter(img, null);
-
-
-        /*Graphics2D g2d = img.createGraphics();
-
-        g2d.rotate(Math.toRadians(90), img.getWidth()/3, img.getHeight()/3);
-
-        g2d.drawImage(img, 0, 0, null);
-
-        g2d.dispose();*/
 
 
         previewImg.setIcon(new ImageIcon(img));

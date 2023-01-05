@@ -11,13 +11,19 @@ public class ControleurCarcassonne {
         this.vue = vue;
     }
 
+    /**
+     * gère le tirage dans la pioche
+     */
     void piocher() {
         JoueurCarcassonne j = model.getActuel();
         model.piocher(j);
-        //System.out.println("ControleurPiocher : "+j.getTuile().getImage());
         vue.updatePreview();
     }
 
+    /**
+     * gère la rotation de la tuile actuelle
+     * @param angle à gauche ou à droite
+     */
     public void pivot(int angle) {
         if (model.getActuel().getTuile() != null) {
             if (angle == 270) {

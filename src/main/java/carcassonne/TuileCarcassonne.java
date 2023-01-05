@@ -62,7 +62,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = true;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/0.png"));//System.out.println(image);
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/0.png"));
                 break;
 
                 case 1:
@@ -83,7 +83,7 @@ public class TuileCarcassonne extends Tuile{
                 abbaye = false;
                 id = nbTuiles;
                 nbTuiles++;
-                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/2.png"));//System.out.println(image + " 1");
+                image = ImageIO.read(new File("src/main/ressources/imagesTuilesCarca/2.png"));
                 break;
 
                 case 3:

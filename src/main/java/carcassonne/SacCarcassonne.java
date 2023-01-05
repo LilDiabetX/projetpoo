@@ -16,7 +16,7 @@ public class SacCarcassonne extends Sac {
         int i = 0;
         sac = new TuileCarcassonne[72];
         for(int j=0;j<4;j++){
-            sac[i] = new TuileCarcassonne(2);
+            sac[i] = new TuileCarcassonne(2); //la tuile de base dans carcassonne est de type 2 donc on met celles-ci en premier
             i++;
         }
         for(int j=0;j<2;j++){
@@ -88,7 +88,7 @@ public class SacCarcassonne extends Sac {
     public void melange(){
         Random rand = new Random();
 
-		for(int i=1;i<sac.length;i++){
+		for(int i=1;i<sac.length;i++){ //on ne mélange pas la première tuile avec le reste
 			int randomIndexSwap = rand.nextInt(sac.length);
 			TuileCarcassonne temp = new TuileCarcassonne(sac[randomIndexSwap]);
 			sac[randomIndexSwap] = new TuileCarcassonne(sac[i]);
