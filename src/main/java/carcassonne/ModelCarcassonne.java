@@ -26,7 +26,7 @@ public class ModelCarcassonne extends Model{
      */
     private SacCarcassonne sac;
 
-    private int toursAbandonnes;
+    
 
     
 

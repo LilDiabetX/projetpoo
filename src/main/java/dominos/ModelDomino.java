@@ -35,7 +35,6 @@ public class ModelDomino extends Model {
      */
     private int dernierePosition;
 
-    private int toursAbandonnes;
 
     // TODO ajouter un attribut View (potentiellement null si on veut jouer mode textuel)
 
