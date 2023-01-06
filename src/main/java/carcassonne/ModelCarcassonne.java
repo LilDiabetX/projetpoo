@@ -31,9 +31,7 @@ public class ModelCarcassonne extends Model{
     public ModelCarcassonne() {
         tabJoueurs = new ArrayList<JoueurCarcassonne>();
         sac = new SacCarcassonne();
-        plateau = new PlateauCarcassonne(sac.getSac(0));
-        
-        
+        plateau = new PlateauCarcassonne(sac.getSac(0)); 
     }
 
 
@@ -94,15 +92,11 @@ public class ModelCarcassonne extends Model{
      */
     public void incrementeTour(){
         tourDeJeu++;
-        int i = tourDeJeu;
-        i = i % tabJoueurs.size();
-        while (tabJoueurs.get(i).getAbandon()) {
-            
-            i = i % tabJoueurs.size();
+        int i = tourDeJeu % tabJoueurs.size();
+        while(tabJoueurs.get(i).getAbandon()){
             i++;
         }
-        
-        setActuel(tabJoueurs.get(i));
+        actuel = tabJoueurs.get(i);
     }
 
     public JoueurCarcassonne getActuel() {
@@ -145,7 +139,6 @@ public class ModelCarcassonne extends Model{
 
     public void abandonner() {
         actuel.abandonner();
-        tabJoueurs.remove(actuel);
         tourDeJeu++;
     }
     
