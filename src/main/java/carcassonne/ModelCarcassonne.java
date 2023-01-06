@@ -26,6 +26,8 @@ public class ModelCarcassonne extends Model{
      */
     private SacCarcassonne sac;
 
+    private int toursAbandonnes;
+
     
 
     public ModelCarcassonne() {
@@ -69,7 +71,7 @@ public class ModelCarcassonne extends Model{
      * @param joueur joueur qui pioche la tuile
      */
     public void piocher(JoueurCarcassonne joueur) {
-        joueur.setTuile(sac.getSac(tourDeJeu + 1));
+        joueur.setTuile(sac.getSac(tourDeJeu + 1 - toursAbandonnes));
     }
 
     /**
@@ -94,9 +96,10 @@ public class ModelCarcassonne extends Model{
         tourDeJeu++;
         int i = tourDeJeu % tabJoueurs.size();
         while(tabJoueurs.get(i).getAbandon()){
-            i++;
+            tourDeJeu++;
+            toursAbandonnes++;
         }
-        actuel = tabJoueurs.get(i);
+        actuel = tabJoueurs.get(tourDeJeu);
         System.out.println(actuel.getNum()+ " num actuel");
     }
 
