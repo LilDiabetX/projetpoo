@@ -97,6 +97,7 @@ public class ModelCarcassonne extends Model{
             i++;
         }
         actuel = tabJoueurs.get(i);
+        System.out.println(actuel.getNum()+ " num actuel");
     }
 
     public JoueurCarcassonne getActuel() {

@@ -264,7 +264,6 @@ public class VueCarcassonne extends JFrame {
         if (model.getActuel().getTuile() != null) {
             BufferedImage img = model.getActuel().getTuile().getImage();
             previewImg.setIcon(new ImageIcon(img));
-            //joueurActuel.setText("Joueur "+model.getActuel().getNum());
             turnLeft.setEnabled(true);
             turnRight.setEnabled(true);
             meepleButton.setEnabled(true);
@@ -278,7 +277,7 @@ public class VueCarcassonne extends JFrame {
         try {
             BufferedImage img = ImageIO.read(new File("src/main/ressources/icones/vide.png"));
             previewImg.setIcon(new ImageIcon(img));
-            joueurActuel.setText("Joueur "+model.getActuel().getNum());
+            updateActuel();
             turnLeft.setEnabled(false);
             turnRight.setEnabled(false);
             meepleButton.setEnabled(false);
@@ -324,6 +323,10 @@ public class VueCarcassonne extends JFrame {
     public void updatePlateau(TuileCarcassonne[][] tab) {
         panneauPlateau.updatePlateau(tab, model.getPlateau());
         
+    }
+
+    public void updateActuel() {
+        joueurActuel.setText("Joueur "+model.getActuel().getNum());
     }
 
     public ControleurCarcassonne getController(){

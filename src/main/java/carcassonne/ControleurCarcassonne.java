@@ -100,6 +100,7 @@ public class ControleurCarcassonne {
             vue.updatePlateau(model.getPlateau().sousTableau());
             vue.updateDefausse();
             model.incrementeTour();
+            vue.updateActuel();
             //model.setActuel();
             piochee = false;
         }
