@@ -23,6 +23,7 @@ public class ControleurCarcassonne {
      */
     void piocher() {
         if (!model.getSac().estVide()&&!piochee) {
+            System.out.println("tuile centree "+model.getPlateau().getTuileCentree());
             JoueurCarcassonne j = model.getActuel();
             model.piocher(j);
             System.out.println("tuile main "+model.getActuel().getTuile().getId());
@@ -35,7 +36,7 @@ public class ControleurCarcassonne {
                 model.getActuel().getTuile().setImage(img);
                 vue.updatePlateau(model.getPlateau().sousTableau());
                 model.incrementeTour();
-                model.setActuel(model.getTour()-1);
+                //model.setActuel();
                 piochee = false;
             }
             else if(!j.getHumain()){
@@ -54,7 +55,6 @@ public class ControleurCarcassonne {
 
     public void defausser() {
         model.getActuel().defausser();
-        
         model.incrementeTour();
         vue.updateDefausse();
         piochee = false;
@@ -92,13 +92,15 @@ public class ControleurCarcassonne {
     }
 
     public void placerTuile(int x, int y) {
+        System.out.println("x : "+x+"     y : "+y);
+        //System.out.println("tuile centree "+model.getPlateau().getTuileCentree());
         if (piochee && model.getActuel().placerTuile(x, y)) {
             BufferedImage img = ((BufferedImage) ((ImageIcon) vue.previewImg.getIcon()).getImage());
             model.getActuel().getTuile().setImage(img);
             vue.updatePlateau(model.getPlateau().sousTableau());
             vue.updateDefausse();
             model.incrementeTour();
-            //model.setActuel(model.getTour());
+            //model.setActuel();
             piochee = false;
         }
         
@@ -110,6 +112,7 @@ public class ControleurCarcassonne {
 
         vue.updatePlateau(model.getPlateau().sousTableau());
     }
+
 
     public void abandonner() {
         model.abandonner();
@@ -131,6 +134,4 @@ public class ControleurCarcassonne {
             super(msg);
         }
     }
-
-    
 }
