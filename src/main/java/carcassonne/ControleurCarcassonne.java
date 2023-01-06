@@ -25,9 +25,24 @@ public class ControleurCarcassonne {
         if (!model.getSac().estVide()&&!piochee) {
             JoueurCarcassonne j = model.getActuel();
             model.piocher(j);
+            System.out.println("tuile main "+model.getActuel().getTuile().getId());
+            System.out.println(j.getHumain());
             piochee = true;
             vue.updatePreview();
             vue.updatePioche(model.getSac().estVide());
+            if(!j.getHumain()&&j.placerIA()){
+                BufferedImage img = ((BufferedImage) ((ImageIcon) vue.previewImg.getIcon()).getImage());
+                model.getActuel().getTuile().setImage(img);
+                vue.updatePlateau(model.getPlateau().sousTableau());
+                model.incrementeTour();
+                model.setActuel(model.getTour()-1);
+                piochee = false;
+            }
+            else if(!j.getHumain()){
+                j.getTuile().afficher();
+                j.defausser();
+                System.out.println("tuile de l'IA défaussée");
+            }
         }
         else{ //on clique pour defausser
             defausser();

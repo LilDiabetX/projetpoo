@@ -122,8 +122,7 @@ public class Launcher {
             modelDom.play();
         }
         else{
-            modelCarca.setActuel(modelCarca.getTabJoueur().get(0));
-            modelCarca.setCouleursEtNum();
+            modelCarca.start();
             viewCarca = new VueCarcassonne(modelCarca);
             controllerCarca = viewCarca.getController();
             viewCarca.setVisible(true);

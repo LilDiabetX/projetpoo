@@ -45,6 +45,11 @@ public class ModelCarcassonne extends Model{
         return tabJoueurs;
     }
 
+    public void start(){
+        actuel = tabJoueurs.get(0);
+        setCouleursEtNum();
+    }
+
     /**
      * getter
      * @return renvoie le plateau de jeu
