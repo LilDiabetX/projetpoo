@@ -93,6 +93,7 @@ public class ControleurCarcassonne {
 
     public void seDeplacer(int n) {
         model.getPlateau().deplacer(n);
+
         vue.updatePlateau(model.getPlateau().sousTableau());
     }
 
@@ -114,6 +115,20 @@ public class ControleurCarcassonne {
     private class WrongDirectionGivenException extends RuntimeException {
         WrongDirectionGivenException(String msg) {
             super(msg);
+        }
+    }
+
+    //A SUPP
+    public void printTab(TuileCarcassonne[][] tab) {
+        for (int i = 0; i <  tab.length; i++) {
+            for (int j = 0; j < tab[i].length; j++) {
+                if (tab[i][j] != null) {
+                    System.out.print(" "+tab[i][j].getId());
+                } else {
+                    System.out.print(" "+tab[i][j]);
+                }
+            }
+            System.out.println();
         }
     }
 }
