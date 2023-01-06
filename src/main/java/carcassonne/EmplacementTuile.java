@@ -1,17 +1,15 @@
 package carcassonne;
 
 import java.awt.Color;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.event.MouseInputListener;
 
 public class EmplacementTuile extends JPanel {
     private int width = 100;
@@ -42,14 +40,25 @@ public class EmplacementTuile extends JPanel {
         setBorder(BorderFactory.createDashedBorder(Color.BLUE));
         setBackground(Color.WHITE);
         this.setPreferredSize(new Dimension(width, height));
+        setLayout(new BorderLayout());
     }
 
     public void fill(BufferedImage img) {
         Image img2 = img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        this.add(new JLabel(new ImageIcon(img2)), BorderLayout.WEST);
+        
+        /*int w = img.getWidth(this);
+        int h = img.getHeight(this);
+
+        this.add(new JLabel(new ImageIcon(img)));
+        /* 
+        Image img2 = img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
         ImageIcon resizedIcon = new ImageIcon(img2);
         JLabel label = new JLabel(resizedIcon);
-        label.setAlignmentX(0.0f);
+        label.setHorizontalAlignment(JLabel.CENTER);
         this.add(label);
+        */
+        
         occupe = true;
     }
     
