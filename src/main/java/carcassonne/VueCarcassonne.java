@@ -321,7 +321,7 @@ public class VueCarcassonne extends JFrame {
 
     public void updatePlateau(TuileCarcassonne[][] tab) {
         panneauPlateau.updatePlateau(tab, model.getPlateau());
-        updateDefausse();
+        
     }
 
     public ControleurCarcassonne getController(){

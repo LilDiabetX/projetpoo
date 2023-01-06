@@ -83,9 +83,11 @@ public class ControleurCarcassonne {
             BufferedImage img = ((BufferedImage) ((ImageIcon) vue.previewImg.getIcon()).getImage());
             model.getActuel().getTuile().setImage(img);
             vue.updatePlateau(model.getPlateau().sousTableau());
+            vue.updateDefausse();
             model.incrementeTour();
             model.setActuel(model.getTour());
             piochee = false;
+            
         }
         
 
