@@ -129,14 +129,13 @@ public class VueCarcassonne extends JFrame {
         turnRight.setEnabled(false);
 
         meepleButton = new JButton(new ImageIcon("src/main/ressources/icones/pionCarcassonne.png")); 
-
         meepleButton.addActionListener((event) -> control.placerPion());
-
         meepleButton.setEnabled(false);
 
 
         abandonButton = new JButton("Abandonner");
         abandonButton.addActionListener((event) -> control.abandonner());
+        abandonButton.setEnabled(false);
 
         panneauBoutons.add(turnLeft);
         panneauBoutons.add(turnRight);
@@ -267,6 +266,7 @@ public class VueCarcassonne extends JFrame {
             turnLeft.setEnabled(true);
             turnRight.setEnabled(true);
             meepleButton.setEnabled(true);
+            abandonButton.setEnabled(true);
         }
     }
 
@@ -281,6 +281,7 @@ public class VueCarcassonne extends JFrame {
             turnLeft.setEnabled(false);
             turnRight.setEnabled(false);
             meepleButton.setEnabled(false);
+            abandonButton.setEnabled(false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
