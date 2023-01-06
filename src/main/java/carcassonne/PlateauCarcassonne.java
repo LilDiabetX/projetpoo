@@ -339,7 +339,7 @@ public class PlateauCarcassonne extends Plateau {
 		int[] position = {-1,-1};
 		for(int i=0;i<hauteur;i++){
 			for(int j=0;j<largeur;j++){
-				if(grille.get(i).get(j)!=null&&grille.get(i).get(j).getId()==id){
+				if(grille.get(i).get(j)!=null && grille.get(i).get(j).getId()==id){
 					position[0] = j;
 					position[1] = i;
 				}
@@ -412,6 +412,7 @@ public class PlateauCarcassonne extends Plateau {
 		int[] xy = trouverTuile(tuileCentree);
 		int x = xy[0];
 		int y = xy[1];
+		System.out.println("Coordonnées absolues tuile centree : "+x+", "+y);
 		int a = 0;
 		for (int i = y+2; i >= y-2; i--) {
 			if (i > -1 && i < hauteur) {
