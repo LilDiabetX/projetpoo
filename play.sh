@@ -12,7 +12,7 @@ run (){
     echo "Executing..."
 
     
-    java -cp bin/ carcassonne/TestVueCarcassonne
+    java -cp bin/ Launcher
     
 }
 
