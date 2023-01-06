@@ -184,6 +184,7 @@ public class PlateauCarcassonne extends Plateau {
 	 * @return renvoie vrai si la tuile a été placée et faux sinon
 	 */
 	public boolean placableIA(TuileCarcassonne t){ 
+		agrandir(true,true,true,true);
 		for(int i=0;i<largeur;i++){
 			for(int j=0;j<hauteur;j++){
 				//on crée une liste contenant les voisins de la position voulue
