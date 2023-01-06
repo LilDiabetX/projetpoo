@@ -3,7 +3,7 @@ package carcassonne;
 
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
-import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
@@ -15,7 +15,8 @@ public class PlateauVue extends JPanel {
 
     public PlateauVue(ControleurCarcassonne control, TuileCarcassonne[][] tab, PlateauCarcassonne pCarcassonne) {
         this.control = control;
-        GridLayout grid = new GridLayout(5, 5, 1, 1);
+        //GridLayout grid = new GridLayout(5, 5, 1, 1);
+        FlowLayout grid = new FlowLayout();
         grid.setVgap(0);
         setLayout(grid);
         updatePlateau(tab, pCarcassonne);
