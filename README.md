@@ -1,0 +1,1 @@
+Pour lancer le jeu, entrer simplement la commande ./play.sh et laissez-vous guider.
