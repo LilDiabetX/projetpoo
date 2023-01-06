@@ -1,5 +1,9 @@
 package carcassonne;
 
+import java.awt.image.BufferedImage;
+
+import javax.swing.ImageIcon;
+
 public class ControleurCarcassonne {
     
     private ModelCarcassonne model;
@@ -76,6 +80,8 @@ public class ControleurCarcassonne {
         System.out.println("x : "+x+"     y : "+y);
         //System.out.println("tuile centree "+model.getPlateau().getTuileCentree());
         if (piochee && model.getActuel().placerTuile(x, y)) {
+            BufferedImage img = ((BufferedImage) ((ImageIcon) vue.previewImg.getIcon()).getImage());
+            model.getActuel().getTuile().setImage(img);
             vue.updatePlateau(model.getPlateau().sousTableau());
             model.incrementeTour();
             model.setActuel(model.getTour());

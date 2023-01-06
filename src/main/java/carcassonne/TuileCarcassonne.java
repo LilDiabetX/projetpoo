@@ -383,6 +383,10 @@ public class TuileCarcassonne extends Tuile{
         return this.image;
     }
 
+    public void setImage(BufferedImage img) {
+        this.image = img;
+    }
+    
     /**
      * place un pion sur la tuile
      * @param j joueur à qui appartient le pion
