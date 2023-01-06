@@ -9,6 +9,8 @@ public class PlateauCarcassonne extends Plateau {
 
 	private int tuileCentree;
 
+	private int xRelatif, yRelatif;
+
 	/**
 	 * Constructeur vide
 	 */
@@ -335,9 +337,9 @@ public class PlateauCarcassonne extends Plateau {
 	 */
 	public int[] trouverTuile(int id){
 		int[] position = {-1,-1};
-		for(int i=0;i<largeur;i++){
-			for(int j=0;j<hauteur;j++){
-				if(grille.get(j).get(i).getId()==id){
+		for(int i=0;i<hauteur;i++){
+			for(int j=0;j<largeur;j++){
+				if(grille.get(i).get(j)!=null&&grille.get(i).get(j).getId()==id){
 					position[0] = j;
 					position[1] = i;
 				}
@@ -357,6 +359,21 @@ public class PlateauCarcassonne extends Plateau {
 			TuileCarcassonne[] voisins = listVoisins(positionCourante[0],positionCourante[1]);
 			if(voisins[direction]!=null){
 				tuileCentree = voisins[direction].getId();
+				switch(direction){
+					case 0:
+					yRelatif++;
+					break;
+
+					case 1:
+					xRelatif++;
+					break;
+
+					case 2:
+					yRelatif--;
+
+					case 3:
+					xRelatif--;
+				}
 				return true;
 			}
 			return false;
@@ -422,6 +439,26 @@ public class PlateauCarcassonne extends Plateau {
 			b++;
 		}
 		return tab;
+	}
+
+	/**
+	 * getter
+	 * @return renvoie la position relative à la tuile de départ en x de la tuile sur laquelle on est centré
+	 */
+	public int getXRelatif(){
+		return xRelatif;
+	}
+
+	/**
+	 * getter
+	 * @return renvoie la position relative à la tuile de départ en y de la tuile sur laquelle on est centré
+	 */
+	public int getYRelatif(){
+		return yRelatif;
+	}
+
+	public int getTuileCentree(){
+		return tuileCentree;
 	}
 
 	public class BadDirectionException extends RuntimeException{

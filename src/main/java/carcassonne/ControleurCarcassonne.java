@@ -19,6 +19,7 @@ public class ControleurCarcassonne {
      */
     void piocher() {
         if (!model.getSac().estVide()&&!piochee) {
+            System.out.println("tuile centree "+model.getPlateau().getTuileCentree());
             JoueurCarcassonne j = model.getActuel();
             model.piocher(j);
             piochee = true;
@@ -72,6 +73,7 @@ public class ControleurCarcassonne {
 
     public void placerTuile(int x, int y) {
         System.out.println("x : "+x+"     y : "+y);
+        //System.out.println("tuile centree "+model.getPlateau().getTuileCentree());
         if (piochee && model.getActuel().placerTuile(x, y)) {
             vue.updatePlateau(model.getPlateau().sousTableau());
             model.incrementeTour();
