@@ -94,12 +94,11 @@ public class ModelCarcassonne extends Model{
      */
     public void incrementeTour(){
         tourDeJeu++;
-        int i = tourDeJeu % tabJoueurs.size();
-        while(tabJoueurs.get(i).getAbandon()){
-            tourDeJeu++;
+        actuel = tabJoueurs.get(tourDeJeu%tabJoueurs.size());
+        if(actuel.getAbandon()){
             toursAbandonnes++;
+            incrementeTour();
         }
-        actuel = tabJoueurs.get(tourDeJeu);
         System.out.println(actuel.getNum()+ " num actuel");
     }
 
@@ -143,7 +142,11 @@ public class ModelCarcassonne extends Model{
 
     public void abandonner() {
         actuel.abandonner();
-        tourDeJeu++;
+        incrementeTour();
+    }
+
+    public void decrementeTour(){
+        tourDeJeu--;
     }
     
 }

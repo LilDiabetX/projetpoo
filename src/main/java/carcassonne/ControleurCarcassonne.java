@@ -46,16 +46,18 @@ public class ControleurCarcassonne {
             }
         }
         else{ //on clique pour defausser
-            defausser();
+            defausser(true);
             if (model.getSac().estVide()) {
                 finDePartie();
             }
         }      
     }
 
-    public void defausser() {
+    public void defausser(boolean increment) {
         model.getActuel().defausser();
-        model.incrementeTour();
+        if(increment){
+            model.incrementeTour();
+        }
         vue.updateDefausse();
         piochee = false;
         if (model.getSac().estVide()) {
@@ -117,7 +119,7 @@ public class ControleurCarcassonne {
 
     public void abandonner() {
         model.abandonner();
-        defausser();
+        defausser(false);
         if (model.joueursRestants() < 2) {
             finDePartie();
         }
