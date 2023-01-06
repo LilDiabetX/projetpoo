@@ -5,9 +5,16 @@ import common.Tuile;
 
 public class TuileDomino extends Tuile{
 
+	/**
+	 * nombre total de tuiles
+	 */
 	private static int nbTuiles = 0;
+	/**
+	 * identifiant de la tuile
+	 */
 	private int id;
 
+	// cotés de la tuile
 	private CoteDomino nord;
 	private CoteDomino est;
 	private CoteDomino sud;

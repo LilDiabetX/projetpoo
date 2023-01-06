@@ -36,13 +36,11 @@ public class ModelDomino extends Model {
     private int dernierePosition;
 
 
-    // TODO ajouter un attribut View (potentiellement null si on veut jouer mode textuel)
-
     /**
      * Constructeur
      * @param n le nombre de joueurs
      */
-    public ModelDomino() { // TODO ajouter un paramètre View
+    public ModelDomino() { 
         tabJoueurs = new ArrayList<JoueurDomino>();
         sac = new SacDomino();
         plateau = new PlateauDomino(sac.getSac(tourDeJeu));
@@ -74,6 +72,10 @@ public class ModelDomino extends Model {
         joueur.setTuile(sac.getSac(tourDeJeu-toursAbandonnes));
     }
 
+    /**
+     * setter
+     * @param i définit le joueur à l'indice i modulo le nombre de joueurs comme le joueur actuel
+     */
     public void setActuel(int i){
         actuel = tabJoueurs.get(i%tabJoueurs.size());
     }

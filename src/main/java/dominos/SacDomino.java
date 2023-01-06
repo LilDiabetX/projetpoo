@@ -5,6 +5,9 @@ import common.Sac;
 
 public class SacDomino extends Sac{
 	
+	/**
+	 * sac de tuiles
+	 */
 	private TuileDomino[] sac;
 
 	/**
