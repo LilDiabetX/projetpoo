@@ -569,6 +569,11 @@ public class PlateauDomino extends Plateau {
 		System.out.print("]");
 	}
 
+	/**
+	 * vérifie si la tuile d'id id a été placée
+	 * @param id
+	 * @return true si oui, false sinon
+	 */
 	public boolean placee(int id){
 		for(int i=0;i<hauteur;i++){
 			for(int j=0;j<largeur;j++){

@@ -325,6 +325,9 @@ public class TuileCarcassonne extends Tuile{
         joueur = j;
     }
 
+    /**
+     * affiche la tuile
+     */
 	public void afficher(){
         for(int i=0; i<cotes.length;i++){
             System.out.println(cotes[i].getCote());

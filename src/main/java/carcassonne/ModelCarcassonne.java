@@ -81,6 +81,9 @@ public class ModelCarcassonne extends Model{
         actuel = tabJoueurs.get(i%tabJoueurs.size());
     }
 
+    /**
+     * definit les couleurs et numéro de chaque joueur
+     */
     public void setCouleursEtNum(){
         Color[] couleurs = {Color.BLUE,Color.RED,Color.GREEN,Color.YELLOW,Color.PINK};
         for(int i = 0;i<tabJoueurs.size();i++){
@@ -99,7 +102,6 @@ public class ModelCarcassonne extends Model{
             toursAbandonnes++;
             incrementeTour();
         }
-        System.out.println(actuel.getNum()+ " num actuel");
     }
 
     public JoueurCarcassonne getActuel() {
@@ -130,6 +132,9 @@ public class ModelCarcassonne extends Model{
         return sac.getTuilesRestantes();
     }
 
+    /**
+     * @return le nombre de joueurs qui n'ont pas abandonnés
+     */
     public int joueursRestants() {
         int sum = 0;
         for (JoueurCarcassonne j : tabJoueurs) {
@@ -140,6 +145,9 @@ public class ModelCarcassonne extends Model{
         return sum;
     }
 
+    /**
+     * abandonne
+     */
     public void abandonner() {
         actuel.abandonner();
         incrementeTour();

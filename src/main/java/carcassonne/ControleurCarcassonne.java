@@ -23,11 +23,8 @@ public class ControleurCarcassonne {
      */
     void piocher() {
         if (!model.getSac().estVide()&&!piochee) {
-            System.out.println("tuile centree "+model.getPlateau().getTuileCentree());
             JoueurCarcassonne j = model.getActuel();
             model.piocher(j);
-            System.out.println("tuile main "+model.getActuel().getTuile().getId());
-            System.out.println(j.getHumain());
             piochee = true;
             vue.updatePreview();
             vue.updatePioche(model.getSac().estVide());
@@ -52,6 +49,10 @@ public class ControleurCarcassonne {
         }      
     }
 
+    /**
+     * défausse la tuile courante
+     * @param increment s'il faut incrémenter ou non
+     */
     public void defausser(boolean increment) {
         model.getActuel().defausser();
         if(increment){
@@ -92,9 +93,12 @@ public class ControleurCarcassonne {
         }   
     }
 
+    /**
+     * place une tuile sur le plateau
+     * @param x
+     * @param y
+     */
     public void placerTuile(int x, int y) {
-        System.out.println("x : "+x+"     y : "+y);
-        //System.out.println("tuile centree "+model.getPlateau().getTuileCentree());
         if (piochee && model.getActuel().placerTuile(x, y)) {
             BufferedImage img = ((BufferedImage) ((ImageIcon) vue.previewImg.getIcon()).getImage());
             model.getActuel().getTuile().setImage(img);
@@ -102,13 +106,16 @@ public class ControleurCarcassonne {
             vue.updateDefausse();
             model.incrementeTour();
             vue.updateActuel();
-            //model.setActuel();
             piochee = false;
         }
         
 
     }
 
+    /**
+     * se déplace sur le plateau dans la direction n
+     * @param n
+     */
     public void seDeplacer(int n) {
         model.getPlateau().deplacer(n);
 
@@ -116,6 +123,9 @@ public class ControleurCarcassonne {
     }
 
 
+    /**
+     * abandonne pour le joueur courant
+     */
     public void abandonner() {
         model.abandonner();
         defausser(false);
@@ -126,6 +136,9 @@ public class ControleurCarcassonne {
     }
 
 
+    /**
+     * déclenche la fin de partie
+     */
     public void finDePartie() {
         vue.fin();
     }

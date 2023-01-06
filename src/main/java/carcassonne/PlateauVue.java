@@ -14,22 +14,23 @@ import javax.swing.event.MouseInputListener;
 
 public class PlateauVue extends JPanel {
     
-
+    /**
+     * le controleur
+     */
     private ControleurCarcassonne control;
 
     public PlateauVue(ControleurCarcassonne control, TuileCarcassonne[][] tab, PlateauCarcassonne pCarcassonne) {
         this.control = control;
         
         setLayout(new GridBagLayout());
-        
-
-
         updatePlateau(tab, pCarcassonne);
-
-        
-        
     }
 
+    /**
+     * construit une grille 
+     * @param tab la partie du plateau qu'on modélise
+     * @param pCarcassonne le plateau de jeu
+     */
     public void updatePlateau(TuileCarcassonne[][] tab, PlateauCarcassonne pCarcassonne) {
         removeAll();
 

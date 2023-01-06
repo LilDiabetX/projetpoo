@@ -43,21 +43,13 @@ public class EmplacementTuile extends JPanel {
         setLayout(new BorderLayout());
     }
 
+    /**
+     * remplit l'emplacement avec img
+     * @param img l'image
+     */
     public void fill(BufferedImage img) {
         Image img2 = img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
         this.add(new JLabel(new ImageIcon(img2)), BorderLayout.WEST);
-        
-        /*int w = img.getWidth(this);
-        int h = img.getHeight(this);
-
-        this.add(new JLabel(new ImageIcon(img)));
-        /* 
-        Image img2 = img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-        ImageIcon resizedIcon = new ImageIcon(img2);
-        JLabel label = new JLabel(resizedIcon);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        this.add(label);
-        */
         
         occupe = true;
     }

@@ -9,6 +9,9 @@ public class PlateauCarcassonne extends Plateau {
 
 	private int tuileCentree;
 
+	/**
+	 * coordonnée de la tuile centrée relative à la tuile de départ
+	 */
 	private int xRelatif, yRelatif = 0;
 
 	/**
@@ -406,10 +409,19 @@ public class PlateauCarcassonne extends Plateau {
 		System.out.print("]");
 	}
 
+	/**
+	 * @param x
+	 * @param y
+	 * @return la tuile aux positions (x, y)
+	 */
 	public TuileCarcassonne getGrille(int x, int y) {
 		return grille.get(x).get(y);
 	}
 
+	/**
+	 * renvoie un tableau de tableau centré sur la tuileCentree
+	 * @return
+	 */
 	public TuileCarcassonne[][] sousTableau() {
 		TuileCarcassonne[][] sousTab = new TuileCarcassonne[5][7];
 		int[] xy = trouverTuile(tuileCentree);
@@ -460,10 +472,17 @@ public class PlateauCarcassonne extends Plateau {
 		return yRelatif;
 	}
 
+	/**
+	 * @return la tuile sur laquelle on est centrés
+	 */
 	public int getTuileCentree(){
 		return tuileCentree;
 	}
 
+	/**
+	 * Test : affiche un tab de tab de Tuiles
+	 * @param tab le tableau à afficher
+	 */
 	public static void printTab(TuileCarcassonne[][] tab) {
 		for (int i = 0; i < tab.length; i++) {
 			for (int j = 0; j < tab[i].length; j++) {

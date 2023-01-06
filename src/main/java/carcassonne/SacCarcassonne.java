@@ -9,6 +9,9 @@ public class SacCarcassonne extends Sac {
      */
     private TuileCarcassonne[] sac;
 
+    /**
+     * le nombre de tuiles restantes dans le sac
+     */
     private int tuilesRestantes;
 
     /**

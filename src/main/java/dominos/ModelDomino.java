@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import common.*;
 
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 
 public class ModelDomino extends Model {

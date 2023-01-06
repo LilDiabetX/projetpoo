@@ -9,7 +9,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.Dimension;
-import java.awt.Color;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,45 +21,90 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.event.MouseInputListener;
 
 
 
 public class VueCarcassonne extends JFrame {
+    /**
+     * le modele du jeu
+     */
     private ModelCarcassonne model;
+    /**
+     * les règles du jeu
+     */
     private ControleurCarcassonne control;
 
-    
+    /**
+     * la longueur de la fenêtre
+     */
     final int WIDTH = 800;
+    /**
+     * la hauteur de la fenêtre
+     */
     final int HEIGHT = 800; 
 
+    /**
+     * le panel principal
+     */
     JPanel pane; 
 
+    /**
+     * le panneau de l'interface
+     */
     JPanel panneauHUD;
-    
+    /**
+     * le panneau du plateau
+     */
     PlateauVue panneauPlateau;
-    JPanel panneauBoutons;
-    JPanel cadrePreview;
-    JPanel cadrePioche;
 
+    /**
+     * Les panneaux de l'interface
+     */
+    JPanel panneauBoutons, cadrePreview, cadrePioche;
+
+    /**
+     * la croix directionnelle
+     */
     JPanel directionsBoutons;
 
-    JButton upButton;
-    JButton rightButton;
-    JButton downButton;
-    JButton leftButton;
+    /**
+     * les boutons de la croix
+     */
+    JButton upButton, rightButton, downButton, leftButton;
 
-    JButton turnRight;
-    JButton turnLeft;
+    /**
+     * les boutons pour tourner les tuiles
+     */
+    JButton turnRight, turnLeft;
 
+    /**
+     * le bouton pour ajouter un pion
+     */
     JButton meepleButton;
 
+    /**
+     * bouton pour abandonner
+     */
     JButton abandonButton;
 
+    /**
+     * l'image de la pioche
+     */
     JLabel piocheImg;
+    /**
+     * le nombre de tuiles restantes dans la pioche
+     */
     JLabel piocheRestantes;
+    /**
+     * l'image de la preview
+     */
     JLabel previewImg;
 
+    /**
+     * le joueur dont c'est le tour
+     */
     JLabel joueurActuel;
 
 
@@ -85,8 +129,6 @@ public class VueCarcassonne extends JFrame {
         cadrePioche = new JPanel(new GridLayout(0, 1));
         panneauBoutons = new JPanel();
         directionsBoutons = new JPanel(new BorderLayout());
-
-        
         panneauPlateau = new PlateauVue(control, model.getPlateau().sousTableau(), model.getPlateau());
 
         
@@ -128,11 +170,12 @@ public class VueCarcassonne extends JFrame {
         turnLeft.setEnabled(false);
         turnRight.setEnabled(false);
 
+        //Config du bouton pion
         meepleButton = new JButton(new ImageIcon("src/main/ressources/icones/pionCarcassonne.png")); 
         meepleButton.addActionListener((event) -> control.placerPion());
         meepleButton.setEnabled(false);
 
-
+        //Config du bouton abandon
         abandonButton = new JButton("Abandonner");
         abandonButton.addActionListener((event) -> control.abandonner());
         abandonButton.setEnabled(false);
@@ -161,8 +204,6 @@ public class VueCarcassonne extends JFrame {
 
         piocheImg = new JLabel(new ImageIcon(img1));
         cadrePioche.add(piocheImg);
-        //JLabel textePioche = new JLabel("PIOCHE", (int) CENTER_ALIGNMENT);
-        //cadrePioche.add(textePioche);
         piocheRestantes = new JLabel("Tuile Restantes : "+model.tuilesRestantes(), (int) CENTER_ALIGNMENT);
         cadrePioche.add(piocheRestantes);
         
@@ -309,6 +350,10 @@ public class VueCarcassonne extends JFrame {
         previewImg.setIcon(new ImageIcon(img));
     }
 
+    /**
+     * on gère visuellement l'ajout d'un pion sur une tuile
+     * @param couleur la couleur du pion
+     */
     public void updatePion(Color couleur) {
         ImageIcon icon = ((ImageIcon) previewImg.getIcon());
         BufferedImage img = ((BufferedImage) icon.getImage());
@@ -324,11 +369,18 @@ public class VueCarcassonne extends JFrame {
         previewImg.setIcon(new ImageIcon(img));
     }
 
+    /**
+     * met à jour le plateau
+     * @param tab le sous - tableau sur lequel on est centrés
+     */
     public void updatePlateau(TuileCarcassonne[][] tab) {
         panneauPlateau.updatePlateau(tab, model.getPlateau());
         
     }
 
+    /**
+     * met à jour le joueur actuel
+     */
     public void updateActuel() {
         joueurActuel.setText("Joueur "+model.getActuel().getNum());
         joueurActuel.setForeground(model.getActuel().getCouleur());
@@ -338,8 +390,12 @@ public class VueCarcassonne extends JFrame {
         return control;
     }
 
+    /**
+     * gère la fin du jeu
+     */
     public void fin() {
         JLabel texteFin = new JLabel("FIN");
+        texteFin.setHorizontalAlignment(SwingConstants.CENTER);
         JPanel pane = new JPanel();
         pane.add(texteFin);
         pane.setBounds(0, 0, 800, 800);
