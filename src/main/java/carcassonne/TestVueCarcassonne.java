@@ -6,8 +6,13 @@ public class TestVueCarcassonne {
     private ControleurCarcassonne control;
 
     public TestVueCarcassonne() {
-       
-        view = new VueCarcassonne(new ModelCarcassonne());
+        ModelCarcassonne model = new ModelCarcassonne();
+        model.getTabJoueur().add(new JoueurCarcassonne(model.getPlateau(), true));
+        model.getTabJoueur().add(new JoueurCarcassonne(model.getPlateau(), true));
+        model.getTabJoueur().add(new JoueurCarcassonne(model.getPlateau(), true));
+        model.setCouleursEtNum();
+        model.setActuel(0);
+        view = new VueCarcassonne(model);
         view.setVisible(true);
     }
 

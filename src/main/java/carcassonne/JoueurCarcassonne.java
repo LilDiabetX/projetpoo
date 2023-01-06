@@ -25,6 +25,8 @@ public class JoueurCarcassonne extends Joueur {
      */
     private Color couleur;
 
+    private int num;
+
     /**
      * Constructeur
      * @param p le plateau de jeu
@@ -108,6 +110,15 @@ public class JoueurCarcassonne extends Joueur {
      */
     public int getPions(){
         return pions;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+
+    public int getNum() {
+        return num;
     }
 
 }

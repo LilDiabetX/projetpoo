@@ -28,10 +28,9 @@ public class EmplacementTuile extends JPanel {
     private int xorigin, yorigin;
 
     private boolean occupe;
-    private ControleurCarcassonne control;
 
-    public EmplacementTuile(ControleurCarcassonne control, int xgrille, int ygrille, int xorigin, int yorigin) {
-        this(control);
+    public EmplacementTuile(int xgrille, int ygrille, int xorigin, int yorigin) {
+        this();
         this.xgrille = xgrille;
         this.ygrille = ygrille;
         this.xorigin = xorigin;
@@ -39,8 +38,7 @@ public class EmplacementTuile extends JPanel {
         
     }
 
-    private EmplacementTuile(ControleurCarcassonne control) {
-        this.control = control;
+    private EmplacementTuile() {
         setBorder(BorderFactory.createDashedBorder(Color.BLUE));
         setBackground(Color.WHITE);
         this.setPreferredSize(new Dimension(width, height));

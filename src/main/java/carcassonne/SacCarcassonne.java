@@ -92,7 +92,7 @@ public class SacCarcassonne extends Sac {
         Random rand = new Random();
 
 		for(int i=1;i<sac.length;i++){ //on ne mélange pas la première tuile avec le reste
-			int randomIndexSwap = rand.nextInt(sac.length);
+			int randomIndexSwap = rand.nextInt(sac.length-1)+1;
 			TuileCarcassonne temp = new TuileCarcassonne(sac[randomIndexSwap]);
 			sac[randomIndexSwap] = new TuileCarcassonne(sac[i]);
 			sac[i] = temp;

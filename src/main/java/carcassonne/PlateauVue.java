@@ -31,7 +31,7 @@ public class PlateauVue extends JPanel {
         removeAll();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                EmplacementTuile emp = new EmplacementTuile(control, j, i, pCarcassonne.getXRelatif() + j - 2, -(pCarcassonne.getYRelatif() + i - 2));
+                EmplacementTuile emp = new EmplacementTuile(j, i, pCarcassonne.getXRelatif() + j - 2, -(pCarcassonne.getYRelatif() + i - 2));
                 if (tab[i][j] != null) {
                     emp.fill(tab[i][j].getImage());
                 }

@@ -156,7 +156,7 @@ public class VueCarcassonne extends JFrame {
         }
         previewImg = new JLabel(new ImageIcon(imgCarre));
         cadrePreview.add(previewImg);
-        joueurActuel = new JLabel("Joueur "+ (model.getTour()-1)%model.getTabJoueur().size(), (int) CENTER_ALIGNMENT); 
+        joueurActuel = new JLabel("Joueur "+ model.getActuel().getNum(), (int) CENTER_ALIGNMENT); 
         cadrePreview.add(joueurActuel);
 
         piocheImg = new JLabel(new ImageIcon(img1));
@@ -264,7 +264,7 @@ public class VueCarcassonne extends JFrame {
         if (model.getActuel().getTuile() != null) {
             BufferedImage img = model.getActuel().getTuile().getImage();
             previewImg.setIcon(new ImageIcon(img));
-            joueurActuel.setText("Joueur "+(model.getTour()-1)%model.getTabJoueur().size());
+            //joueurActuel.setText("Joueur "+model.getActuel().getNum());
             turnLeft.setEnabled(true);
             turnRight.setEnabled(true);
             meepleButton.setEnabled(true);
@@ -278,6 +278,7 @@ public class VueCarcassonne extends JFrame {
         try {
             BufferedImage img = ImageIO.read(new File("src/main/ressources/icones/vide.png"));
             previewImg.setIcon(new ImageIcon(img));
+            joueurActuel.setText("Joueur "+model.getActuel().getNum());
             turnLeft.setEnabled(false);
             turnRight.setEnabled(false);
             meepleButton.setEnabled(false);

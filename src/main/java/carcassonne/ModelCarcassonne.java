@@ -31,12 +31,9 @@ public class ModelCarcassonne extends Model{
     public ModelCarcassonne() {
         tabJoueurs = new ArrayList<JoueurCarcassonne>();
         sac = new SacCarcassonne();
-        plateau = new PlateauCarcassonne(sac.getSac(tourDeJeu));
-        tabJoueurs.add(new JoueurCarcassonne(plateau, true));
-        tabJoueurs.add(new JoueurCarcassonne(plateau, true));
-        actuel = tabJoueurs.get(0);
-        setCouleurs();
-        tourDeJeu++;
+        plateau = new PlateauCarcassonne(sac.getSac(0));
+        
+        
     }
 
 
@@ -69,7 +66,7 @@ public class ModelCarcassonne extends Model{
      * @param joueur joueur qui pioche la tuile
      */
     public void piocher(JoueurCarcassonne joueur) {
-        joueur.setTuile(sac.getSac(tourDeJeu));
+        joueur.setTuile(sac.getSac(tourDeJeu + 1));
     }
 
     /**
@@ -79,18 +76,28 @@ public class ModelCarcassonne extends Model{
         actuel = tabJoueurs.get(i%tabJoueurs.size());
     }
 
-    public void setCouleurs(){
+    public void setCouleursEtNum(){
         Color[] couleurs = {Color.BLUE,Color.RED,Color.GREEN,Color.YELLOW,Color.PINK};
         for(int i = 0;i<tabJoueurs.size();i++){
             tabJoueurs.get(i).setCouleur(couleurs[i]);
+            tabJoueurs.get(i).setNum(i);
         }
     }
 
     /**
-     * fait passer au tour suivant
+     * fait passer au tour suivant et désigne le joueur actuel 
      */
     public void incrementeTour(){
         tourDeJeu++;
+        int i = tourDeJeu;
+        i = i % tabJoueurs.size();
+        while (tabJoueurs.get(i).getAbandon()) {
+            
+            i = i % tabJoueurs.size();
+            i++;
+        }
+        
+        setActuel(tabJoueurs.get(i));
     }
 
     public JoueurCarcassonne getActuel() {
@@ -129,6 +136,12 @@ public class ModelCarcassonne extends Model{
             }
         }
         return sum;
+    }
+
+    public void abandonner() {
+        actuel.abandonner();
+        tabJoueurs.remove(actuel);
+        tourDeJeu++;
     }
     
 }
