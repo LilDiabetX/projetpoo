@@ -45,8 +45,8 @@ public class ModelCarcassonne extends Model{
     }
 
     public void start(){
-        actuel = tabJoueurs.get(tourDeJeu%tabJoueurs.size()-1);
-        setCouleurs();
+        actuel = tabJoueurs.get(0);
+        setCouleursEtNum();
     }
 
     /**
