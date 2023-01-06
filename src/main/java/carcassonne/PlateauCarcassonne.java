@@ -332,7 +332,7 @@ public class PlateauCarcassonne extends Plateau {
 	 * @param id numéro de la tuile que l'on cherche
 	 * @return renvoie la position de la tuile cherchée et renvoie [-1,-1] si elle n'a pas été placée
 	 */
-	public int[] getXY(int id){
+	public int[] trouverTuile(int id){
 		int[] position = {-1,-1};
 		for(int i=0;i<largeur;i++){
 			for(int j=0;j<hauteur;j++){
@@ -352,7 +352,7 @@ public class PlateauCarcassonne extends Plateau {
 	 */
 	public boolean deplacer(int direction) throws BadDirectionException{
 		if(direction>=0&&direction<4){ 
-			int[] positionCourante = getXY(tuileCentree);
+			int[] positionCourante = trouverTuile(tuileCentree);
 			TuileCarcassonne[] voisins = listVoisins(positionCourante[0],positionCourante[1]);
 			if(voisins[direction]!=null){
 				tuileCentree = voisins[direction].getId();
