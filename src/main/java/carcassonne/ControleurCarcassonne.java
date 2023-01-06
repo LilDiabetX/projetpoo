@@ -54,11 +54,8 @@ public class ControleurCarcassonne {
     }
 
     public void defausser() {
-        System.out.println("défaussée");
-        System.out.println(model.getTour());
         model.getActuel().defausser();
         model.incrementeTour();
-        System.out.println(model.getTour());
         vue.updateDefausse();
         piochee = false;
         if (model.getSac().estVide()) {
