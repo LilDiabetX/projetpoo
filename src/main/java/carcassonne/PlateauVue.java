@@ -4,7 +4,11 @@ package carcassonne;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.GridBagConstraints;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
@@ -15,10 +19,11 @@ public class PlateauVue extends JPanel {
 
     public PlateauVue(ControleurCarcassonne control, TuileCarcassonne[][] tab, PlateauCarcassonne pCarcassonne) {
         this.control = control;
-        //GridLayout grid = new GridLayout(5, 5, 1, 1);
-        FlowLayout grid = new FlowLayout();
-        grid.setVgap(0);
-        setLayout(grid);
+        
+        setLayout(new GridBagLayout());
+        
+
+
         updatePlateau(tab, pCarcassonne);
 
         
@@ -26,15 +31,17 @@ public class PlateauVue extends JPanel {
     }
 
     public void updatePlateau(TuileCarcassonne[][] tab, PlateauCarcassonne pCarcassonne) {
-        
-        
-
         removeAll();
+
+        Insets insets = new Insets(2,2,2,2);
+        
         for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                EmplacementTuile emp = new EmplacementTuile(j, i, pCarcassonne.getXRelatif() + j - 2, -(pCarcassonne.getYRelatif() + i - 2));
+            for (int j = 0; j < 7; j++) {
+                
+                EmplacementTuile emp = new EmplacementTuile(j, i, pCarcassonne.getXRelatif() + j - 3, -(pCarcassonne.getYRelatif() + i - 2));
                 if (tab[i][j] != null) {
                     emp.fill(tab[i][j].getImage());
+                } else {
                 }
                 emp.addMouseListener(new MouseInputListener() {
 
@@ -81,8 +88,13 @@ public class PlateauVue extends JPanel {
                     }
                     
                 });
-                add(emp);
+                GridBagConstraints constraints =new GridBagConstraints();
+                constraints.gridx = j;
+                constraints.gridy = i;
+                constraints.insets = insets;
+                add(emp, constraints);
             }
+            System.out.println();
         }
         revalidate();
         repaint();

@@ -37,7 +37,7 @@ public class EmplacementTuile extends JPanel {
     }
 
     private EmplacementTuile() {
-        setBorder(BorderFactory.createDashedBorder(Color.BLUE));
+        setBorder(BorderFactory.createDashedBorder(Color.BLACK));
         setBackground(Color.WHITE);
         this.setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());

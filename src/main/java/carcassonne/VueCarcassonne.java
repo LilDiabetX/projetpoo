@@ -5,17 +5,17 @@ import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
-import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.Dimension;
+import java.awt.Color;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,8 +31,8 @@ public class VueCarcassonne extends JFrame {
     private ControleurCarcassonne control;
 
     
-    final int WIDTH = 800; //1430;
-    final int HEIGHT = 800; //850;
+    final int WIDTH = 800;
+    final int HEIGHT = 800; 
 
     JPanel pane; 
 
@@ -91,9 +91,9 @@ public class VueCarcassonne extends JFrame {
 
         
         
-        cadrePreview.setBackground(Color.GREEN);
+        cadrePreview.setBackground(new Color(244,164,96));
 
-        cadrePioche.setBackground(Color.RED);
+        cadrePioche.setBackground(new Color(244,164,96));
 
         //config de la croix directionnelle
         upButton = new JButton(new ImageIcon("src/main/ressources/icones/arrow-up.png"));
@@ -129,14 +129,13 @@ public class VueCarcassonne extends JFrame {
         turnRight.setEnabled(false);
 
         meepleButton = new JButton(new ImageIcon("src/main/ressources/icones/pionCarcassonne.png")); 
-
         meepleButton.addActionListener((event) -> control.placerPion());
-
         meepleButton.setEnabled(false);
 
 
         abandonButton = new JButton("Abandonner");
         abandonButton.addActionListener((event) -> control.abandonner());
+        abandonButton.setEnabled(false);
 
         panneauBoutons.add(turnLeft);
         panneauBoutons.add(turnRight);
@@ -157,6 +156,7 @@ public class VueCarcassonne extends JFrame {
         previewImg = new JLabel(new ImageIcon(imgCarre));
         cadrePreview.add(previewImg);
         joueurActuel = new JLabel("Joueur "+ model.getActuel().getNum(), (int) CENTER_ALIGNMENT); 
+        joueurActuel.setForeground(model.getActuel().getCouleur());
         cadrePreview.add(joueurActuel);
 
         piocheImg = new JLabel(new ImageIcon(img1));
@@ -219,22 +219,24 @@ public class VueCarcassonne extends JFrame {
         
 
         //ajout des différents éléments aux panneaux
-
+        cadrePreview.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        panneauBoutons.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        cadrePioche.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         panneauHUD.add(cadrePreview);
         panneauHUD.add(panneauBoutons);
         panneauHUD.add(cadrePioche);
+        panneauHUD.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         
 
         panneauHUD.setBounds(0, HEIGHT*2/3, WIDTH, HEIGHT/3);
         
 
-        panneauPlateau.setBackground(Color.YELLOW);
+        panneauPlateau.setBackground(new Color(222,184,135));
         panneauPlateau.setBounds(0, 0, WIDTH, HEIGHT*2/3);
 
         pane.add(panneauPlateau);
         pane.add(panneauHUD);
         
-
         setContentPane(pane);
         
     }
@@ -267,6 +269,7 @@ public class VueCarcassonne extends JFrame {
             turnLeft.setEnabled(true);
             turnRight.setEnabled(true);
             meepleButton.setEnabled(true);
+            abandonButton.setEnabled(true);
         }
     }
 
@@ -281,6 +284,7 @@ public class VueCarcassonne extends JFrame {
             turnLeft.setEnabled(false);
             turnRight.setEnabled(false);
             meepleButton.setEnabled(false);
+            abandonButton.setEnabled(false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -327,6 +331,7 @@ public class VueCarcassonne extends JFrame {
 
     public void updateActuel() {
         joueurActuel.setText("Joueur "+model.getActuel().getNum());
+        joueurActuel.setForeground(model.getActuel().getCouleur());
     }
 
     public ControleurCarcassonne getController(){
