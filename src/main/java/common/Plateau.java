@@ -17,6 +17,11 @@ public abstract class Plateau {
      */
     protected int placees = 0;
 
+	/**
+	 * id de la tuile sur laquelle on se centre
+	 */
+	protected int tuileCentree;
+
     /**
 	 * Met à jour la variable xindex après un éventuel agrandissement de la grille
 	 * @param x l'abscisse relative à la tuile d'origine

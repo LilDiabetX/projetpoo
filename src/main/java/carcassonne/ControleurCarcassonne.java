@@ -35,27 +35,28 @@ public class ControleurCarcassonne {
                 BufferedImage img = ((BufferedImage) ((ImageIcon) vue.previewImg.getIcon()).getImage());
                 model.getActuel().getTuile().setImage(img);
                 vue.updatePlateau(model.getPlateau().sousTableau());
-                model.incrementeTour();
-                //model.setActuel();
+                defausser(true);
                 piochee = false;
             }
             else if(!j.getHumain()){
                 j.getTuile().afficher();
-                j.defausser();
+                defausser(true);
                 System.out.println("tuile de l'IA défaussée");
             }
         }
         else{ //on clique pour defausser
-            defausser();
+            defausser(true);
             if (model.getSac().estVide()) {
                 finDePartie();
             }
         }      
     }
 
-    public void defausser() {
+    public void defausser(boolean increment) {
         model.getActuel().defausser();
-        model.incrementeTour();
+        if(increment){
+            model.incrementeTour();
+        }
         vue.updateDefausse();
         piochee = false;
         if (model.getSac().estVide()) {
@@ -117,7 +118,7 @@ public class ControleurCarcassonne {
 
     public void abandonner() {
         model.abandonner();
-        defausser();
+        defausser(false);
         if (model.joueursRestants() < 2) {
             finDePartie();
         }
