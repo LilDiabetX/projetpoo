@@ -43,18 +43,38 @@ public abstract class Plateau {
 	protected int majY(int y) {
 		return y0 + y; 
 	}
+	/**
+	 * getter 
+	 * @return renvoie la hauteur de du plateau
+	 */
 	public int getHauteur() {
 		return hauteur;
 	}
+	/**
+	 * getter 
+	 * @return renvoie la largeur du plateau
+	 */
 	public int getLargeur() {
 		return largeur;
 	}
+	/**
+	 * getter
+	 * @return revoie l'abscice de la tuile d'origine dans le système de coordonnées de la grille
+	 */
 	public int getX0() {
 		return x0;
 	}
+	/**
+	 * getter
+	 * @return revoie l'ordonnée de la tuile d'origine dans le système de coordonnées de la grille
+	 */
 	public int getY0() {
 		return y0;
 	}
+	/**
+	 * getter
+	 * @return revoie le nombre de tuiles placées sur la grille
+	 */
 	public int getPlacees() {
 		return placees;
 	}

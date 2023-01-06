@@ -6,6 +6,9 @@ import common.*;
 
 public class PlateauDomino extends Plateau {
 
+	/**
+	 * grille de jeu
+	 */
 	private ArrayList<ArrayList<TuileDomino>> grille;
 
 	/**
@@ -33,6 +36,13 @@ public class PlateauDomino extends Plateau {
 		tuileCentree = tuile.getId();
 	}
 	
+	/**
+	 * place la tuile si possible
+	 * @param x abscisse relative à la tuile d'origine où l'on veut placer la tuile
+	 * @param y ordonnée relative à la tuile d'origine où l'on veut placer la tuile
+	 * @param tuile tuile à placer
+	 * @return renvoie vrai si la tuile a été placée et faux sinon
+	 */
 	public boolean placer(int x, int y, TuileDomino tuile){
 
 
@@ -600,6 +610,10 @@ public class PlateauDomino extends Plateau {
 		}
 	}
 
+	/**
+	 * getter
+	 * @return renvoie l'id de la tuile sur laquelle on est centré
+	 */
 	public int getCentree(){
 		return tuileCentree;
 	}
