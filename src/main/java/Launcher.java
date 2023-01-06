@@ -123,6 +123,7 @@ public class Launcher {
         }
         else{
             modelCarca.setActuel(0);
+            modelCarca.setCouleurs();
             viewCarca = new VueCarcassonne(modelCarca);
             controllerCarca = viewCarca.getController();
             viewCarca.setVisible(true);

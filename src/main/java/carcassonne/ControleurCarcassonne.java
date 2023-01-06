@@ -84,6 +84,7 @@ public class ControleurCarcassonne {
 
     public void abandonner() {
         model.getActuel().abandonner();
+        defausser();
         if (model.joueursRestants() < 2) {
             finDePartie();
         }
