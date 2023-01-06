@@ -411,7 +411,7 @@ public class PlateauCarcassonne extends Plateau {
 	}
 
 	public TuileCarcassonne[][] sousTableau() {
-		TuileCarcassonne[][] sousTab = new TuileCarcassonne[5][5];
+		TuileCarcassonne[][] sousTab = new TuileCarcassonne[5][7];
 		int[] xy = trouverTuile(tuileCentree);
 		int x = xy[0];
 		int y = xy[1];
@@ -432,9 +432,9 @@ public class PlateauCarcassonne extends Plateau {
 	 * @return
 	 */
 	public TuileCarcassonne[] sousLigne(int i, int x) {
-		TuileCarcassonne[] tab = new TuileCarcassonne[5];
+		TuileCarcassonne[] tab = new TuileCarcassonne[7];
 		int b =0;
-		for (int j = x - 2; j <= x + 2; j++) {
+		for (int j = x - 3; j <= x + 3; j++) {
 			if (j>-1 && j < largeur) {
 				tab[b] = grille.get(i).get(j);
 
@@ -462,6 +462,20 @@ public class PlateauCarcassonne extends Plateau {
 
 	public int getTuileCentree(){
 		return tuileCentree;
+	}
+
+	public static void printTab(TuileCarcassonne[][] tab) {
+		for (int i = 0; i < tab.length; i++) {
+			for (int j = 0; j < tab[i].length; j++) {
+				if (tab[i][j] != null) {
+					System.out.print(" "+tab[i][j].getId());
+				} else {
+					System.out.print(" "+"null");
+				}
+				
+			}
+			System.out.println();
+		}
 	}
 
 	public class BadDirectionException extends RuntimeException{
