@@ -35,13 +35,12 @@ public class ControleurCarcassonne {
                 BufferedImage img = ((BufferedImage) ((ImageIcon) vue.previewImg.getIcon()).getImage());
                 model.getActuel().getTuile().setImage(img);
                 vue.updatePlateau(model.getPlateau().sousTableau());
-                model.incrementeTour();
-                //model.setActuel();
+                defausser(true);
                 piochee = false;
             }
             else if(!j.getHumain()){
                 j.getTuile().afficher();
-                j.defausser();
+                defausser(true);
                 System.out.println("tuile de l'IA défaussée");
             }
         }
