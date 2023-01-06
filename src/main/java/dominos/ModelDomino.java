@@ -35,6 +35,8 @@ public class ModelDomino extends Model {
      */
     private int dernierePosition;
 
+    private int toursAbandonnes;
+
     // TODO ajouter un attribut View (potentiellement null si on veut jouer mode textuel)
 
     /**
@@ -70,7 +72,7 @@ public class ModelDomino extends Model {
      * @param joueur joueur qui pioche la tuile
      */
     public void piocher(JoueurDomino joueur) {
-        joueur.setTuile(sac.getSac(tourDeJeu));
+        joueur.setTuile(sac.getSac(tourDeJeu-toursAbandonnes));
     }
 
     public void setActuel(int i){
@@ -96,7 +98,7 @@ public class ModelDomino extends Model {
      */
     public void play() {
         Scanner sc = new Scanner(System.in);
-        while(!(super.tourDeJeu>=sac.size())&&!victoireParAbandon()){
+        while(!(super.tourDeJeu-toursAbandonnes>=sac.size())&&!victoireParAbandon()){
             // déroulement de la partie
             actuel = tabJoueurs.get((super.tourDeJeu-1)%tabJoueurs.size());
             // on vérifie que le joueur n'a pas déjà abandonné
@@ -242,6 +244,7 @@ public class ModelDomino extends Model {
                 }
             }
             else{
+                toursAbandonnes++;
                 tourDeJeu++;
             }
         }
