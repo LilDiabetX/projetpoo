@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,27 +19,31 @@ public class EmplacementTuile extends JPanel implements MouseInputListener {
 
     private int xgrille, ygrille;
 
-    private int xorigin, yorigin;
+    //private int xorigin, yorigin;
 
     private boolean occupe;
 
-    public EmplacementTuile(int xgrille, int ygrille, int xorigin, int yorigin) {
+    public EmplacementTuile(int xgrille, int ygrille/*, int xorigin, int yorigin */) {
         this();
         this.xgrille = xgrille;
         this.ygrille = ygrille;
-        this.xorigin = xorigin;
-        this.yorigin = yorigin;
+        //this.xorigin = xorigin;
+        //this.yorigin = yorigin;
         
     }
 
     public EmplacementTuile() {
         setBorder(BorderFactory.createDashedBorder(Color.BLUE));
-        setBackground(Color.YELLOW);
+        setBackground(Color.WHITE);
         this.setPreferredSize(new Dimension(width, height));
     }
 
     public void fill(BufferedImage img) {
-        this.add(new JLabel(new ImageIcon(img)));
+        Image img2 = img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(img2);
+        JLabel label = new JLabel(resizedIcon);
+        label.setAlignmentX(0.0f);
+        this.add(label);
         occupe = true;
     }
     
@@ -114,14 +119,14 @@ public class EmplacementTuile extends JPanel implements MouseInputListener {
         return ygrille;
     }
 
-    public int getXOrigin() {
+    /*public int getXOrigin() {
         return xorigin;
     }
 
     public int getYOrigin() {
         return yorigin;
     }
-
+    */
 
 
 

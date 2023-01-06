@@ -10,10 +10,14 @@ import javax.swing.JPanel;
 public class PlateauVue extends JPanel {
     private int hauteur, largeur;
     
-    //private ArrayList<ArrayList<EmplacementTuile>> plateau;
+    private ArrayList<ArrayList<EmplacementTuile>> plateau;
 
     public PlateauVue(TuileCarcassonne[][] tab) {
-        setLayout(new GridLayout(5,5));
+        GridLayout grid = new GridLayout(5, 5);
+
+        grid.setVgap(5);
+        grid.setHgap(5);
+        setLayout(grid);
         updatePlateau(tab);
 
         /*plateau = new ArrayList<ArrayList<EmplacementTuile>>();
@@ -38,9 +42,15 @@ public class PlateauVue extends JPanel {
     public void updatePlateau(TuileCarcassonne[][] tab) {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                add(new EmplacementTuile());
+                EmplacementTuile emp = new EmplacementTuile(i, j);
+                if (tab[i][j] != null) {
+                    emp.fill(tab[i][j].getImage());
+                }
+                
+                add(emp);
             }
         }
+        
     }
 
     
