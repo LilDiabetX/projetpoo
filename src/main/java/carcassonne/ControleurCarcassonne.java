@@ -91,6 +91,11 @@ public class ControleurCarcassonne {
 
     }
 
+    public void seDeplacer(int n) {
+        model.getPlateau().deplacer(n);
+        vue.updatePlateau(model.getPlateau().sousTableau());
+    }
+
     public void abandonner() {
         model.getActuel().abandonner();
         defausser();

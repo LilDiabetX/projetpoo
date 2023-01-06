@@ -9,6 +9,7 @@ import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.awt.Dimension;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,6 +42,13 @@ public class VueCarcassonne extends JFrame {
     JPanel panneauBoutons;
     JPanel cadrePreview;
     JPanel cadrePioche;
+
+    JPanel directionsBoutons;
+
+    JButton upButton;
+    JButton rightButton;
+    JButton downButton;
+    JButton leftButton;
 
     JButton turnRight;
     JButton turnLeft;
@@ -76,6 +84,7 @@ public class VueCarcassonne extends JFrame {
         cadrePreview = new JPanel(new GridLayout(0, 1));
         cadrePioche = new JPanel(new GridLayout(0, 1));
         panneauBoutons = new JPanel();
+        directionsBoutons = new JPanel(new BorderLayout());
 
         
         panneauPlateau = new PlateauVue(control, model.getPlateau().sousTableau(), model.getPlateau());
@@ -85,6 +94,27 @@ public class VueCarcassonne extends JFrame {
         cadrePreview.setBackground(Color.GREEN);
 
         cadrePioche.setBackground(Color.RED);
+
+        upButton = new JButton(new ImageIcon("src/main/ressources/icones/arrow-up.png"));
+        upButton.setPreferredSize(new Dimension(16, 50));
+        upButton.addActionListener((event) -> control.seDeplacer(0));
+        downButton = new JButton(new ImageIcon("src/main/ressources/icones/arrow-down.png"));
+        downButton.setPreferredSize(new Dimension(16, 50));
+        downButton.addActionListener((event) -> control.seDeplacer(2));
+        rightButton = new JButton(new ImageIcon("src/main/ressources/icones/arrow-right.png"));
+        rightButton.setPreferredSize(new Dimension(50, 50));
+        rightButton.addActionListener((event) -> control.seDeplacer(1));
+        leftButton = new JButton(new ImageIcon("src/main/ressources/icones/arrow-left.png"));
+        leftButton.setPreferredSize(new Dimension(50, 50));
+        leftButton.addActionListener((event) -> control.seDeplacer(3));
+
+        directionsBoutons.add(upButton, BorderLayout.NORTH);
+        directionsBoutons.add(rightButton, BorderLayout.EAST);
+        directionsBoutons.add(downButton, BorderLayout.SOUTH);
+        directionsBoutons.add(leftButton, BorderLayout.WEST);
+        directionsBoutons.setPreferredSize(new Dimension(120, 120));
+        directionsBoutons.setBackground(Color.LIGHT_GRAY);
+
         
         //config des boutons de pivot
         turnLeft = new JButton(new ImageIcon("src/main/ressources/icones/gauche.png"));
@@ -111,6 +141,7 @@ public class VueCarcassonne extends JFrame {
         panneauBoutons.add(turnRight);
         panneauBoutons.add(meepleButton);
         panneauBoutons.add(abandonButton);
+        panneauBoutons.add(directionsBoutons);
         panneauBoutons.setBackground(Color.DARK_GRAY);
 
         //Config des images pour la pioche et l'emplacement de la preview de la tuile
