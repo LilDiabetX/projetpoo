@@ -1,85 +1,68 @@
 package carcassonne;
 
 import java.awt.Color;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.event.MouseInputListener;
 
-public class EmplacementTuile extends JPanel implements MouseInputListener {
-    private int width = 50;
-    private int height = 50;
+public class EmplacementTuile extends JPanel {
+    private int width = 100;
+    private int height = 100;
 
+    /**
+     * les coordonnées de l'emplacement sur la mini-grille
+     */
     private int xgrille, ygrille;
 
+    /**
+     * censé être les coordonnées par rapport à la tuile d'origine, mais je n'arrive pas à les construire
+     */
     private int xorigin, yorigin;
 
     private boolean occupe;
 
     public EmplacementTuile(int xgrille, int ygrille, int xorigin, int yorigin) {
+        this();
         this.xgrille = xgrille;
         this.ygrille = ygrille;
         this.xorigin = xorigin;
         this.yorigin = yorigin;
-        setBorder(BorderFactory.createDashedBorder(Color.BLUE));
-        setBackground(Color.BLACK);
+        
+    }
+
+    private EmplacementTuile() {
+        setBorder(BorderFactory.createDashedBorder(Color.BLACK));
+        setBackground(Color.WHITE);
         this.setPreferredSize(new Dimension(width, height));
+        setLayout(new BorderLayout());
     }
 
     public void fill(BufferedImage img) {
-        this.add(new JLabel(new ImageIcon(img)));
+        Image img2 = img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        this.add(new JLabel(new ImageIcon(img2)), BorderLayout.WEST);
         
+        /*int w = img.getWidth(this);
+        int h = img.getHeight(this);
+
+        this.add(new JLabel(new ImageIcon(img)));
+        /* 
+        Image img2 = img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(img2);
+        JLabel label = new JLabel(resizedIcon);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        this.add(label);
+        */
+        
+        occupe = true;
     }
     
 
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
 
 
 
@@ -116,7 +99,7 @@ public class EmplacementTuile extends JPanel implements MouseInputListener {
     public int getYOrigin() {
         return yorigin;
     }
-
+    
 
 
 

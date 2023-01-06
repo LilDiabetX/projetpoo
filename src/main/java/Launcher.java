@@ -122,11 +122,15 @@ public class Launcher {
             modelDom.play();
         }
         else{
-            modelCarca.setActuel(0);
+            modelCarca.start();
             viewCarca = new VueCarcassonne(modelCarca);
             controllerCarca = viewCarca.getController();
             viewCarca.setVisible(true);
         }
+    }
+
+    public static void main(String[] args){
+        Launcher launcher = new Launcher();
     }
 
 }

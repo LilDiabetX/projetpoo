@@ -25,6 +25,8 @@ public class JoueurCarcassonne extends Joueur {
      */
     private Color couleur;
 
+    private int num;
+
     /**
      * Constructeur
      * @param p le plateau de jeu
@@ -79,20 +81,10 @@ public class JoueurCarcassonne extends Joueur {
     }
 
     /**
-     * place un pion sur une tuile du plateau
-     * @param x abscisse relative à la tuile de départ du plateau
-     * @param y ordonnée relative à la tuile de départ du plateau
-     * @return renvoie vrai si un pion a bien été posé
+     * enlève un pion au joueur
      */
-    public boolean placerPion(int x, int y){
-        if(pions>0&&plateau.placerPion(x,y,this)){
-            pions--;
-            return true;
-        }
-        else if(pions<=0){
-            System.out.println("Plus de pion à placer.");
-        }
-        return false;
+    public void placerPion(){
+        pions--;
     }
 
 
@@ -110,6 +102,23 @@ public class JoueurCarcassonne extends Joueur {
      */
     public Color getCouleur(){
         return couleur;
+    }
+
+    /**
+     * getter
+     * @return renvoie le nombre de pions restant au joueur
+     */
+    public int getPions(){
+        return pions;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+
+    public int getNum() {
+        return num;
     }
 
 }

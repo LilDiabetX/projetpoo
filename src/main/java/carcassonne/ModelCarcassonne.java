@@ -28,14 +28,12 @@ public class ModelCarcassonne extends Model{
 
     
 
+    
+
     public ModelCarcassonne() {
         tabJoueurs = new ArrayList<JoueurCarcassonne>();
         sac = new SacCarcassonne();
-        plateau = new PlateauCarcassonne(sac.getSac(tourDeJeu));
-        tabJoueurs.add(new JoueurCarcassonne(plateau, true));
-        tabJoueurs.add(new JoueurCarcassonne(plateau, true));
-        actuel = tabJoueurs.get(0);
-        tourDeJeu++;
+        plateau = new PlateauCarcassonne(sac.getSac(0)); 
     }
 
 
@@ -45,6 +43,11 @@ public class ModelCarcassonne extends Model{
      */
     public ArrayList<JoueurCarcassonne> getTabJoueur(){
         return tabJoueurs;
+    }
+
+    public void start(){
+        actuel = tabJoueurs.get(0);
+        setCouleursEtNum();
     }
 
     /**
@@ -68,8 +71,7 @@ public class ModelCarcassonne extends Model{
      * @param joueur joueur qui pioche la tuile
      */
     public void piocher(JoueurCarcassonne joueur) {
-        joueur.setTuile(sac.getSac(tourDeJeu));
-        //System.out.println(joueur.getTuile().getImage()+"piocherModel");
+        joueur.setTuile(sac.getSac(tourDeJeu + 1 - toursAbandonnes));
     }
 
     /**
@@ -79,18 +81,25 @@ public class ModelCarcassonne extends Model{
         actuel = tabJoueurs.get(i%tabJoueurs.size());
     }
 
-    public void setCouleurs(){
+    public void setCouleursEtNum(){
         Color[] couleurs = {Color.BLUE,Color.RED,Color.GREEN,Color.YELLOW,Color.PINK};
         for(int i = 0;i<tabJoueurs.size();i++){
             tabJoueurs.get(i).setCouleur(couleurs[i]);
+            tabJoueurs.get(i).setNum(i);
         }
     }
 
     /**
-     * fait passer au tour suivant
+     * fait passer au tour suivant et désigne le joueur actuel 
      */
     public void incrementeTour(){
         tourDeJeu++;
+        actuel = tabJoueurs.get(tourDeJeu%tabJoueurs.size());
+        if(actuel.getAbandon()){
+            toursAbandonnes++;
+            incrementeTour();
+        }
+        System.out.println(actuel.getNum()+ " num actuel");
     }
 
     public JoueurCarcassonne getActuel() {
@@ -119,6 +128,21 @@ public class ModelCarcassonne extends Model{
 
     public int tuilesRestantes() {
         return sac.getTuilesRestantes();
+    }
+
+    public int joueursRestants() {
+        int sum = 0;
+        for (JoueurCarcassonne j : tabJoueurs) {
+            if (!j.getAbandon()) {
+                sum++;
+            }
+        }
+        return sum;
+    }
+
+    public void abandonner() {
+        actuel.abandonner();
+        incrementeTour();
     }
     
 }

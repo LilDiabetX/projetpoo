@@ -45,8 +45,8 @@ public class PlateauCarcassonne extends Plateau {
 		
 		//on vérifie si la tuile est plaçable
 		if (placableGeneral(xindex, yindex, x, y)) {
-			int xfinal = majX(xindex, x);
-			int yfinal = majY(yindex, y);
+			int xfinal = majX(x);
+			int yfinal = majY(y);
 			if (placableTuile(xfinal, yfinal, tuile)) {
 				grille.get(yfinal).set(xfinal, tuile);
 				tuile.setPosee();
@@ -130,8 +130,8 @@ public class PlateauCarcassonne extends Plateau {
 		//on agrandit la grille si besoin
 		agrandir(plusHaut, plusBas, plusDroite, plusGauche);
 
-		int xfinal = majX(xindex, x);
-		int yfinal = majY(yindex, y);
+		int xfinal = majX(x);
+		int yfinal = majY(y);
 
 		//on vérifie si la case n'est pas déjà occupée par une tuile
 		if (grille.get(yfinal).get(xfinal) != null) {
@@ -180,6 +180,7 @@ public class PlateauCarcassonne extends Plateau {
 	 * @return renvoie vrai si la tuile a été placée et faux sinon
 	 */
 	public boolean placableIA(TuileCarcassonne t){ 
+		agrandir(true,true,true,true);
 		for(int i=0;i<largeur;i++){
 			for(int j=0;j<hauteur;j++){
 				//on crée une liste contenant les voisins de la position voulue
@@ -355,6 +356,23 @@ public class PlateauCarcassonne extends Plateau {
 			TuileCarcassonne[] voisins = listVoisins(positionCourante[0],positionCourante[1]);
 			if(voisins[direction]!=null){
 				tuileCentree = voisins[direction].getId();
+				switch(direction){
+					case 0:
+					yRelatif--;
+					break;
+
+					case 1:
+					xRelatif++;
+					break;
+
+					case 2:
+					yRelatif++;
+					break;
+
+					case 3:
+					xRelatif--;
+					break;
+				}
 				return true;
 			}
 			return false;
@@ -386,6 +404,74 @@ public class PlateauCarcassonne extends Plateau {
 
 	public TuileCarcassonne getGrille(int x, int y) {
 		return grille.get(x).get(y);
+	}
+
+	public TuileCarcassonne[][] sousTableau() {
+		TuileCarcassonne[][] sousTab = new TuileCarcassonne[5][7];
+		int[] xy = trouverTuile(tuileCentree);
+		int x = xy[0];
+		int y = xy[1];
+		int a = 0;
+		for (int i = y+2; i >= y-2; i--) {
+			if (i > -1 && i < hauteur) {
+				sousTab[a] = sousLigne(i, x);
+			}
+			a++;
+		}
+		return sousTab;
+	}
+
+	/**
+	 * renvoie un tableau centré autour de l'élément d'abscisse x
+	 * @param i la ligne de l'élément
+	 * @param x son abscisse
+	 * @return
+	 */
+	public TuileCarcassonne[] sousLigne(int i, int x) {
+		TuileCarcassonne[] tab = new TuileCarcassonne[7];
+		int b =0;
+		for (int j = x - 3; j <= x + 3; j++) {
+			if (j>-1 && j < largeur) {
+				tab[b] = grille.get(i).get(j);
+
+			}
+			b++;
+		}
+		return tab;
+	}
+
+	/**
+	 * getter
+	 * @return renvoie la position relative à la tuile de départ en x de la tuile sur laquelle on est centré
+	 */
+	public int getXRelatif(){
+		return xRelatif;
+	}
+
+	/**
+	 * getter
+	 * @return renvoie la position relative à la tuile de départ en y de la tuile sur laquelle on est centré
+	 */
+	public int getYRelatif(){
+		return yRelatif;
+	}
+
+	public int getTuileCentree(){
+		return tuileCentree;
+	}
+
+	public static void printTab(TuileCarcassonne[][] tab) {
+		for (int i = 0; i < tab.length; i++) {
+			for (int j = 0; j < tab[i].length; j++) {
+				if (tab[i][j] != null) {
+					System.out.print(" "+tab[i][j].getId());
+				} else {
+					System.out.print(" "+"null");
+				}
+				
+			}
+			System.out.println();
+		}
 	}
 
 	public class BadDirectionException extends RuntimeException{

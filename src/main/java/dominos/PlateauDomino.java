@@ -42,8 +42,8 @@ public class PlateauDomino extends Plateau {
 		
 		//on vérifie si la tuile est plaçable
 		if (placableGeneral(xindex, yindex, x, y)) {
-			int xfinal = majX(xindex, x);
-			int yfinal = majY(yindex, y);
+			int xfinal = majX(x);
+			int yfinal = majY(y);
 			if (placableTuile(xfinal, yfinal, tuile)) {
 				grille.get(yfinal).set(xfinal, tuile);
 				tuile.setPosee();
@@ -104,8 +104,8 @@ public class PlateauDomino extends Plateau {
 		//on agrandit la grille si besoin
 		agrandir(plusHaut, plusBas, plusDroite, plusGauche);
 
-		int xfinal = majX(xindex, x);
-		int yfinal = majY(yindex, y);
+		int xfinal = majX(x);
+		int yfinal = majY(y);
 
 		//on vérifie si la case n'est pas déjà occupée par une tuile
 		if (grille.get(yfinal).get(xfinal) != null) {
@@ -370,14 +370,8 @@ public class PlateauDomino extends Plateau {
 	 * @param x le centre de l'affichage
 	 */
 	public void afficherPetiteLigne(int i, int x) {
-		boolean videGauche = false;
-		boolean videDroit = false;
-		if (x == 0) {
-			videGauche = true;
-		}
-		if (x == largeur - 1) {
-			videDroit = true;
-		}
+		boolean videGauche = x == 0;
+		boolean videDroit = x == largeur -1;
 
 		System.out.println();
 		for(int j=x-1;j<=x+1;j++){

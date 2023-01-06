@@ -5,16 +5,17 @@ import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
-import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.awt.Dimension;
+import java.awt.Color;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,8 +31,8 @@ public class VueCarcassonne extends JFrame {
     private ControleurCarcassonne control;
 
     
-    final int WIDTH = 800; //1430;
-    final int HEIGHT = 800; //850;
+    final int WIDTH = 800;
+    final int HEIGHT = 800; 
 
     JPanel pane; 
 
@@ -42,8 +43,19 @@ public class VueCarcassonne extends JFrame {
     JPanel cadrePreview;
     JPanel cadrePioche;
 
+    JPanel directionsBoutons;
+
+    JButton upButton;
+    JButton rightButton;
+    JButton downButton;
+    JButton leftButton;
+
     JButton turnRight;
     JButton turnLeft;
+
+    JButton meepleButton;
+
+    JButton abandonButton;
 
     JLabel piocheImg;
     JLabel piocheRestantes;
@@ -51,11 +63,14 @@ public class VueCarcassonne extends JFrame {
 
     JLabel joueurActuel;
 
+
+
     
 
     public VueCarcassonne(ModelCarcassonne model) {
         this.model = model;
         control = new ControleurCarcassonne(model, this);
+
         //Config de la fenêtre
         setTitle("Carcassonne™");
         setSize(WIDTH, HEIGHT);
@@ -69,26 +84,65 @@ public class VueCarcassonne extends JFrame {
         cadrePreview = new JPanel(new GridLayout(0, 1));
         cadrePioche = new JPanel(new GridLayout(0, 1));
         panneauBoutons = new JPanel();
-        panneauPlateau = new PlateauVue(model.getPlateau());
-        
-        cadrePreview.setBackground(Color.GREEN);
+        directionsBoutons = new JPanel(new BorderLayout());
 
-        cadrePioche.setBackground(Color.RED);
+        
+        panneauPlateau = new PlateauVue(control, model.getPlateau().sousTableau(), model.getPlateau());
+
+        
+        
+        cadrePreview.setBackground(new Color(244,164,96));
+
+        cadrePioche.setBackground(new Color(244,164,96));
+
+        //config de la croix directionnelle
+        upButton = new JButton(new ImageIcon("src/main/ressources/icones/arrow-up.png"));
+        upButton.setPreferredSize(new Dimension(16, 50));
+        upButton.addActionListener((event) -> control.seDeplacer(0));
+        downButton = new JButton(new ImageIcon("src/main/ressources/icones/arrow-down.png"));
+        downButton.setPreferredSize(new Dimension(16, 50));
+        downButton.addActionListener((event) -> control.seDeplacer(2));
+        rightButton = new JButton(new ImageIcon("src/main/ressources/icones/arrow-right.png"));
+        rightButton.setPreferredSize(new Dimension(50, 50));
+        rightButton.addActionListener((event) -> control.seDeplacer(1));
+        leftButton = new JButton(new ImageIcon("src/main/ressources/icones/arrow-left.png"));
+        leftButton.setPreferredSize(new Dimension(50, 50));
+        leftButton.addActionListener((event) -> control.seDeplacer(3));
+
+        directionsBoutons.add(upButton, BorderLayout.NORTH);
+        directionsBoutons.add(rightButton, BorderLayout.EAST);
+        directionsBoutons.add(downButton, BorderLayout.SOUTH);
+        directionsBoutons.add(leftButton, BorderLayout.WEST);
+        directionsBoutons.setPreferredSize(new Dimension(120, 120));
+        directionsBoutons.setBackground(Color.LIGHT_GRAY);
+
         
         //config des boutons de pivot
         turnLeft = new JButton(new ImageIcon("src/main/ressources/icones/gauche.png"));
-        turnLeft.setSize(10, 10);
         
         turnRight = new JButton(new ImageIcon("src/main/ressources/icones/droite.png"));
-        turnRight.setSize(10, 10);
         
         turnLeft.addActionListener((event) -> control.pivot(270));
         turnRight.addActionListener((event) -> control.pivot(90));
 
+        turnLeft.setEnabled(false);
+        turnRight.setEnabled(false);
+
+        meepleButton = new JButton(new ImageIcon("src/main/ressources/icones/pionCarcassonne.png")); 
+        meepleButton.addActionListener((event) -> control.placerPion());
+        meepleButton.setEnabled(false);
+
+
+        abandonButton = new JButton("Abandonner");
+        abandonButton.addActionListener((event) -> control.abandonner());
+        abandonButton.setEnabled(false);
+
         panneauBoutons.add(turnLeft);
         panneauBoutons.add(turnRight);
-
-        panneauBoutons.setBackground(Color.BLUE);
+        panneauBoutons.add(meepleButton);
+        panneauBoutons.add(abandonButton);
+        panneauBoutons.add(directionsBoutons);
+        panneauBoutons.setBackground(Color.DARK_GRAY);
 
         //Config des images pour la pioche et l'emplacement de la preview de la tuile
         BufferedImage img1 = null;
@@ -101,7 +155,8 @@ public class VueCarcassonne extends JFrame {
         }
         previewImg = new JLabel(new ImageIcon(imgCarre));
         cadrePreview.add(previewImg);
-        joueurActuel = new JLabel("Joueur "+ (model.getTour()-1)%model.getTabJoueur().size(), (int) CENTER_ALIGNMENT); 
+        joueurActuel = new JLabel("Joueur "+ model.getActuel().getNum(), (int) CENTER_ALIGNMENT); 
+        joueurActuel.setForeground(model.getActuel().getCouleur());
         cadrePreview.add(joueurActuel);
 
         piocheImg = new JLabel(new ImageIcon(img1));
@@ -164,25 +219,26 @@ public class VueCarcassonne extends JFrame {
         
 
         //ajout des différents éléments aux panneaux
-
+        cadrePreview.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        panneauBoutons.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        cadrePioche.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         panneauHUD.add(cadrePreview);
         panneauHUD.add(panneauBoutons);
         panneauHUD.add(cadrePioche);
+        panneauHUD.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         
 
         panneauHUD.setBounds(0, HEIGHT*2/3, WIDTH, HEIGHT/3);
         
 
-        panneauPlateau.setBackground(Color.YELLOW);
+        panneauPlateau.setBackground(new Color(222,184,135));
         panneauPlateau.setBounds(0, 0, WIDTH, HEIGHT*2/3);
 
         pane.add(panneauPlateau);
         pane.add(panneauHUD);
         
-
         setContentPane(pane);
         
-
     }
 
     /**
@@ -210,7 +266,10 @@ public class VueCarcassonne extends JFrame {
         if (model.getActuel().getTuile() != null) {
             BufferedImage img = model.getActuel().getTuile().getImage();
             previewImg.setIcon(new ImageIcon(img));
-            joueurActuel.setText("Joueur "+(model.getTour()-1)%model.getTabJoueur().size());
+            turnLeft.setEnabled(true);
+            turnRight.setEnabled(true);
+            meepleButton.setEnabled(true);
+            abandonButton.setEnabled(true);
         }
     }
 
@@ -221,6 +280,11 @@ public class VueCarcassonne extends JFrame {
         try {
             BufferedImage img = ImageIO.read(new File("src/main/ressources/icones/vide.png"));
             previewImg.setIcon(new ImageIcon(img));
+            updateActuel();
+            turnLeft.setEnabled(false);
+            turnRight.setEnabled(false);
+            meepleButton.setEnabled(false);
+            abandonButton.setEnabled(false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -245,8 +309,41 @@ public class VueCarcassonne extends JFrame {
         previewImg.setIcon(new ImageIcon(img));
     }
 
+    public void updatePion(Color couleur) {
+        ImageIcon icon = ((ImageIcon) previewImg.getIcon());
+        BufferedImage img = ((BufferedImage) icon.getImage());
+
+        Graphics2D g2d = img.createGraphics();
+
+        g2d.setColor(couleur);
+        g2d.fillOval(43, 43, 25, 25);
+
+        
+        g2d.dispose();
+
+        previewImg.setIcon(new ImageIcon(img));
+    }
+
+    public void updatePlateau(TuileCarcassonne[][] tab) {
+        panneauPlateau.updatePlateau(tab, model.getPlateau());
+        
+    }
+
+    public void updateActuel() {
+        joueurActuel.setText("Joueur "+model.getActuel().getNum());
+        joueurActuel.setForeground(model.getActuel().getCouleur());
+    }
+
     public ControleurCarcassonne getController(){
         return control;
+    }
+
+    public void fin() {
+        JLabel texteFin = new JLabel("FIN");
+        JPanel pane = new JPanel();
+        pane.add(texteFin);
+        pane.setBounds(0, 0, 800, 800);
+        setContentPane(pane);
     }
 
     
