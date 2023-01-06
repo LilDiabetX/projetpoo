@@ -23,7 +23,6 @@ public class ControleurCarcassonne {
      */
     void piocher() {
         if (!model.getSac().estVide()&&!piochee) {
-            System.out.println("tuile centree "+model.getPlateau().getTuileCentree());
             JoueurCarcassonne j = model.getActuel();
             model.piocher(j);
             System.out.println("tuile main "+model.getActuel().getTuile().getId());
@@ -47,15 +46,17 @@ public class ControleurCarcassonne {
         }
         else{ //on clique pour defausser
             defausser();
-            
+            if (model.getSac().estVide()) {
+                finDePartie();
+            }
         }      
     }
 
     public void defausser() {
         model.getActuel().defausser();
-        vue.updateDefausse();
+        
         model.incrementeTour();
-        model.setActuel(model.getTour()-1);
+        vue.updateDefausse();
         piochee = false;
         if (model.getSac().estVide()) {
             finDePartie();
@@ -91,22 +92,27 @@ public class ControleurCarcassonne {
     }
 
     public void placerTuile(int x, int y) {
-        System.out.println("x : "+x+"     y : "+y);
-        //System.out.println("tuile centree "+model.getPlateau().getTuileCentree());
         if (piochee && model.getActuel().placerTuile(x, y)) {
             BufferedImage img = ((BufferedImage) ((ImageIcon) vue.previewImg.getIcon()).getImage());
             model.getActuel().getTuile().setImage(img);
             vue.updatePlateau(model.getPlateau().sousTableau());
+            vue.updateDefausse();
             model.incrementeTour();
-            model.setActuel(model.getTour()-1);
+            //model.setActuel(model.getTour());
             piochee = false;
         }
         
 
     }
 
+    public void seDeplacer(int n) {
+        model.getPlateau().deplacer(n);
+
+        vue.updatePlateau(model.getPlateau().sousTableau());
+    }
+
     public void abandonner() {
-        model.getActuel().abandonner();
+        model.abandonner();
         defausser();
         if (model.joueursRestants() < 2) {
             finDePartie();
@@ -125,4 +131,6 @@ public class ControleurCarcassonne {
             super(msg);
         }
     }
+
+    
 }

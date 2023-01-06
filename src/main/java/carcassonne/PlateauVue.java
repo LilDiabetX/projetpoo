@@ -25,33 +25,13 @@ public class PlateauVue extends JPanel {
     }
 
     public void updatePlateau(TuileCarcassonne[][] tab, PlateauCarcassonne pCarcassonne) {
-        removeAll();
-        TuileCarcassonne centre = tab[2][2];
-        if (centre != null) {
-            
-            int[] centreXY = pCarcassonne.trouverTuile(centre.getId());
-
-            int centreX = centreXY[0];
-            int centreY = centreXY[1];
-
-            int centreXrelatif = pCarcassonne.getXRelatif();
-            int centreYrelatif = pCarcassonne.getYRelatif();
-
-            //REFLEXIONS MATHEMATIQUES (ça m'a pas mené bien loin)
-            //centreX = centreXrelatif + pCarcassonne.getX0();
-            //emp.xgrille
-            //emp.xorigin
-            //emp.xcentre
-            //emp.xgrille = centreX + emp.xcentre
-            //emp.xorigin = emp.xgrille - centreX + centreXrelatif
-        }
+        
         
 
-
-
+        removeAll();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                EmplacementTuile emp = new EmplacementTuile(control, j, i, pCarcassonne.getXRelatif() + j - 2, -(pCarcassonne.getYRelatif() + i - 2));
+                EmplacementTuile emp = new EmplacementTuile(j, i, pCarcassonne.getXRelatif() + j - 2, -(pCarcassonne.getYRelatif() + i - 2));
                 if (tab[i][j] != null) {
                     emp.fill(tab[i][j].getImage());
                 }
@@ -103,7 +83,8 @@ public class PlateauVue extends JPanel {
                 add(emp);
             }
         }
-        
+        revalidate();
+        repaint();
     }
 
     
