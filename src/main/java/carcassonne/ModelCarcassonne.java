@@ -144,9 +144,5 @@ public class ModelCarcassonne extends Model{
         actuel.abandonner();
         incrementeTour();
     }
-
-    public void decrementeTour(){
-        tourDeJeu--;
-    }
     
 }
