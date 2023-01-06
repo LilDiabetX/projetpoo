@@ -95,6 +95,7 @@ public class VueCarcassonne extends JFrame {
 
         cadrePioche.setBackground(Color.RED);
 
+        //config de la croix directionnelle
         upButton = new JButton(new ImageIcon("src/main/ressources/icones/arrow-up.png"));
         upButton.setPreferredSize(new Dimension(16, 50));
         upButton.addActionListener((event) -> control.seDeplacer(0));

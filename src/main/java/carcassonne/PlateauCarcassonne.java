@@ -9,7 +9,7 @@ public class PlateauCarcassonne extends Plateau {
 
 	private int tuileCentree;
 
-	private int xRelatif, yRelatif;
+	private int xRelatif, yRelatif = 0;
 
 	/**
 	 * Constructeur vide
@@ -361,7 +361,7 @@ public class PlateauCarcassonne extends Plateau {
 				tuileCentree = voisins[direction].getId();
 				switch(direction){
 					case 0:
-					yRelatif++;
+					yRelatif--;
 					break;
 
 					case 1:
@@ -369,10 +369,12 @@ public class PlateauCarcassonne extends Plateau {
 					break;
 
 					case 2:
-					yRelatif--;
+					yRelatif++;
+					break;
 
 					case 3:
 					xRelatif--;
+					break;
 				}
 				return true;
 			}
@@ -412,7 +414,6 @@ public class PlateauCarcassonne extends Plateau {
 		int[] xy = trouverTuile(tuileCentree);
 		int x = xy[0];
 		int y = xy[1];
-		System.out.println("Coordonnées absolues tuile centree : "+x+", "+y);
 		int a = 0;
 		for (int i = y+2; i >= y-2; i--) {
 			if (i > -1 && i < hauteur) {

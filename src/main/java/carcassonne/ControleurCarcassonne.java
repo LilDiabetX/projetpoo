@@ -23,10 +23,8 @@ public class ControleurCarcassonne {
      */
     void piocher() {
         if (!model.getSac().estVide()&&!piochee) {
-            System.out.println("tuile centree "+model.getPlateau().getTuileCentree());
             JoueurCarcassonne j = model.getActuel();
             model.piocher(j);
-            System.out.println("tuile main "+model.getActuel().getTuile().getId());
             piochee = true;
             vue.updatePreview();
             vue.updatePioche(model.getSac().estVide());
@@ -77,8 +75,6 @@ public class ControleurCarcassonne {
     }
 
     public void placerTuile(int x, int y) {
-        System.out.println("x : "+x+"     y : "+y);
-        //System.out.println("tuile centree "+model.getPlateau().getTuileCentree());
         if (piochee && model.getActuel().placerTuile(x, y)) {
             BufferedImage img = ((BufferedImage) ((ImageIcon) vue.previewImg.getIcon()).getImage());
             model.getActuel().getTuile().setImage(img);
@@ -87,7 +83,6 @@ public class ControleurCarcassonne {
             model.incrementeTour();
             model.setActuel(model.getTour());
             piochee = false;
-            
         }
         
 
@@ -120,17 +115,5 @@ public class ControleurCarcassonne {
         }
     }
 
-    //A SUPP
-    public void printTab(TuileCarcassonne[][] tab) {
-        for (int i = 0; i <  tab.length; i++) {
-            for (int j = 0; j < tab[i].length; j++) {
-                if (tab[i][j] != null) {
-                    System.out.print(" "+tab[i][j].getId());
-                } else {
-                    System.out.print(" "+tab[i][j]);
-                }
-            }
-            System.out.println();
-        }
-    }
+    
 }

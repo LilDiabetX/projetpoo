@@ -86,12 +86,10 @@ public class EmplacementTuile extends JPanel {
     }
 
     public int getXOrigin() {
-        System.out.println(xorigin);
         return xorigin;
     }
 
     public int getYOrigin() {
-        System.out.println(yorigin);
         return yorigin;
     }
     

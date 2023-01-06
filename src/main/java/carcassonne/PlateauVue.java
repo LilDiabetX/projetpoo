@@ -29,9 +29,6 @@ public class PlateauVue extends JPanel {
         
 
         removeAll();
-        
-        System.out.println("on re crée la grille à partir de");
-        //control.printTab(tab);
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 EmplacementTuile emp = new EmplacementTuile(control, j, i, pCarcassonne.getXRelatif() + j - 2, -(pCarcassonne.getYRelatif() + i - 2));
