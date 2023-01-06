@@ -19,21 +19,19 @@ public abstract class Plateau {
 
     /**
 	 * Met à jour la variable xindex après un éventuel agrandissement de la grille
-	 * @param xindex l'indice à mettre à jour
 	 * @param x l'abscisse relative à la tuile d'origine
 	 * @return l'abscisse relative à la grille
 	 */
-	protected int majX(int xindex, int x) {
+	protected int majX(int x) {
 		return x0 + x;
 	}
 	/**
 	 * Met à jour la variable yindex après un éventuel agrandissement de la grille
-	 * @param yindex l'indice à mettre à jour
 	 * @param y l'ordonnée relative à la tuile d'origine
 	 * @return l'ordonnée relative à la grille
 	 */
-	protected int majY(int yindex, int y) {
-		return y0 + y;
+	protected int majY(int y) {
+		return y0 + y; 
 	}
 	public int getHauteur() {
 		return hauteur;

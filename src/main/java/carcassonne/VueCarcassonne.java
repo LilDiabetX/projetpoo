@@ -47,6 +47,8 @@ public class VueCarcassonne extends JFrame {
 
     JButton meepleButton;
 
+    JButton abandonButton;
+
     JLabel piocheImg;
     JLabel piocheRestantes;
     JLabel previewImg;
@@ -76,7 +78,7 @@ public class VueCarcassonne extends JFrame {
         panneauBoutons = new JPanel();
 
         
-        panneauPlateau = new PlateauVue(model.getPlateau().sousTableau());
+        panneauPlateau = new PlateauVue(control, model.getPlateau().sousTableau(), model.getPlateau());
 
         
         
@@ -101,9 +103,14 @@ public class VueCarcassonne extends JFrame {
 
         meepleButton.setEnabled(false);
 
+
+        abandonButton = new JButton("Abandonner");
+        abandonButton.addActionListener((event) -> control.abandonner());
+
         panneauBoutons.add(turnLeft);
         panneauBoutons.add(turnRight);
         panneauBoutons.add(meepleButton);
+        panneauBoutons.add(abandonButton);
         panneauBoutons.setBackground(Color.DARK_GRAY);
 
         //Config des images pour la pioche et l'emplacement de la preview de la tuile
@@ -281,8 +288,21 @@ public class VueCarcassonne extends JFrame {
         previewImg.setIcon(new ImageIcon(img));
     }
 
+    public void updatePlateau(TuileCarcassonne[][] tab) {
+        panneauPlateau.updatePlateau(tab, model.getPlateau());
+        updateDefausse();
+    }
+
     public ControleurCarcassonne getController(){
         return control;
+    }
+
+    public void fin() {
+        JLabel texteFin = new JLabel("FIN");
+        JPanel pane = new JPanel();
+        pane.add(texteFin);
+        pane.setBounds(0, 0, 800, 800);
+        setContentPane(pane);
     }
 
     

@@ -26,12 +26,20 @@ public class ControleurCarcassonne {
             vue.updatePioche(model.getSac().estVide());
         }
         else{ //on clique pour defausser
-            model.getActuel().defausser();
-            vue.updateDefausse();
-            model.incrementeTour();
-            model.setActuel(model.getTour());
-            piochee = false;
+            defausser();
+            
         }      
+    }
+
+    public void defausser() {
+        model.getActuel().defausser();
+        vue.updateDefausse();
+        model.incrementeTour();
+        model.setActuel(model.getTour());
+        piochee = false;
+        if (model.getSac().estVide()) {
+            finDePartie();
+        }
     }
 
     /**
@@ -60,6 +68,31 @@ public class ControleurCarcassonne {
             }
             vue.updatePivot(angle);
         }   
+    }
+
+    public void placerTuile(int x, int y) {
+        System.out.println("x : "+x+"     y : "+y);
+        if (piochee && model.getActuel().placerTuile(x, y)) {
+            vue.updatePlateau(model.getPlateau().sousTableau());
+            model.incrementeTour();
+            model.setActuel(model.getTour());
+            piochee = false;
+        }
+        
+
+    }
+
+    public void abandonner() {
+        model.getActuel().abandonner();
+        if (model.joueursRestants() < 2) {
+            finDePartie();
+        }
+        
+    }
+
+
+    public void finDePartie() {
+        vue.fin();
     }
 
 

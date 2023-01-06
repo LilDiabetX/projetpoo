@@ -13,26 +13,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
-public class EmplacementTuile extends JPanel implements MouseInputListener {
+public class EmplacementTuile extends JPanel {
     private int width = 100;
     private int height = 100;
 
     private int xgrille, ygrille;
 
-    //private int xorigin, yorigin;
+    private int xorigin, yorigin;
 
     private boolean occupe;
+    private ControleurCarcassonne control;
 
-    public EmplacementTuile(int xgrille, int ygrille/*, int xorigin, int yorigin */) {
-        this();
+    public EmplacementTuile(ControleurCarcassonne control, int xgrille, int ygrille, int xorigin, int yorigin) {
+        this(control);
         this.xgrille = xgrille;
         this.ygrille = ygrille;
-        //this.xorigin = xorigin;
-        //this.yorigin = yorigin;
+        this.xorigin = xorigin;
+        this.yorigin = yorigin;
         
     }
 
-    public EmplacementTuile() {
+    private EmplacementTuile(ControleurCarcassonne control) {
+        this.control = control;
         setBorder(BorderFactory.createDashedBorder(Color.BLUE));
         setBackground(Color.WHITE);
         this.setPreferredSize(new Dimension(width, height));
@@ -48,48 +50,6 @@ public class EmplacementTuile extends JPanel implements MouseInputListener {
     }
     
 
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
 
 
 
@@ -119,14 +79,16 @@ public class EmplacementTuile extends JPanel implements MouseInputListener {
         return ygrille;
     }
 
-    /*public int getXOrigin() {
+    public int getXOrigin() {
+        System.out.println(xorigin);
         return xorigin;
     }
 
     public int getYOrigin() {
+        System.out.println(yorigin);
         return yorigin;
     }
-    */
+    
 
 
 

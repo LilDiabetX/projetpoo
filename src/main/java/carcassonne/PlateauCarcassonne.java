@@ -47,8 +47,8 @@ public class PlateauCarcassonne extends Plateau {
 		
 		//on vérifie si la tuile est plaçable
 		if (placableGeneral(xindex, yindex, x, y)) {
-			int xfinal = majX(xindex, x);
-			int yfinal = majY(yindex, y);
+			int xfinal = majX(x);
+			int yfinal = majY(y);
 			if (placableTuile(xfinal, yfinal, tuile)) {
 				grille.get(yfinal).set(xfinal, tuile);
 				tuile.setPosee();
@@ -132,8 +132,8 @@ public class PlateauCarcassonne extends Plateau {
 		//on agrandit la grille si besoin
 		agrandir(plusHaut, plusBas, plusDroite, plusGauche);
 
-		int xfinal = majX(xindex, x);
-		int yfinal = majY(yindex, y);
+		int xfinal = majX(x);
+		int yfinal = majY(y);
 
 		//on vérifie si la case n'est pas déjà occupée par une tuile
 		if (grille.get(yfinal).get(xfinal) != null) {

@@ -120,5 +120,15 @@ public class ModelCarcassonne extends Model{
     public int tuilesRestantes() {
         return sac.getTuilesRestantes();
     }
+
+    public int joueursRestants() {
+        int sum = 0;
+        for (JoueurCarcassonne j : tabJoueurs) {
+            if (!j.getAbandon()) {
+                sum++;
+            }
+        }
+        return sum;
+    }
     
 }
