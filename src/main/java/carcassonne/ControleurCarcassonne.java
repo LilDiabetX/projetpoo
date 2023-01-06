@@ -22,6 +22,7 @@ public class ControleurCarcassonne {
             System.out.println("tuile centree "+model.getPlateau().getTuileCentree());
             JoueurCarcassonne j = model.getActuel();
             model.piocher(j);
+            System.out.println("tuile main "+model.getActuel().getTuile().getId());
             piochee = true;
             vue.updatePreview();
             vue.updatePioche(model.getSac().estVide());
