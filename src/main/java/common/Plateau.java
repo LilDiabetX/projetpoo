@@ -22,6 +22,11 @@ public abstract class Plateau {
 	 */
 	protected int tuileCentree;
 
+	/**
+	 * coordonnées relatives à la tuile de départ de la tuile sur laquelle on est centré
+	 */
+	protected int xRelatif, yRelatif;
+
     /**
 	 * Met à jour la variable xindex après un éventuel agrandissement de la grille
 	 * @param x l'abscisse relative à la tuile d'origine
