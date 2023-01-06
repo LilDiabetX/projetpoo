@@ -13,4 +13,8 @@ public abstract class Model {
      */
     protected int tourDeJeu = 0;
 
+    /**
+     * compte le nombre de tours pour les joueurs qui ont abandonné
+     */
+    protected int toursAbandonnes;
 }

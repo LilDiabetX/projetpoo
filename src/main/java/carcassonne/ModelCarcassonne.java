@@ -28,6 +28,8 @@ public class ModelCarcassonne extends Model{
 
     
 
+    
+
     public ModelCarcassonne() {
         tabJoueurs = new ArrayList<JoueurCarcassonne>();
         sac = new SacCarcassonne();
@@ -69,7 +71,7 @@ public class ModelCarcassonne extends Model{
      * @param joueur joueur qui pioche la tuile
      */
     public void piocher(JoueurCarcassonne joueur) {
-        joueur.setTuile(sac.getSac(tourDeJeu + 1));
+        joueur.setTuile(sac.getSac(tourDeJeu + 1 - toursAbandonnes));
     }
 
     /**
@@ -92,11 +94,11 @@ public class ModelCarcassonne extends Model{
      */
     public void incrementeTour(){
         tourDeJeu++;
-        int i = tourDeJeu % tabJoueurs.size();
-        while(tabJoueurs.get(i).getAbandon()){
-            i++;
+        actuel = tabJoueurs.get(tourDeJeu%tabJoueurs.size());
+        if(actuel.getAbandon()){
+            toursAbandonnes++;
+            incrementeTour();
         }
-        actuel = tabJoueurs.get(i);
         System.out.println(actuel.getNum()+ " num actuel");
     }
 
@@ -140,7 +142,7 @@ public class ModelCarcassonne extends Model{
 
     public void abandonner() {
         actuel.abandonner();
-        tourDeJeu++;
+        incrementeTour();
     }
     
 }

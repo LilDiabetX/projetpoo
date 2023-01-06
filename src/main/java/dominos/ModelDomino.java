@@ -35,6 +35,7 @@ public class ModelDomino extends Model {
      */
     private int dernierePosition;
 
+
     // TODO ajouter un attribut View (potentiellement null si on veut jouer mode textuel)
 
     /**
@@ -70,7 +71,7 @@ public class ModelDomino extends Model {
      * @param joueur joueur qui pioche la tuile
      */
     public void piocher(JoueurDomino joueur) {
-        joueur.setTuile(sac.getSac(tourDeJeu));
+        joueur.setTuile(sac.getSac(tourDeJeu-toursAbandonnes));
     }
 
     public void setActuel(int i){
@@ -96,7 +97,7 @@ public class ModelDomino extends Model {
      */
     public void play() {
         Scanner sc = new Scanner(System.in);
-        while(!(super.tourDeJeu>=sac.size())&&!victoireParAbandon()){
+        while(!(super.tourDeJeu-toursAbandonnes>=sac.size())&&!victoireParAbandon()){
             // déroulement de la partie
             actuel = tabJoueurs.get((super.tourDeJeu-1)%tabJoueurs.size());
             // on vérifie que le joueur n'a pas déjà abandonné
@@ -159,19 +160,52 @@ public class ModelDomino extends Model {
                             case "déplacer" : 
                             boolean deplace = false; // détermine si le joueur s'est déplacé ou bien s'il a renoncé à se déplacer
                             while(!deplace){
-                                System.out.println("Où souhaitez vous vous déplacer ? Entrez l'id de la tuile sur laquelle vous voulez vous centrer : ");
-                                try{
-                                    int id = sc.nextInt();
-                                    if(plateau.placee(id)){
-                                        dernierePosition = id;
-                                        deplace = true;
+                                System.out.println("Vous vous situez sur la tuile d'id : "+dernierePosition);
+                                System.out.println("Où souhaitez vous vous déplacer ? Répondez par \"haut\", \"bas\", \"droite\" ou \"gauche\".");
+                                switch (sc.next()) {
+                                    case "haut":
+                                    if(plateau.deplacer(0)){
+                                        dernierePosition = plateau.getCentree();
                                     }
                                     else{
-                                        System.out.println("La tuile d'id "+id+" n'a pas été placée.");
+                                        System.out.println("Il n'y a pas de tuile vers le haut. Déplacement annulé.");
                                     }
-                                }
-                                catch(InputMismatchException e){
-                                    System.out.println("Veuillez entrer un entier.");
+                                    deplace = true;  
+                                    break;
+                                    
+                                    case "droite":
+                                    if(plateau.deplacer(1)){
+                                        dernierePosition = plateau.getCentree();
+                                    }
+                                    else{
+                                        System.out.println("Il n'y a pas de tuile vers la droite. Déplacement annulé.");
+                                    }
+                                    deplace = true;  
+                                    break;
+
+                                    case "bas":
+                                    if(plateau.deplacer(2)){
+                                        dernierePosition = plateau.getCentree();
+                                    }
+                                    else{
+                                        System.out.println("Il n'y a pas de tuile vers le bas. Déplacement annulé.");
+                                    }
+                                    deplace = true;  
+                                    break;
+
+                                    case "gauche":
+                                    if(plateau.deplacer(3)){
+                                        dernierePosition = plateau.getCentree();
+                                    }
+                                    else{
+                                        System.out.println("Il n'y a pas de tuile vers la gauche. Déplacement annulé.");
+                                    }
+                                    deplace = true;  
+                                    break;
+
+                                    default:
+                                    System.out.println("Direction invalide.");
+                                    break;
                                 }
 
                             }
@@ -242,6 +276,7 @@ public class ModelDomino extends Model {
                 }
             }
             else{
+                toursAbandonnes++;
                 tourDeJeu++;
             }
         }
