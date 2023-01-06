@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 public class PlateauVue extends JPanel {
-    private int hauteur, largeur;
     
 
     private ControleurCarcassonne control;
@@ -21,22 +20,7 @@ public class PlateauVue extends JPanel {
         setLayout(grid);
         updatePlateau(tab, pCarcassonne);
 
-        /*plateau = new ArrayList<ArrayList<EmplacementTuile>>();
-        int k = 0;
-        for (int i = pCarcassonne.getHauteur()-1; i >= 0; i--) {
-            plateau.add(new ArrayList<EmplacementTuile>());
-            for (int j=0; j < pCarcassonne.getLargeur(); j++) {
-                EmplacementTuile emp = new EmplacementTuile(j, k, pCarcassonne.getX0() + j, pCarcassonne.getY0() + k);
-                plateau.get(k).add(emp);
-                if (pCarcassonne.getGrille(i, j) != null) {
-                    emp.fill(pCarcassonne.getGrille(i, j).getImage());
-                } 
-                this.add(emp);
-            }
-            k++;
-        }
-        hauteur = pCarcassonne.getHauteur();
-        largeur = pCarcassonne.getLargeur();*/
+        
         
     }
 
@@ -52,8 +36,9 @@ public class PlateauVue extends JPanel {
 
             int centreXrelatif = centreX - pCarcassonne.getX0();
             int centreYrelatif = centreY - pCarcassonne.getY0();
-            //centreX = centreXrelatif + pCarcassonne.getX0();
 
+            //REFLEXIONS MATHEMATIQUES (ça m'a pas mené bien loin)
+            //centreX = centreXrelatif + pCarcassonne.getX0();
             //emp.xgrille
             //emp.xorigin
             //emp.xcentre

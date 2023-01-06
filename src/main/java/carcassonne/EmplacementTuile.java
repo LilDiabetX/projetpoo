@@ -17,8 +17,14 @@ public class EmplacementTuile extends JPanel {
     private int width = 100;
     private int height = 100;
 
+    /**
+     * les coordonnées de l'emplacement sur la mini-grille
+     */
     private int xgrille, ygrille;
 
+    /**
+     * censé être les coordonnées par rapport à la tuile d'origine, mais je n'arrive pas à les construire
+     */
     private int xorigin, yorigin;
 
     private boolean occupe;
